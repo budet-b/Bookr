@@ -1,14 +1,15 @@
 INSERT INTO user_profile VALUES
-    (DEFAULT, 'test1@test.com', 'test1', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test2@test.com', 'test2', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test3@test.com', 'test3', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test4@test.com', 'test4', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test5@test.com', 'test5', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test6@test.com', 'test6', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test7@test.com', 'test7', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test8@test.com', 'test8', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test9@test.com', 'test9', 'test_first', 'test_last', 'pic'),
-    (DEFAULT, 'test0@test.com', 'test10', 'test_first', 'test_last', 'pic');
+    (DEFAULT, 'test1@test.com', 'test1', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test2@test.com', 'test2', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test3@test.com', 'test3', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test4@test.com', 'test4', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test5@test.com', 'test5', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test6@test.com', 'test6', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test7@test.com', 'test7', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test8@test.com', 'test8', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test9@test.com', 'test9', 'test_first', 'test_last', 'pic', 'zazaza'),
+    (DEFAULT, 'test0@test.com', 'test10', 'test_first', 'test_last', 'pic', 'zazaza');
+
 
 INSERT INTO book VALUES
     (DEFAULT, '123-1-23', 'book_1', 136,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),

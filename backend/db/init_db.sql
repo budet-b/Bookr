@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS user_book    CASCADE;
 DROP TABLE IF EXISTS author       CASCADE;
 DROP TABLE IF EXISTS book_author  CASCADE;
 
+TRUNCATE TABLE IF EXISTS user_profile, book, user_book, author, book_author RESTART IDENTITY;
+
 CREATE TABLE user_profile (
   id                SERIAL,
   email             VARCHAR(64)     NOT NULL UNIQUE,
@@ -14,6 +16,7 @@ CREATE TABLE user_profile (
   firstname         VARCHAR(64),
   lastname          VARCHAR(64),
   picture           VARCHAR(64),
+  password          TEXT            NOT NULL,
   PRIMARY KEY       (id)
 );
 
