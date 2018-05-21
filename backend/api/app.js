@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./index');
-var usersRouter = require('./controllers/users');
+var index = require('./index');
 
 var app = express();
 
@@ -15,8 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', index);
 
 app.use(function(req, res, next) {
   next(createError(404));
