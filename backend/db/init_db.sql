@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS user_book    CASCADE;
 DROP TABLE IF EXISTS author       CASCADE;
 DROP TABLE IF EXISTS book_author  CASCADE;
 
-TRUNCATE TABLE IF EXISTS user_profile, book, user_book, author, book_author RESTART IDENTITY;
+TRUNCATE TABLE user_profile, book, user_book, author, book_author RESTART IDENTITY;
 
 CREATE TABLE user_profile (
   id                SERIAL,

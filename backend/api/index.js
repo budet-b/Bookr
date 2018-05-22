@@ -2,18 +2,18 @@
 
 // MARK: Imports
 
-var express = require('express');
-var jwt = require('jsonwebtoken');
-var passport = require("passport");
-var passportJWT = require("passport-jwt");
+var express         = require('express');
+var jwt             = require('jsonwebtoken');
+var passport        = require("passport");
+var passportJWT     = require("passport-jwt");
 
 // MARK: Import controllers
 
-var books = require('./controllers/books-controller');
-var book = require('./controllers/book-controller');
-var friends = require('./controllers/friends-controller');
-var timeline = require('./controllers/timeline-controller');
-var user = require('./controllers/user-controller');
+var books           = require('./controllers/books-controller');
+var book            = require('./controllers/book-controller');
+var friends         = require('./controllers/friends-controller');
+var timeline        = require('./controllers/timeline-controller');
+var user            = require('./controllers/user-controller');
 
 // MARK: Configure router
 
