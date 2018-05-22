@@ -33,8 +33,15 @@ router.get('/secret',
 );
 
 router.post('/signup', (req, res) => {
-    user.signup(req, res)
+    user.createUser(req, res)
 });
+
+router.get('/getUser',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        user.getUser(req, res)
+    }
+);
 
 // MARK: Book Router
 
