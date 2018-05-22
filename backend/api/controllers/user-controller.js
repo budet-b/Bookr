@@ -9,6 +9,7 @@ var router = express.Router();
 var passport = require("passport");
 var passportJWT = require("passport-jwt");
 var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
 
 // MARK: Configure passport/jwt
 
@@ -39,19 +40,17 @@ function login(req, res) {
       var username = req.body.username;
       var password = req.body.password;
     }
-    console.log(username)
-    console.log(password)
     db.one('select * from user_profile where username = $1', [username])
         .then(function(data) {
-            console.log(data)
-            if(data.password === req.body.password) {
-                var payload = {id: data.id};
-                var token = jwt.sign(payload, jwtOptions.secretOrKey);
-                res.json({message: "ok", token: token, user: data});
-            }
-            else {
-                res.status(401).json({message:"passwords did not match"});
-            }
+            bcrypt.compare(password, data.password, function(err, resp) {
+                if(resp) {
+                    var payload = {id: data.id};
+                    var token = jwt.sign(payload, jwtOptions.secretOrKey);
+                    res.json({message: "ok", token: token, user: data});
+                } else {
+                    res.status(401).json({message:"passwords did not match"});
+                }
+            });
         })
         .catch(function(data) {
             res.status(401).json({message:"No such user found"});
@@ -75,10 +74,11 @@ function signup(req, res) {
     let lastname = req.body.lastname
     let picture = req.body.picture
 
-    db.one('insert into user_profile(email, username, firstname, lastname, picture, password)\
+    bcrypt.hash(password, 10, function(err, hash) {
+        db.one('insert into user_profile(email, username, firstname, lastname, picture, password)\
             values ($1, $2, $3, $4, $5, $6)\
             returning id, email, username, firstname, lastname, picture',
-            [email, username, firstname, lastname, picture, password])
+            [email, username, firstname, lastname, picture, hash])
     .then((data) => {
         var user = {
             id: data.id,
@@ -96,6 +96,7 @@ function signup(req, res) {
         // console.log(err)
         res.status(401).json({error: " The user already exists"});
     })
+    });
 }
 
 
