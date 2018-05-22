@@ -37,27 +37,37 @@ router.use(passport.initialize());
 
 function login(req, res) {
     if(req.body.username && req.body.password){
-      var username = req.body.username;
-      var password = req.body.password;
+        var username = req.body.username;
+        var password = req.body.password;
     }
     db.one('select * from user_profile where username = $1', [username])
-        .then(function(data) {
+        .then((data) => {
             bcrypt.compare(password, data.password, function(err, resp) {
                 if(resp) {
-                    var payload = {id: data.id};
+                    var date = new Date()
+                    var exp_date = date.setDate(date.getDate() + 30)
+                    var payload = {id: data.id, expiration: exp_date};
                     var token = jwt.sign(payload, jwtOptions.secretOrKey);
-                    res.json({message: "ok", token: token, user: data});
+                    var user = {
+                        id: data.id,
+                        username: data.username,
+                        firstname: data.firstname,
+                        lastname: data.lastname,
+                        email: data.email,
+                        picture: data.picture
+                    }
+                    res.json({token: token, user: user});
                 } else {
-                    res.status(401).json({message:"passwords did not match"});
+                    res.status(401).json({error:"password did not match"});
                 }
             });
         })
-        .catch(function(data) {
-            res.status(401).json({message:"No such user found"});
+        .catch((err) => {
+            res.status(400).json({error: err.message});
         })
 };
 
-function signup(req, res) {
+function createUser(req, res) {
     let username = req.body.username
     if (!username) {
         return res.status(400).json({error: "username is missing"});
@@ -79,28 +89,38 @@ function signup(req, res) {
             values ($1, $2, $3, $4, $5, $6)\
             returning id, email, username, firstname, lastname, picture',
             [email, username, firstname, lastname, picture, hash])
-    .then((data) => {
-        var user = {
-            id: data.id,
-            username: data.username,
-            firstname: data.firstname,
-            lastname: data.lastname,
-            email: data.email,
-            picture: data.picture
-        }
-        console.log("success")
-        console.log(data.id)
-        res.status(200).json(user);
-    })
-    .catch((err) => {
-        // console.log(err)
-        res.status(401).json({error: " The user already exists"});
-    })
+        .then((data) => {
+            let user = {
+                id: data.id,
+                username: data.username,
+                firstname: data.firstname,
+                lastname: data.lastname,
+                email: data.email,
+                picture: data.picture
+            }
+            res.status(200).json({user});
+        })
+        .catch((err) => {
+            res.status(400).json({error: err.message});
+        })
     });
+}
+
+function getUser(req, res) {
+    let user = {
+        id: req.user.id,
+        username: req.user.username,
+        firstname: req.user.firstname,
+        lastname: req.user.lastname,
+        email: req.user.email,
+        picture: req.user.picture
+    }
+    res.send({user});
 }
 
 
 module.exports = {
     login: login,
-    signup: signup
+    createUser: createUser,
+    getUser: getUser
 };
