@@ -25,6 +25,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-router-flux": "^4.0.0-beta.31",
     "react-router-dom": "^4.2.2",
-    "react-router-native": "^4.2.0"
+    "react-router-native": "^4.2.0",
+    "tcomb-form-native": "^0.6.12"
   }
 }
