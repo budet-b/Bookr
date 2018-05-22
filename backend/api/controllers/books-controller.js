@@ -1,12 +1,10 @@
-// var promise = require('bluebird');
+// books-controller.js
 
-// var options = {
-//   promiseLib: promise
-// };
+// MARK: Imports
 
-// var pgp = require('pg-promise')(options);
-// var connectionString = 'postgres://localhost:5432/signet';
-// var db = pgp(connectionString);
+const db = require("../db/index");
+
+// MARK: Controller Functions
 
 function getAllBooks(req, res, next) {
     db.any('select * from book')
