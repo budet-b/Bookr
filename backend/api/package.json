@@ -22,6 +22,7 @@
     "pg-promise": "^5.9.7"
   },
   "devDependencies": {
+    "bcrypt": "^2.0.1",
     "passport": "^0.4.0"
   }
 }
