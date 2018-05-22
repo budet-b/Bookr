@@ -58,6 +58,36 @@ function login(req, res) {
         })
 };
 
+function signup(req, res) {
+    let username = req.body.username
+    let firstname = req.body.firstname
+    let lastname = req.body.lastname
+    let email = req.body.email
+    let picture = req.body.picture
+    let password = req.body.password
+
+    db.one('insert into user_profile(email, username, firstname, lastname, picture, password) values ($1, $2, $3, $4, $5, $6) returning id, email, username, firstname, lastname, picture', [email, username, firstname, lastname, picture, password])
+    .then((data) => {
+        var user = {
+            id: data.id,
+            username: data.username,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            picture: data.picture,
+            password: data.password
+        }
+        console.log("success")
+        console.log(data.id)
+        res.status(200).json(user);
+    })
+    .catch((err) => {
+        res.status(401).json({error: " The user already exists"});
+    })
+}
+
+
 module.exports = {
-    login: login
+    login: login,
+    signup: signup
 };

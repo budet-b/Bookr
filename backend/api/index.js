@@ -32,6 +32,10 @@ router.get('/secret',
     }
 );
 
+router.post('/signup', (req, res) => {
+    user.signup(req, res)
+});
+
 // MARK: Book Router
 
 router.get('/api/books', books.getAllBooks);
