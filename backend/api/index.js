@@ -21,7 +21,7 @@ var router = express.Router();
 
 // MARK: User Router
 
-router.post('/login', (req, res) => {
+router.post('/user/login', (req, res) => {
     user.login(req, res)
 });
 
@@ -32,11 +32,11 @@ router.get('/secret',
     }
 );
 
-router.post('/signup', (req, res) => {
+router.post('/user/signup', (req, res) => {
     user.createUser(req, res)
 });
 
-router.get('/getUser',
+router.get('/user',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         user.getUser(req, res)
