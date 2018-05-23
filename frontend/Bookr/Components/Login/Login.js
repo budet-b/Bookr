@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import axios from 'axios'
 
@@ -30,9 +30,28 @@ var options = {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
-    this.shouldConnect = this.shouldConnect.bind(this);
+    this.state = {
+        myKey: null
+    }
     this.onPress = this.onPress.bind(this);
+  }
+
+  async saveKey(value) {
+    try {
+      await AsyncStorage.setItem('@MySuperStore:key', value);
+    } catch (error) {
+      console.log("Error saving data" + error);
+    }
+  }
+
+  async getKey() {
+    try {
+      const value = await AsyncStorage.getItem('@MySuperStore:key');
+      this.setState({myKey: value});
+      console.log(this.state.myKey);
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+    }
   }
 
   onPress() {
@@ -48,30 +67,14 @@ export default class Login extends Component {
         password: user.password
       })
       .then((response) => {
-        console.log(response)
+        console.log(response);
+        saveKey(response);
       }).catch((error) => {
         console.log(error)
       })
     } else {
       //
     }
-  }
-
-  shouldConnect() {
-    let username = "";
-    console.log("form");
-    console.log(this);
-    console.log(this._form.getValue());
-    let password = "";
-    /*axios.post("http://localhost:8080/api/login/", {
-      username: username,
-      password: password
-    })
-    .then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(error)
-    })*/
   }
 
   render() {
