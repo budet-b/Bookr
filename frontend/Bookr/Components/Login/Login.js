@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import axios from 'axios'
 
@@ -38,7 +38,7 @@ export default class Login extends Component {
 
   async saveKey(value) {
     try {
-      await AsyncStorage.setItem('@MySuperStore:key', value);
+      await AsyncStorage.setItem('token', value);
     } catch (error) {
       console.log("Error saving data" + error);
     }
@@ -46,7 +46,7 @@ export default class Login extends Component {
 
   async getKey() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:key');
+      const value = await AsyncStorage.getItem('token');
       this.setState({myKey: value});
       console.log(this.state.myKey);
     } catch (error) {
@@ -91,7 +91,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.MainContainer}>
         <Form
           ref="form"
           type={User}
@@ -101,12 +101,31 @@ export default class Login extends Component {
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableHighlight>
+        <View style={styles.bottomView}>
+          <Text>No account ? Create one: </Text>
+          <TouchableHighlight style={styles.button} onPress={() => console.log("press")} underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Signup</Text>
+            </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
+    bottomView:{
+      width: '100%',
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 50
+    },
+  MainContainer:
+    {
+        flex: 1,
+        paddingTop: ( Platform.OS === 'ios' ) ? 50 : 0
+    },
   container: {
     justifyContent: 'center',
     marginTop: 50,
