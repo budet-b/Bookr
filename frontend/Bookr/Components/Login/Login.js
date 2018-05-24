@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import axios from 'axios'
 
@@ -54,6 +54,17 @@ export default class Login extends Component {
     }
   }
 
+  errorPopup() {
+    Alert.alert(
+      'Erreur dans le login',
+      'Merci de vérifier vos information',
+      [
+        {text: 'Réessayer', style: 'cancel'}
+      ],
+      { cancelable: false }
+    );
+  }
+
   onPress() {
     var value = this.refs.form.getValue();
     if (value) {
@@ -70,10 +81,11 @@ export default class Login extends Component {
         console.log(response);
         saveKey(response);
       }).catch((error) => {
+        this.errorPopup();
         console.log(error)
       })
     } else {
-      //
+      this.errorPopup();
     }
   }
 
