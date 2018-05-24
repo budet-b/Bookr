@@ -10,19 +10,6 @@ INSERT INTO user_profile VALUES
     (DEFAULT, 'test9@test.com', 'test9', 'test_first', 'test_last', 'pic', 'zazaza'),
     (DEFAULT, 'test0@test.com', 'test10', 'test_first', 'test_last', 'pic', 'zazaza');
 
-
-INSERT INTO book VALUES
-    (DEFAULT, '123-1-23', 'book_1', 136,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-24', 'book_2', 240,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-25', 'book_3', 335,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-26', 'book_4', 459,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-27', 'book_5', 161,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-28', 'book_6', 925,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-29', 'book_7', 832,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-30', 'book_8', 748,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-31', 'book_9', 567,  TIMESTAMP '2017-01-01 00:00:00', 'pic'),
-    (DEFAULT, '123-1-32', 'book_10', 647,  TIMESTAMP '2017-01-01 00:00:00', 'pic');
-
 INSERT INTO author VALUES
     (DEFAULT, 'author_1'),
     (DEFAULT, 'author_2'),
@@ -34,6 +21,19 @@ INSERT INTO author VALUES
     (DEFAULT, 'author_8'),
     (DEFAULT, 'author_9'),
     (DEFAULT, 'author_10');
+
+INSERT INTO book VALUES
+    (DEFAULT, '123-1-23', 'book_1', 136,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 1),
+    (DEFAULT, '123-1-24', 'book_2', 240,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 2),
+    (DEFAULT, '123-1-25', 'book_3', 335,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 1),
+    (DEFAULT, '123-1-26', 'book_4', 459,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 2),
+    (DEFAULT, '123-1-27', 'book_5', 161,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 3),
+    (DEFAULT, '123-1-28', 'book_6', 925,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 4),
+    (DEFAULT, '123-1-29', 'book_7', 832,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 6),
+    (DEFAULT, '123-1-30', 'book_8', 748,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 9),
+    (DEFAULT, '123-1-31', 'book_9', 567,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 3),
+    (DEFAULT, '123-1-32', 'book_10', 647,  TIMESTAMP '2017-01-01 00:00:00', 'pic', 7);
+
 
 INSERT INTO user_book VALUES
     (DEFAULT, 1, 1, TIMESTAMP '2018-01-01 00:00:00', 0, 120),
@@ -47,14 +47,14 @@ INSERT INTO user_book VALUES
     (DEFAULT, 5, 9, TIMESTAMP '2018-01-01 00:00:00', 0, 123),
     (DEFAULT, 3, 8, TIMESTAMP '2018-01-01 00:00:00', 0, 640);
 
-INSERT INTO book_author VALUES
-    (DEFAULT, 1, 1),
-    (DEFAULT, 2, 2),
-    (DEFAULT, 3, 3),
-    (DEFAULT, 1, 4),
-    (DEFAULT, 5, 5),
-    (DEFAULT, 6, 6),
-    (DEFAULT, 7, 7),
-    (DEFAULT, 8, 6),
-    (DEFAULT, 9, 8),
-    (DEFAULT, 8, 4);
+-- INSERT INTO book_author VALUES
+--     (DEFAULT, 1, 1),
+--     (DEFAULT, 2, 2),
+--     (DEFAULT, 3, 3),
+--     (DEFAULT, 1, 4),
+--     (DEFAULT, 5, 5),
+--     (DEFAULT, 6, 6),
+--     (DEFAULT, 7, 7),
+--     (DEFAULT, 8, 6),
+--     (DEFAULT, 9, 8),
+--     (DEFAULT, 8, 4);

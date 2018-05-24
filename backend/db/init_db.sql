@@ -1,13 +1,13 @@
-DROP DATABASE IF EXISTS signet;
-CREATE DATABASE signet;
+-- DROP DATABASE IF EXISTS bookr;
+-- CREATE DATABASE bookr;
 
 DROP TABLE IF EXISTS user_profile CASCADE;
 DROP TABLE IF EXISTS book         CASCADE;
 DROP TABLE IF EXISTS user_book    CASCADE;
 DROP TABLE IF EXISTS author       CASCADE;
-DROP TABLE IF EXISTS book_author  CASCADE;
+-- DROP TABLE IF EXISTS book_author  CASCADE;
 
-TRUNCATE TABLE user_profile, book, user_book, author, book_author RESTART IDENTITY;
+TRUNCATE TABLE user_profile, book, user_book, author RESTART IDENTITY;
 
 CREATE TABLE user_profile (
   id                SERIAL,
@@ -20,6 +20,12 @@ CREATE TABLE user_profile (
   PRIMARY KEY       (id)
 );
 
+CREATE TABLE author (
+    id              SERIAL,
+    name            VARCHAR(64),
+    PRIMARY KEY     (id)
+);
+
 CREATE TABLE book (
   id                SERIAL,
   isbn              VARCHAR(64),
@@ -27,7 +33,9 @@ CREATE TABLE book (
   number_of_pages   INT             NOT NULL,
   publish_date      DATE,
   cover             VARCHAR(256),
-  PRIMARY KEY       (id)
+  author_id         INT             NOT NULL,
+  PRIMARY KEY       (id),
+  FOREIGN KEY       (author_id)     REFERENCES author(id)
 );
 
 CREATE TABLE user_book (
@@ -42,17 +50,11 @@ CREATE TABLE user_book (
     FOREIGN KEY     (book_id)       REFERENCES book(id)
 );
 
-CREATE TABLE author (
-    id              SERIAL,
-    name            VARCHAR(64),
-    PRIMARY KEY     (id)
-);
-
-CREATE TABLE book_author (
-    id              SERIAL,
-    book_id         INT             NOT NULL,
-    author_id       INT             NOT NULL,
-    PRIMARY KEY     (id),
-    FOREIGN KEY     (book_id)       REFERENCES book(id),
-    FOREIGN KEY     (author_id)     REFERENCES author(id)
-);
+-- CREATE TABLE book_author (
+--     id              SERIAL,
+--     book_id         INT             NOT NULL,
+--     author_id       INT             NOT NULL,
+--     PRIMARY KEY     (id),
+--     FOREIGN KEY     (book_id)       REFERENCES book(id),
+--     FOREIGN KEY     (author_id)     REFERENCES author(id)
+-- );
