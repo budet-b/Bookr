@@ -36,7 +36,7 @@ router.post('/user/signup', (req, res) => {
     user.createUser(req, res)
 });
 
-router.get('/user',
+router.get('/api/user',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         user.getUser(req, res)
