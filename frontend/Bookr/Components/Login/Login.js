@@ -73,7 +73,7 @@ export default class Login extends Component {
         password: value.password
       })
       console.log(user); // value here is an instance of Person
-      axios.post("http://localhost:8080/login", {
+      axios.post("http://localhost:8080/user/login", {
         username: user.username,
         password: user.password
       })
