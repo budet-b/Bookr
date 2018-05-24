@@ -1,25 +1,43 @@
 import React, { Component } from 'react';
 import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import { Route, Redirect } from 'react-router'
 import axios from 'axios'
-import Signup from '../Signup/Signup';
+
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
 
 var User = t.struct({
   username: t.String,
+  email: t.String,
+  firstname: t.String,
+  lastname: t.String,
+  picture: t.String,
   password: t.String
 });
 
 var options = {
-  order: ['username', 'password'],
+  order: ['username', 'email', 'firstname', 'lastname', 'picture', 'password'],
   fields: {
   username: {
+    placeholder: 'pseudo',
+    error: 'Insert a valid username',
+  },
+  email: {
     placeholder: 'rodrigue@rodrigue.com',
     error: 'Insert a valid email',
     keyboardType: 'email-address'
+  },
+  firstname: {
+    placeholder: 'Rodrigue',
+    error: 'Insert a valid firstname'
+  },
+  lastname: {
+    placeholder: 'Rodrigue',
+    error: 'Insert a valid lastname'
+  },
+  picture: {
+    placeholder: 'http://via.placeholder.com/200x200'
   },
   password: {
     secureTextEntry: true
@@ -28,12 +46,11 @@ var options = {
 };
 
 
-export default class Login extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        myKey: null,
-        signup: false
+        myKey: null
     }
     this.onPress = this.onPress.bind(this);
   }
@@ -58,7 +75,7 @@ export default class Login extends Component {
 
   errorPopup() {
     Alert.alert(
-      'Erreur dans le login',
+      'Erreur dans le signup',
       'Merci de vérifier vos information',
       [
         {text: 'Réessayer', style: 'cancel'}
@@ -72,12 +89,20 @@ export default class Login extends Component {
     if (value) {
       var user = User({
         username: value.username,
-        password: value.password
+        password: value.password,
+        firstname: value.firstname,
+        lastname: value.lastname,
+        picture: value.picture,
+        email: value.email
       })
-      console.log(user); // value here is an instance of Person
-      axios.post("http://localhost:8080/user/login", {
+      console.log(user);
+      axios.post("http://localhost:8080/user/signup", {
         username: user.username,
-        password: user.password
+        password: user.password,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        picture: user.picture,
+        email: user.email
       })
       .then((response) => {
         console.log(response);
@@ -91,14 +116,7 @@ export default class Login extends Component {
     }
   }
 
-  signup() {
-    console.log("route");
-    return <Redirect to='/Signup' />;
-  }
-
   render() {
-    if (this.state.signup)
-      return <Redirect to="/Signup"/>
     return (
       <View style={styles.MainContainer}>
         <Form
@@ -108,12 +126,12 @@ export default class Login extends Component {
           style={styles.form}
         />
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Signup</Text>
         </TouchableHighlight>
         <View style={styles.bottomView}>
-          <Text>No account ? Create one: </Text>
-          <TouchableHighlight style={styles.button} onPress={() => this.setState({ signup: true})} underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Signup</Text>
+          <Text>You already have an account ? </Text>
+          <TouchableHighlight style={styles.button} onPress={() => console.log("press")} underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Login</Text>
             </TouchableHighlight>
         </View>
       </View>
