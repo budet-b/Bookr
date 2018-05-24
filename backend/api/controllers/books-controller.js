@@ -7,7 +7,17 @@ const db = require("../db/index");
 // MARK: Controller Functions
 
 function getAllBooks(req, res, next) {
-    db.any('select * from book')
+    db.any('select book.id,\
+                   book.isbn,\
+                   book.title,\
+                   book.number_of_pages,\
+                   book.publish_date,\
+                   book.cover,\
+                   author.id as author_id,\
+                   author.name as author_name\
+            from book\
+            inner join author on author.id = book.author_id\
+            order by book.id')
       .then(function (data) {
         res.status(200)
           .json(data);
