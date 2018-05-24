@@ -46,6 +46,7 @@ router.get('/api/user',
 // MARK: Book Router
 
 router.get('/api/books', books.getAllBooks);
+router.get('/api/book/:id', books.getBook);
 
 // MARK: Other Router
 
