@@ -93,12 +93,11 @@ export default class Login extends Component {
 
   signup() {
     console.log("route");
-    return <Redirect to='/Signup' />;
+    this.setState({ signup: true})
+    ;
   }
 
   render() {
-    if (this.state.signup)
-      return <Redirect to="/Signup"/>
     return (
       <View style={styles.MainContainer}>
         <Form
@@ -112,7 +111,7 @@ export default class Login extends Component {
         </TouchableHighlight>
         <View style={styles.bottomView}>
           <Text>No account ? Create one: </Text>
-          <TouchableHighlight style={styles.button} onPress={() => this.setState({ signup: true})} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Signup')} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Signup</Text>
             </TouchableHighlight>
         </View>
