@@ -130,7 +130,7 @@ export default class Signup extends Component {
         </TouchableHighlight>
         <View style={styles.bottomView}>
           <Text>You already have an account ? </Text>
-          <TouchableHighlight style={styles.button} onPress={() => console.log("press")} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button}  onPress={() => this.props.navigation.navigate('Login')} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableHighlight>
         </View>

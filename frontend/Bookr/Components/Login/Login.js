@@ -80,8 +80,8 @@ export default class Login extends Component {
         password: user.password
       })
       .then((response) => {
-        console.log(response);
-        saveKey(response);
+        console.log(response.data);
+        this.saveKey(response.data.token);
       }).catch((error) => {
         this.errorPopup();
         console.log(error)
@@ -106,7 +106,7 @@ export default class Login extends Component {
           options={options}
           style={styles.form}
         />
-      <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+      <TouchableHighlight style={styles.button}  onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableHighlight>
         <View style={styles.bottomView}>
