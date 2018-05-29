@@ -84,6 +84,16 @@ export default class Signup extends Component {
     );
   }
 
+  successPopup() {
+    Alert.alert(
+      'Création de compte réussi',
+      'Vous pouvez maintenant vous connecter',
+      [
+        {text: 'Se connecter', onPress: this.props.navigation.navigate('Login')}
+      ]
+    )
+  }
+
   onPress() {
     var value = this.refs.form.getValue();
     if (value) {
@@ -106,7 +116,7 @@ export default class Signup extends Component {
       })
       .then((response) => {
         console.log(response);
-        saveKey(response);
+        this.successPopup();
       }).catch((error) => {
         this.errorPopup();
         console.log(error)
