@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ScrollView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from 'axios'
 
 var t = require('tcomb-form-native');
@@ -12,48 +13,23 @@ var User = t.struct({
   email: t.String,
   firstname: t.String,
   lastname: t.String,
-  picture: t.String,
+  picture:  t.maybe(t.String),
   password: t.String
 });
 
-var options = {
-  order: ['username', 'email', 'firstname', 'lastname', 'picture', 'password'],
-  fields: {
-  username: {
-    placeholder: 'pseudo',
-    error: 'Insert a valid username',
-  },
-  email: {
-    placeholder: 'rodrigue@rodrigue.com',
-    error: 'Insert a valid email',
-    keyboardType: 'email-address'
-  },
-  firstname: {
-    placeholder: 'Rodrigue',
-    error: 'Insert a valid firstname'
-  },
-  lastname: {
-    placeholder: 'Rodrigue',
-    error: 'Insert a valid lastname'
-  },
-  picture: {
-    placeholder: 'http://via.placeholder.com/200x200'
-  },
-  password: {
-    secureTextEntry: true
-    }
-  }
-};
 
 
 export default class Signup extends Component {
   constructor(props) {
     super(props);
+    self = this;
     this.state = {
         myKey: null
     }
     this.onPress = this.onPress.bind(this);
   }
+
+
 
   async saveKey(value) {
     try {
@@ -127,24 +103,71 @@ export default class Signup extends Component {
   }
 
   render() {
+
+      let options = {
+        order: ['username', 'email', 'firstname', 'lastname', 'picture', 'password'],
+        fields: {
+        username: {
+          placeholder: 'pseudo',
+          error: 'Insert a valid username',
+          onSubmitEditing: (event) => self.refs.form.getComponent('email').refs.input.focus(),
+          returnKeyType: "next",
+          autoCapitalize: 'none'
+        },
+        email: {
+          placeholder: 'rodrigue@rodrigue.com',
+          error: 'Insert a valid email',
+          keyboardType: 'email-address',
+          returnKeyType: "next",
+          autoCapitalize: 'none',
+          onSubmitEditing: (event) => self.refs.form.getComponent('firstname').refs.input.focus()
+        },
+        firstname: {
+          placeholder: 'Rodrigue',
+          error: 'Insert a valid firstname',
+          returnKeyType: "next",
+          onSubmitEditing: (event) => self.refs.form.getComponent('lastname').refs.input.focus()
+        },
+        lastname: {
+          placeholder: 'Rodrigue',
+          error: 'Insert a valid lastname',
+          returnKeyType: "next",
+          onSubmitEditing: (event) => self.refs.form.getComponent('picture').refs.input.focus()
+        },
+        picture: {
+          placeholder: 'http://via.placeholder.com/200x200',
+          returnKeyType: "next",
+          autoCapitalize: 'none',
+          onSubmitEditing: (event) => self.refs.form.getComponent('password').refs.input.focus()
+        },
+        password: {
+          secureTextEntry: true,
+          autoCapitalize: 'none',
+          returnKeyType: "done"
+          }
+        }
+      };
     return (
       <View style={styles.MainContainer}>
+        <KeyboardAwareScrollView>
         <Form
           ref="form"
           type={User}
           options={options}
           style={styles.form}
         />
+        </KeyboardAwareScrollView>
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableHighlight>
-        <View style={styles.bottomView}>
+        <View >
           <Text>You already have an account ? </Text>
           <TouchableHighlight style={styles.button}  onPress={() => this.props.navigation.navigate('Login')} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableHighlight>
         </View>
       </View>
+
     );
   }
 }
@@ -160,8 +183,9 @@ var styles = StyleSheet.create({
     },
   MainContainer:
     {
-        flex: 1,
-        paddingTop: ( Platform.OS === 'ios' ) ? 50 : 0
+      alignItems: 'center',
+      flex: 1,
+      paddingTop: 50
     },
   container: {
     justifyContent: 'center',
@@ -188,5 +212,8 @@ var styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  contentContainer: {
+    paddingVertical: 20
   }
 });
