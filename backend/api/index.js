@@ -21,7 +21,7 @@ var router = express.Router();
 
 // MARK: User Router
 
-router.post('/user/login', (req, res) => {
+router.post('/api/user/login', (req, res) => {
     user.login(req, res)
 });
 
@@ -32,7 +32,7 @@ router.get('/secret',
     }
 );
 
-router.post('/user/signup', (req, res) => {
+router.post('/api/user/signup', (req, res) => {
     user.createUser(req, res)
 });
 
@@ -47,6 +47,7 @@ router.get('/api/user',
 
 router.get('/api/books', books.getAllBooks);
 router.get('/api/book/:id', books.getBook);
+router.post('/api/books/book', books.addBook);
 
 // MARK: Other Router
 
