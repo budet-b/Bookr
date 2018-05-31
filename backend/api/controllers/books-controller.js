@@ -154,30 +154,21 @@ function getBooksUser(req, res) {
                  user_book.book_id,\
                  user_book.user_status,\
                  user_book.user_position,\
+                 user_book.date_added,\
                  book.isbn,\
                  book.title,\
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
-                 book.author_id\
+                 book.author_id,\
+                 author.name as author_name\
           from book\
           inner join user_book on user_book.book_id = book.id\
+          inner join author on author.id = book.author_id\
           inner join user_profile on user_profile.id = user_book.user_id\
           where user_profile.id = $1", [req.user.id])
     .then(data => {
       data.forEach(element => {
-        // var author_name = ""
-        // db.task(t => {
-        //   return t.one("select author.name\
-        //                from author\
-        //                where author.id = $1",
-        //     [element.author_id])
-        //     .then(data => {
-        //       return data.name
-        //     })
-        // })
-        //   .then(data => {
-            // console.log(data)
             let book = {
               id: element.book_id,
               isbn: element.isbn,
@@ -185,8 +176,8 @@ function getBooksUser(req, res) {
               number_of_pages: element.number_of_pages,
               publish_date: element.publish_date,
               cover: element.cover,
-              author_id: element.author_id//,
-              // author_name: data,
+              author_id: element.author_id,
+              author_name: element.author_name,
             }
             let new_elt = {
               book: book,
@@ -194,9 +185,7 @@ function getBooksUser(req, res) {
               user_position: element.user_position,
               date_added: element.date_added
             }
-            console.log(new_elt)
             arr.push(new_elt)
-          // })
       });
 
       res.status(200).json(arr);
