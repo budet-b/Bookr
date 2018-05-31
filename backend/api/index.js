@@ -48,6 +48,18 @@ router.get('/api/user',
 router.get('/api/books', books.getAllBooks);
 router.get('/api/book/:id', books.getBook);
 router.post('/api/books/book', books.addBook);
+router.post('/api/books/:id/:page',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        books.updateBookUser(req, res)
+    }
+);
+router.get('/api/user/books',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        books.getBooksUser(req, res)
+    }
+);
 
 // MARK: Other Router
 
