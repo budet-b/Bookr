@@ -29,8 +29,6 @@ export default class Signup extends Component {
     this.onPress = this.onPress.bind(this);
   }
 
-
-
   async saveKey(value) {
     try {
       await AsyncStorage.setItem('token', value);
@@ -135,7 +133,7 @@ export default class Signup extends Component {
           onSubmitEditing: (event) => self.refs.form.getComponent('picture').refs.input.focus()
         },
         picture: {
-          placeholder: 'http://via.placeholder.com/200x200',
+          placeholder: 'Url vers l\'image',
           returnKeyType: "next",
           autoCapitalize: 'none',
           onSubmitEditing: (event) => self.refs.form.getComponent('password').refs.input.focus()
@@ -157,22 +155,28 @@ export default class Signup extends Component {
           style={styles.form}
         />
         </KeyboardAwareScrollView>
+        <View style={styles.bottom}>
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableHighlight>
-        <View >
           <Text>You already have an account ? </Text>
           <TouchableHighlight style={styles.button}  onPress={() => this.props.navigation.navigate('Login')} underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Login</Text>
-            </TouchableHighlight>
+          </TouchableHighlight>
         </View>
       </View>
-
     );
   }
 }
 
 var styles = StyleSheet.create({
+  bottom:{
+    paddingTop: '5%',
+    paddingBottom: '10%'
+  },
+  fields: {
+    width: '80%'
+  },
     bottomView:{
       width: '100%',
       height: 50,
@@ -183,7 +187,8 @@ var styles = StyleSheet.create({
     },
   MainContainer:
     {
-      alignItems: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
       flex: 1,
       paddingTop: 50
     },
