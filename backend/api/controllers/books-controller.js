@@ -107,7 +107,6 @@ function addBook(req, res) {
         return result
       })
         .then(events => {
-          console.log(events)
           db.one('insert into\
                 book(isbn,\
                      title,\
@@ -143,9 +142,38 @@ function addBook(req, res) {
 }
 
 function updateBookUser(req, res) {
-  console.log(req.params.id)
-  console.log(req.params.page)
-  console.log(req.user.id)
+  db.one("select *\
+                from user_book\
+                where user_book.user_id = $1\
+                  and user_book.book_id = $2",
+    [req.user.id, req.params.id])
+    .then(data => {
+      db.one("update user_book\
+              set user_position = $1\
+              where id = $2\
+              returning *",
+        [req.params.page, data.id])
+        .then(data_update => {
+          res.status(200).json(data_update);
+        })
+    })
+    .catch(err => {
+      db.one("insert into user_book(\
+                user_id,\
+                book_id,\
+                date_added,\
+                user_status,\
+                user_position)\
+              values ($1,$2, $3, $4, $5)\
+              returning *",
+        [req.user.id, req.params.id, new Date(), 0, req.params.page])
+        .then(data => {
+          res.status(200).json(data);
+        })
+        .catch(err => {
+          res.status(400).json({ error: err.message });
+        })
+    })
 }
 
 function getBooksUser(req, res) {
@@ -169,23 +197,23 @@ function getBooksUser(req, res) {
           where user_profile.id = $1", [req.user.id])
     .then(data => {
       data.forEach(element => {
-            let book = {
-              id: element.book_id,
-              isbn: element.isbn,
-              title: element.title,
-              number_of_pages: element.number_of_pages,
-              publish_date: element.publish_date,
-              cover: element.cover,
-              author_id: element.author_id,
-              author_name: element.author_name,
-            }
-            let new_elt = {
-              book: book,
-              user_status: element.user_status,
-              user_position: element.user_position,
-              date_added: element.date_added
-            }
-            arr.push(new_elt)
+        let book = {
+          id: element.book_id,
+          isbn: element.isbn,
+          title: element.title,
+          number_of_pages: element.number_of_pages,
+          publish_date: element.publish_date,
+          cover: element.cover,
+          author_id: element.author_id,
+          author_name: element.author_name,
+        }
+        let new_elt = {
+          book: book,
+          user_status: element.user_status,
+          user_position: element.user_position,
+          date_added: element.date_added
+        }
+        arr.push(new_elt)
       });
 
       res.status(200).json(arr);
@@ -193,11 +221,6 @@ function getBooksUser(req, res) {
     .catch(err => {
       res.status(400).json({ error: err.message });
     })
-
-
-  //select book.id from book inner join user_book on user_book.book_id = book.id inner join user_profile on user_profile.id = user_book.user_id where user_profile.id = 4;
-  //select * from user_book where user_book.user_id = 4;
-  //select user_book.id, user_book.book_id, user_book.user_status, user_book.user_position, book.title from book inner join user_book on user_book.book_id = book.id inner join user_profile on user_profile.id = user_book.user_id where user_profile.id = 4;
 }
 
 module.exports = {

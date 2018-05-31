@@ -48,7 +48,7 @@ router.get('/api/user',
 router.get('/api/books', books.getAllBooks);
 router.get('/api/book/:id', books.getBook);
 router.post('/api/books/book', books.addBook);
-router.post('/api/books/:id/:page',
+router.put('/api/books/:id/:page',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         books.updateBookUser(req, res)
