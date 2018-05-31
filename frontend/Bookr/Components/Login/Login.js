@@ -13,24 +13,12 @@ var User = t.struct({
   password: t.String
 });
 
-var options = {
-  order: ['username', 'password'],
-  fields: {
-  username: {
-    placeholder: 'rodrigue@rodrigue.com',
-    error: 'Insert a valid email',
-    keyboardType: 'email-address'
-  },
-  password: {
-    secureTextEntry: true
-    }
-  }
-};
 
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    self = this;
     this.state = {
         myKey: null,
         signup: false
@@ -98,6 +86,23 @@ export default class Login extends Component {
   }
 
   render() {
+
+    let options = {
+      order: ['username', 'password'],
+      fields: {
+      username: {
+        returnKeyType: "next",
+        placeholder: 'rodrigue@rodrigue.com',
+        error: 'Insert a valid email',
+        keyboardType: 'email-address',
+        onSubmitEditing: (event) => this.refs.form.getComponent('password').refs.input.focus()
+      },
+      password: {
+        secureTextEntry: true,
+        returnKeyType: "done"
+        }
+      }
+    };
     return (
       <View style={styles.MainContainer}>
         <Form
