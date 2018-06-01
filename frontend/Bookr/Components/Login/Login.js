@@ -63,13 +63,14 @@ export default class Login extends Component {
         password: value.password
       })
       console.log(user); // value here is an instance of Person
-      axios.post("http://localhost:8080/user/login", {
+      axios.post("http://localhost:8080/api/user/login", {
         username: user.username,
         password: user.password
       })
       .then((response) => {
         console.log(response.data);
         this.saveKey(response.data.token);
+        this.props.navigation.replace('Home')
       }).catch((error) => {
         this.errorPopup();
         console.log(error)

@@ -80,7 +80,7 @@ export default class Signup extends Component {
         email: value.email
       })
       console.log(user);
-      axios.post("http://localhost:8080/user/signup", {
+      axios.post("http://localhost:8080/api/user/signup", {
         username: user.username,
         password: user.password,
         firstname: user.firstname,
