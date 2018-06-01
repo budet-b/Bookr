@@ -154,24 +154,33 @@ function updateBookUser(req, res) {
               returning *",
         [req.params.page, data.id])
         .then(data_update => {
-          res.status(200).json(data_update);
+          res.status(200).json({
+            "success": "true",
+            "page_position": req.params.page
+          })
         })
     })
     .catch(err => {
-      db.one("insert into user_book(\
+
+      db.none("insert into user_book(\
                 user_id,\
                 book_id,\
                 date_added,\
                 user_status,\
                 user_position)\
-              values ($1,$2, $3, $4, $5)\
-              returning *",
+              values ($1,$2, $3, $4, $5)",
         [req.user.id, req.params.id, new Date(), 0, req.params.page])
-        .then(data => {
-          res.status(200).json(data);
+        .then(() => {
+          res.status(200).json({
+            "success": "true",
+            "page_position": req.params.page
+          })
         })
         .catch(err => {
-          res.status(400).json({ error: err.message });
+          res.status(400).json({
+            "success": "false",
+            error: err.message
+          });
         })
     })
 }
