@@ -12,9 +12,9 @@ TRUNCATE TABLE user_profile, book, user_book, author RESTART IDENTITY;
 CREATE TABLE user_profile (
   id                SERIAL,
   email             VARCHAR(64)     NOT NULL UNIQUE,
-  username          VARCHAR(64),
-  firstname         VARCHAR(64),
-  lastname          VARCHAR(64),
+  username          VARCHAR(64)     NOT NULL UNIQUE,
+  firstname         VARCHAR(64)     NOT NULL,
+  lastname          VARCHAR(64)     NOT NULL,
   picture           VARCHAR(64),
   password          TEXT            NOT NULL,
   PRIMARY KEY       (id)
@@ -22,7 +22,7 @@ CREATE TABLE user_profile (
 
 CREATE TABLE author (
     id              SERIAL,
-    name            VARCHAR(64),
+    name            VARCHAR(64)     NOT NULL,
     PRIMARY KEY     (id)
 );
 
