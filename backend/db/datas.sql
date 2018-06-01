@@ -47,14 +47,15 @@ INSERT INTO user_book VALUES
     (DEFAULT, 5, 9, TIMESTAMP '2018-01-01 00:00:00', 0, 123),
     (DEFAULT, 3, 8, TIMESTAMP '2018-01-01 00:00:00', 0, 640);
 
--- INSERT INTO book_author VALUES
---     (DEFAULT, 1, 1),
---     (DEFAULT, 2, 2),
---     (DEFAULT, 3, 3),
---     (DEFAULT, 1, 4),
---     (DEFAULT, 5, 5),
---     (DEFAULT, 6, 6),
---     (DEFAULT, 7, 7),
---     (DEFAULT, 8, 6),
---     (DEFAULT, 9, 8),
---     (DEFAULT, 8, 4);
+
+INSERT INTO user_relationship VALUES
+    (DEFAULT, 1, 2, 0),
+    (DEFAULT, 2, 3, 1),
+    (DEFAULT, 3, 4, 2),
+    (DEFAULT, 1, 4, 2),
+    (DEFAULT, 1, 5, 2),
+    (DEFAULT, 1, 6, 2),
+    (DEFAULT, 4, 5, 5),
+    (DEFAULT, 1, 7, 2),
+    (DEFAULT, 3, 5, 2),
+    (DEFAULT, 4, 7, 3);
