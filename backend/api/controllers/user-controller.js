@@ -85,23 +85,20 @@ function createUser(req, res) {
     let picture = req.body.picture
 
     bcrypt.hash(password, 10, function(err, hash) {
-        db.one('insert into user_profile(email, username, firstname, lastname, picture, password)\
-            values ($1, $2, $3, $4, $5, $6)\
-            returning id, email, username, firstname, lastname, picture',
+        db.none('insert into user_profile(email, username, firstname, lastname, picture, password)\
+            values ($1, $2, $3, $4, $5, $6)',
             [email, username, firstname, lastname, picture, hash])
-        .then((data) => {
-            let user = {
-                id: data.id,
-                username: data.username,
-                firstname: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                picture: data.picture
-            }
-            res.status(200).json({user});
+        .then(() => {
+            res.status(200).json({
+                "success": "true",
+                error: "none"
+            });
         })
         .catch((err) => {
-            res.status(400).json({error: err.message});
+            res.status(400).json({
+                "success": "false",
+                error: err.message
+            });
         })
     });
 }
