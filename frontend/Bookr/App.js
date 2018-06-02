@@ -10,13 +10,20 @@ import SplashScreen from './Components/SplashScreen/SplashScreen';
 import { StackNavigator } from 'react-navigation';
 
 const AppNavigator = StackNavigator({
-  Login: { screen: Login },
-  Signup: { screen: Signup },
-  Books: { screen: Books },
-  Home: { screen: Home }
+  //Login: { screen: Login },
+  //Signup: { screen: Signup },
+  Home: { screen: Home },
+  Books: { screen: Books }
 });
 
 export default class App extends Component {
+  constructor (props) {
+    super();
+    this.state = {
+      selectedTab: 'Home',
+    }
+  }
+
   render() {
     return (
         <AppNavigator />
