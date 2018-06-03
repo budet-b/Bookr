@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, TabBarIOS } from 'react-native';
 import { Route, Redirect } from 'react-router'
 import Books from '../Books/Books';
+import BooksComponent from '../Books/BooksComponent';
 
 export default class BottomTabBar extends Component {
   propTypes: {
@@ -16,7 +17,7 @@ export default class BottomTabBar extends Component {
       item: this.props.item
     }
     this.homeScene = this.homeScene.bind(this);
-
+    this.booksScene = this.booksScene.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +43,11 @@ export default class BottomTabBar extends Component {
     this.props.navigation.replace('Home')
   }
 
+  booksScene() {
+    console.log(this.props)
+    this.props.navigation.replace('Books')
+  }
+
   render() {
     return (
       <TabBarIOS
@@ -61,12 +67,9 @@ export default class BottomTabBar extends Component {
           title="Books"
           systemIcon="bookmarks"
           selected={this.props.item === 1}
-          onPress={this.homeScene}
+          onPress={this.booksScene}
           >
-
-          <View>
-          <Text>Didier</Text>
-          </View>
+          <BooksComponent/>
           </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Profil"

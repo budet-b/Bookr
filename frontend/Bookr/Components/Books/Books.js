@@ -6,13 +6,7 @@ import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 
 export default class Books extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
-
     return (
       <BottomTabBar item={1} {...this.props}/>
     );
