@@ -4,6 +4,7 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
+import { iOSUIKit } from 'react-native-typography';
 
 class Book extends Component {
   render() {
@@ -24,6 +25,25 @@ class Book extends Component {
       );
   }
 }
+
+class AllBooks extends Component {
+  render() {
+      return (
+        <View >
+          <Image
+            source={{uri: this.props.book.img}}
+            style={styles.thumbnail}
+          />
+          <View >
+            <Text
+            style={styles.item}
+            numberOfLines={3}>{this.props.book.title}</Text>
+          </View>
+        </View>
+      );
+  }
+}
+
 
 export default class BooksComponent extends Component {
   constructor(props) {
@@ -95,6 +115,8 @@ export default class BooksComponent extends Component {
     }
 
     return (
+      <View>
+      <Text style={styles.head}>Current Books</Text>
       <ScrollView
       horizontal={true}
       >
@@ -103,6 +125,17 @@ export default class BooksComponent extends Component {
         renderRow={(data) => this.renderItem(data)}
         />
         </ScrollView>
+        <Text style={styles.head}>All Books</Text>
+        <ScrollView
+        horizontal={false}
+        >
+          <ListView contentContainerStyle={styles.listAll}
+          dataSource={this.state.dataSource}
+          renderRow={(data) => this.renderAllItem(data)}
+          />
+          </ScrollView>
+
+      </View>
     );
   }
 
@@ -120,15 +153,27 @@ export default class BooksComponent extends Component {
       return <Book book={item} />
   }
 
+  renderAllItem(item) {
+      return <AllBooks book={item} />
+  }
+
 }
 
 var styles = StyleSheet.create({
     list: {
-        flexDirection: 'row',
-        flexWrap: 'wrap'
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
+    },
+    listAll: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
+
+     flex: 1,
+     justifyContent: 'center',
     },
     item: {
-        backgroundColor: 'red',
         margin: 3,
         width: 100
     },
@@ -154,5 +199,10 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF',
+  },
+  head: {
+  ...iOSUIKit.largeTitleEmphasizedObject,
+    marginHorizontal: 0,
+    textAlign: 'left',
   }
 });
