@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
@@ -12,6 +12,7 @@ class Book extends Component {
       return (
         <View style={styles.book} >
           <Image
+            borderRadius={8}
             source={{uri: this.props.book.img}}
             style={styles.thumbnail}
           />
@@ -30,13 +31,16 @@ class AllBooks extends Component {
   render() {
       return (
         <View style={styles.AllbookDisplay}>
+          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
           <Image
+            borderRadius={8}
             source={{uri: this.props.book.img}}
             style={styles.thumbnail}
           />
             <Text
             style={styles.item}
             >{this.props.book.title}</Text>
+          </TouchableOpacity>
         </View>
       );
   }
@@ -56,9 +60,9 @@ export default class BooksComponent extends Component {
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213
     }, {
-      title: 'Book 2',
+      title: 'Didier',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 42
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
@@ -171,6 +175,9 @@ export default class BooksComponent extends Component {
 }
 
 var styles = StyleSheet.create({
+  touch: {
+    alignItems: 'center',
+  },
   AllbookDisplay: {
       flexDirection: 'row',
       alignItems: 'flex-start',
