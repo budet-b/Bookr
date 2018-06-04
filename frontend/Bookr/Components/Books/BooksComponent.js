@@ -251,7 +251,6 @@ var styles = StyleSheet.create({
   ...iOSUIKit.largeTitleEmphasizedObject,
     marginHorizontal: 0,
     textAlign: 'left',
-    size: 2,
     paddingBottom: 5,
     paddingLeft: 8,
     paddingTop: 5
