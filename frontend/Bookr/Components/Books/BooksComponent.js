@@ -110,8 +110,14 @@ export default class BooksComponent extends Component {
     }
 
     return (
-      <View>
+      <View style={{backgroundColor: "#FFF"}}>
       <Text style={styles.head}>My Books</Text>
+      <View
+        style={{
+          borderBottomColor: '#E8E8E8',
+          borderBottomWidth: 1,
+        }}
+      />
       <ScrollView
       horizontal={true}
       >
@@ -121,6 +127,14 @@ export default class BooksComponent extends Component {
         />
         </ScrollView>
         <Text style={styles.head}>All Books</Text>
+          <View
+            style={{
+              borderBottomColor: '#E8E8E8',
+              borderBottomWidth: 1,
+              paddingTop: 1,
+              paddingBottom: 5
+            }}
+          />
         <ScrollView
         horizontal={false}
         contentContainerStyle={styles.container}
@@ -176,12 +190,14 @@ var styles = StyleSheet.create({
 
   },
   container:{
-    flex: 0
+    flex: 0,
+    paddingTop: 3
   },
     list: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
+      paddingTop: 3
 
     },
     listAll: {
