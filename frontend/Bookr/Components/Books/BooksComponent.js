@@ -193,7 +193,8 @@ var styles = StyleSheet.create({
     item: {
         margin: 3,
         width: 100,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        textAlign: 'center'
     },
     book: {
     height: 200,

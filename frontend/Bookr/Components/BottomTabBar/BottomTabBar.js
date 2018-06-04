@@ -51,8 +51,8 @@ export default class BottomTabBar extends Component {
   render() {
     return (
       <TabBarIOS
-        tintColor="white"
-        barTintColor="#F40A12">
+        tintColor="#007AFF"
+        barTintColor="#FAFAFA">
         <TabBarIOS.Item
           title="Home"
           systemIcon="featured"
@@ -66,6 +66,7 @@ export default class BottomTabBar extends Component {
         <TabBarIOS.Item
           title="Books"
           systemIcon="bookmarks"
+
           selected={this.props.item === 1}
           onPress={this.booksScene}
           >
@@ -94,7 +95,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabText: {
-    color: 'white',
+    color: 'blue',
     margin: 50,
   },
 });
