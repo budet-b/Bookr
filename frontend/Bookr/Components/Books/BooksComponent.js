@@ -11,6 +11,7 @@ class Book extends Component {
     console.log(this.props.book.img);
       return (
         <View style={styles.book} >
+          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -22,6 +23,7 @@ class Book extends Component {
             numberOfLines={3}>{this.props.book.title}</Text>
             <Text style={styles.year}>{2001}</Text>
           </View>
+        </TouchableOpacity>
         </View>
       );
   }
@@ -249,6 +251,7 @@ var styles = StyleSheet.create({
   ...iOSUIKit.largeTitleEmphasizedObject,
     marginHorizontal: 0,
     textAlign: 'left',
+    size: 2,
     paddingBottom: 5,
     paddingLeft: 8,
     paddingTop: 5
