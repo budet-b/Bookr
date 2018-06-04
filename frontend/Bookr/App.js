@@ -15,7 +15,7 @@ const AppNavigator = StackNavigator({
   Home: { screen: Home },
   Books: { screen: Books }
 });
-
+console.disableYellowBox = true;
 export default class App extends Component {
   constructor (props) {
     super();

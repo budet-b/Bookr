@@ -29,16 +29,14 @@ class Book extends Component {
 class AllBooks extends Component {
   render() {
       return (
-        <View >
+        <View style={styles.AllbookDisplay}>
           <Image
             source={{uri: this.props.book.img}}
             style={styles.thumbnail}
           />
-          <View >
             <Text
             style={styles.item}
-            numberOfLines={3}>{this.props.book.title}</Text>
-          </View>
+            >{this.props.book.title}</Text>
         </View>
       );
   }
@@ -81,7 +79,19 @@ export default class BooksComponent extends Component {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213
-    },  {
+    },{
+      title: 'Book 3',
+      img: 'https://via.placeholder.com/200x200',
+      isbn: 1213
+    },{
+      title: 'Book 2',
+      img: 'https://via.placeholder.com/200x200',
+      isbn: 1213
+    }, {
+      title: 'Book 3',
+      img: 'https://via.placeholder.com/200x200',
+      isbn: 1213
+    }, {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213
@@ -94,21 +104,6 @@ export default class BooksComponent extends Component {
   }
 
   render() {
-    let array = [{
-      title: 'Book 1',
-      img: 'http://via.placeholder.com/200x200',
-      isbn: 1213
-    }, {
-      title: 'Book 2',
-      img: 'http://via.placeholder.com/200x200',
-      isbn: 1213
-    }, {
-      title: 'Book 3',
-      img: 'http://via.placeholder.com/200x200',
-      isbn: 1213
-    }];
-
-    let array2: ['Didier', 'John', 'Nanar'];
 
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -116,7 +111,7 @@ export default class BooksComponent extends Component {
 
     return (
       <View>
-      <Text style={styles.head}>Current Books</Text>
+      <Text style={styles.head}>My Books</Text>
       <ScrollView
       horizontal={true}
       >
@@ -128,13 +123,15 @@ export default class BooksComponent extends Component {
         <Text style={styles.head}>All Books</Text>
         <ScrollView
         horizontal={false}
+        contentContainerStyle={styles.container}
         >
+        <View style={styles.Allbook}>
           <ListView contentContainerStyle={styles.listAll}
           dataSource={this.state.dataSource}
           renderRow={(data) => this.renderAllItem(data)}
           />
+        </View>
           </ScrollView>
-
       </View>
     );
   }
@@ -160,28 +157,51 @@ export default class BooksComponent extends Component {
 }
 
 var styles = StyleSheet.create({
+  AllbookDisplay: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      flexWrap: 'wrap',
+      paddingBottom: 20,
+      justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingLeft: 10,
+  },
+  Allbook: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    paddingBottom: 380,
+    justifyContent: 'center',
+
+  },
+  container:{
+    flex: 0
+  },
     list: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
+
     },
     listAll: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
-
-     flex: 1,
      justifyContent: 'center',
     },
     item: {
         margin: 3,
-        width: 100
+        width: 100,
+        alignSelf: 'flex-end'
     },
     book: {
-    height: 150,
+    height: 200,
     flex: 1,
     alignItems: 'center',
     flexDirection: 'column',
+    paddingLeft: 10,
+    paddingRight: 10
   },
   title: {
     fontSize: 10,
@@ -193,16 +213,20 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 53,
-    height: 81,
+    width: 80,
+    height: 130,
+    justifyContent: 'flex-end'
   },
   listView: {
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: '#F5FCFF',
   },
   head: {
   ...iOSUIKit.largeTitleEmphasizedObject,
     marginHorizontal: 0,
     textAlign: 'left',
+    paddingBottom: 5,
+    paddingLeft: 8,
+    paddingTop: 5
   }
 });
