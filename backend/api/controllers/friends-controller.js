@@ -65,3 +65,35 @@ function addFriend(req, res) {
       })
   }
 }
+
+
+function acceptFriend(req, res) {
+
+  let arr = [req.user.id, req.params.id]
+  arr.sort()
+
+  console.log(arr)
+
+  db.none('update user_relationship\
+           set friend_type = $1\
+           where user_1_id = $2\
+             and user_2_id = $3',
+    [2, arr[0], arr[1]])
+    .then(() => {
+      res.status(200).json({
+        "success": "true",
+        "status": 1
+      })
+    })
+    .catch((err) => {
+      res.status(400).json({
+        "success": "false",
+        "error": err
+      })
+    })
+}
+
+module.exports = {
+  addFriend: addFriend,
+  acceptFriend: acceptFriend
+};

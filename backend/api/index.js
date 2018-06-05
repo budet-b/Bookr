@@ -69,6 +69,17 @@ router.put('/api/friends/add/:id',
         friends.addFriend(req, res)
     }
 );
+
+router.put('/api/friends/accept/:id',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        friends.acceptFriend(req, res)
+    }
+);
+
+
+
+
 // MARK: Other Router
 
 router.get('/', (req, res) => {
