@@ -1,17 +1,21 @@
-async saveKey(value) {
+import React, { Component } from 'react';
+
+export default class Constants extends Component {
+  export async saveKey(value) {
   try {
     await AsyncStorage.setItem('token', value);
-  } catch (error) {
+    } catch (error) {
     console.log("Error saving data" + error);
+    }
   }
-}
 
-async getKey() {
+  export function async getKey() {
   try {
     const value = await AsyncStorage.getItem('token');
-    this.setState({myKey: value});
-    console.log(this.state.myKey);
+    return value
   } catch (error) {
     console.log("Error retrieving data" + error);
+    return null
+    }
   }
 }

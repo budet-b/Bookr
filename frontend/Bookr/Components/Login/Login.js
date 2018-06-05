@@ -21,7 +21,8 @@ export default class Login extends Component {
     self = this;
     this.state = {
         myKey: null,
-        signup: false
+        signup: false,
+        isLoggin: false
     }
     this.onPress = this.onPress.bind(this);
   }
@@ -70,7 +71,7 @@ export default class Login extends Component {
       .then((response) => {
         console.log(response.data);
         this.saveKey(response.data.token);
-        this.props.navigation.replace('Home')
+        this.setState({isLoggin: true})
       }).catch((error) => {
         this.errorPopup();
         console.log(error)
@@ -96,6 +97,7 @@ export default class Login extends Component {
         placeholder: 'rodrigue@rodrigue.com',
         error: 'Insert a valid email',
         keyboardType: 'email-address',
+        autoCapitalize: 'none',
         onSubmitEditing: (event) => this.refs.form.getComponent('password').refs.input.focus()
       },
       password: {
@@ -104,6 +106,10 @@ export default class Login extends Component {
         }
       }
     };
+    if (this.state.isLoggin)
+    {
+      this.props.navigation.replace('Home')
+    }
     return (
       <View style={styles.MainContainer}>
         <Form
