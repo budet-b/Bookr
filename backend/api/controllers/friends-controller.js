@@ -60,7 +60,7 @@ function addFriend(req, res) {
       .catch((err) => {
         res.status(400).json({
           "success": "false",
-          "error": err
+          "error": err.detail
         })
       })
   }
@@ -69,11 +69,12 @@ function addFriend(req, res) {
 
 function acceptFriend(req, res) {
 
-  let arr = [req.user.id, req.params.id]
-  arr.sort()
+  let arr = [req.user.id, parseInt(req.params.id)]
+  arr.sort((a, b) => a > b)
 
   console.log(arr)
 
+  //TODO: Check if request
   db.none('update user_relationship\
            set friend_type = $1\
            where user_1_id = $2\
@@ -88,10 +89,18 @@ function acceptFriend(req, res) {
     .catch((err) => {
       res.status(400).json({
         "success": "false",
-        "error": err
+        "error": err.detail
       })
     })
 }
+
+function sentInvitationList(req, res) {
+}
+
+function pendingList(req, res) {
+
+}
+
 
 module.exports = {
   addFriend: addFriend,
