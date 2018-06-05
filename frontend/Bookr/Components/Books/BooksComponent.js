@@ -5,13 +5,22 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
+import NavigationService from './NavigationService.js';
 
 class Book extends Component {
+  async saveBookId(value) {
+    try {
+      await AsyncStorage.setItem('bookId', JSON.stringify(value));
+    } catch (error) {
+      console.log("Error saving data" + error);
+    }
+  }
+
   render() {
     console.log(this.props.book.img);
       return (
         <View style={styles.book} >
-          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
+          <TouchableOpacity style={styles.touch} onPress={()=> this.saveBookId(this.props.book.id)}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -30,10 +39,18 @@ class Book extends Component {
 }
 
 class AllBooks extends Component {
+  async saveBookId(value) {
+    try {
+      await AsyncStorage.setItem('bookId', JSON.stringify(value));
+    } catch (error) {
+      console.log("Error saving data" + error);
+    }
+  }
+
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
+          <TouchableOpacity style={styles.touch} onPress={()=> this.saveBookId(this.props.book.id)}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -60,51 +77,63 @@ export default class BooksComponent extends Component {
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 1
     }, {
       title: 'Didier',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 42
+      isbn: 42,
+      id: 2
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 3
     },  {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 4
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 5
     },  {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 6
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 7
     },{
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 8
     },{
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 9
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 10
     }, {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 11
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 12
     }])
     }
   }
@@ -167,11 +196,11 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} />
+      return <Book book={item}/>
   }
 
   renderAllItem(item) {
-      return <AllBooks book={item} />
+      return <AllBooks book={item}/>
   }
 
 }
