@@ -5,7 +5,6 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
-import NavigationService from './NavigationService.js';
 
 class Book extends Component {
   async saveBookId(value) {
@@ -39,9 +38,22 @@ class Book extends Component {
 }
 
 class AllBooks extends Component {
+  constructor(props) {
+    super(props);
+    this.saveBookId = this.saveBookId.bind(this);
+  }
+
+  componentWillReceiveProps(){
+    console.log("props")
+    console.log(this.props)
+  }
+
   async saveBookId(value) {
+    console.log("saving...")
     try {
       await AsyncStorage.setItem('bookId', JSON.stringify(value));
+      //console.log(this.props.navigate)
+      //this.props.navigation.navigate('BookDetail');
     } catch (error) {
       console.log("Error saving data" + error);
     }
@@ -50,7 +62,7 @@ class AllBooks extends Component {
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> this.saveBookId(this.props.book.id)}>
+          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -69,6 +81,8 @@ class AllBooks extends Component {
 export default class BooksComponent extends Component {
   constructor(props) {
   super(props);
+  this.renderItem = this.renderItem.bind(this);
+  this.renderAllItem = this.renderAllItem.bind(this);
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
   this.state = {
@@ -196,11 +210,13 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item}/>
+      return <Book book={item} navigation={this.props.navigation}/>
   }
 
   renderAllItem(item) {
-      return <AllBooks book={item}/>
+      const { navigate } = this.props.navigation
+      console.log(navigate)
+      return <AllBooks book={item} navigation={navigate}/>
   }
 
 }

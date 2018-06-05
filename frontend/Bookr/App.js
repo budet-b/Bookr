@@ -57,7 +57,10 @@ export default class App extends Component {
   async componentDidMount() {
     const res = await this.getToken()
     if (!res)
+    {
+      this.setState({isLoading: false})
       return;
+    }
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };

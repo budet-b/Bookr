@@ -7,12 +7,7 @@ import axios from 'axios'
 
 export default class Home extends Component {
 
-    ComponentWillMount() {
-      console.log("home")
-    }
-
   render() {
-    console.log("home")
     return (
       <BottomTabBar item={0} {...this.props}/>
     );
