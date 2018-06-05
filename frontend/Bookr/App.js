@@ -102,6 +102,8 @@ export default class App extends Component {
         </View>
       );
     console.log(this.state.isLoggin)
-    return <LoginNavigator/>
+    return <LoginNavigator
+      screenProps={{ rootNavigation: this.props.navigation }}
+    />
   }
 }

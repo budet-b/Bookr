@@ -7,16 +7,21 @@ import axios from 'axios'
 export default class BookDetail extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      bookId: 0
+    }
   }
 
   componentDidMount() {
-
+    this.setState({
+      bookId: this.props.navigation.state.params.bookid
+    })
   }
 
   render() {
     return (
       <View>
-        <Text>didier</Text>
+        <Text>{this.state.bookId}</Text>
       </View>
     );
   }

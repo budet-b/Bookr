@@ -21,12 +21,7 @@ export default class BottomTabBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("test");
     this.setState({ item: nextProps.item });
-  }
-
-  ComponentWillMount() {
-    console.log(this.item);
   }
 
   _renderContent (color: string, pageText: string, num?: number) {
@@ -39,12 +34,10 @@ export default class BottomTabBar extends Component {
   }
 
   homeScene() {
-    console.log(this.props)
     this.props.navigation.replace('Home')
   }
 
   booksScene() {
-    console.log(this.props)
     this.props.navigation.replace('Books')
   }
 
@@ -70,7 +63,7 @@ export default class BottomTabBar extends Component {
           selected={this.props.item === 1}
           onPress={this.booksScene}
           >
-          <BooksComponent/>
+          <BooksComponent screenProps={{ rootNavigation: this.props.navigation }}/>
           </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Profil"

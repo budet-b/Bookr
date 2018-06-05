@@ -16,7 +16,6 @@ class Book extends Component {
   }
 
   render() {
-    console.log(this.props.book.img);
       return (
         <View style={styles.book} >
           <TouchableOpacity style={styles.touch} onPress={()=> this.saveBookId(this.props.book.id)}>
@@ -43,17 +42,11 @@ class AllBooks extends Component {
     this.saveBookId = this.saveBookId.bind(this);
   }
 
-  componentWillReceiveProps(){
-    console.log("props")
-    console.log(this.props)
-  }
-
   async saveBookId(value) {
     console.log("saving...")
     try {
       await AsyncStorage.setItem('bookId', JSON.stringify(value));
-      //console.log(this.props.navigate)
-      //this.props.navigation.navigate('BookDetail');
+      this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: value})
     } catch (error) {
       console.log("Error saving data" + error);
     }
@@ -84,7 +77,6 @@ export default class BooksComponent extends Component {
   this.renderItem = this.renderItem.bind(this);
   this.renderAllItem = this.renderAllItem.bind(this);
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
   this.state = {
     dataSource: null,
     loaded: true,
@@ -157,7 +149,6 @@ export default class BooksComponent extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return (
       <View style={{backgroundColor: "#FFF"}}>
       <Text style={styles.head}>My Books</Text>
@@ -210,13 +201,11 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} navigation={this.props.navigation}/>
+      return <Book book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderAllItem(item) {
-      const { navigate } = this.props.navigation
-      console.log(navigate)
-      return <AllBooks book={item} navigation={navigate}/>
+      return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
 }
