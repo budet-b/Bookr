@@ -21,7 +21,8 @@ export default class Login extends Component {
     self = this;
     this.state = {
         myKey: null,
-        signup: false
+        signup: false,
+        isLoggin: false
     }
     this.onPress = this.onPress.bind(this);
   }
@@ -63,13 +64,14 @@ export default class Login extends Component {
         password: value.password
       })
       console.log(user); // value here is an instance of Person
-      axios.post("http://localhost:8080/user/login", {
+      axios.post("http://localhost:8080/api/user/login", {
         username: user.username,
         password: user.password
       })
       .then((response) => {
         console.log(response.data);
         this.saveKey(response.data.token);
+        this.setState({isLoggin: true})
       }).catch((error) => {
         this.errorPopup();
         console.log(error)
@@ -95,6 +97,7 @@ export default class Login extends Component {
         placeholder: 'rodrigue@rodrigue.com',
         error: 'Insert a valid email',
         keyboardType: 'email-address',
+        autoCapitalize: 'none',
         onSubmitEditing: (event) => this.refs.form.getComponent('password').refs.input.focus()
       },
       password: {
@@ -103,6 +106,10 @@ export default class Login extends Component {
         }
       }
     };
+    if (this.state.isLoggin)
+    {
+      this.props.navigation.replace('Home')
+    }
     return (
       <View style={styles.MainContainer}>
         <Form
