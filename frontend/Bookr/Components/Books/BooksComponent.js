@@ -42,20 +42,14 @@ class AllBooks extends Component {
     this.saveBookId = this.saveBookId.bind(this);
   }
 
-  async saveBookId(value) {
-    console.log("saving...")
-    try {
-      await AsyncStorage.setItem('bookId', JSON.stringify(value));
-      this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: value})
-    } catch (error) {
-      console.log("Error saving data" + error);
-    }
+  saveBookId(id, title, img, isbn) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
   }
 
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id); }}>
+          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
