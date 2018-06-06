@@ -77,6 +77,8 @@ export default class BookDetail extends Component {
       bookName: this.props.navigation.state.params.bookName,
       bookImg: this.props.navigation.state.params.bookImg,
       bookIsbn: this.props.navigation.state.params.bookIsbn,
+      bookAuthor: this.props.navigation.state.params.author_name,
+      bookPage: this.props.navigation.state.params.nbrPage,
       isLoading: false
     })
   }
@@ -105,8 +107,8 @@ export default class BookDetail extends Component {
           source={{uri: this.state.bookImg}}
           style={styles.image}
         />
-        <Text style={styles.desc}>Authors</Text>
-        <Text style={styles.desc}>200 pages</Text>
+        <Text style={styles.desc}>{this.state.bookAuthor}</Text>
+        <Text style={styles.desc}>{this.state.bookPage} pages</Text>
         </View>
         <Text style={styles.left}>page 100</Text>
         <View style={styles.center}>

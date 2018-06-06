@@ -38,14 +38,14 @@ class AllBooks extends Component {
     this.saveBookId = this.saveBookId.bind(this);
   }
 
-  saveBookId(id, title, img, isbn) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  saveBookId(id, title, img, isbn, author_name, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, authorName: author_name, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
+          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.book.author_name, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -118,7 +118,6 @@ export default class BooksComponent extends Component {
 
     axios.get("http://localhost:8080/api/books",)
     .then((response) => {
-      console.log(response.data);
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         dataSource: ds.cloneWithRows(response.data),
@@ -141,7 +140,6 @@ export default class BooksComponent extends Component {
 
     axios.get("http://localhost:8080/api/user/books", header)
     .then((response) => {
-      console.log(response.data);
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         userBooks: ds.cloneWithRows(response.data),
@@ -150,7 +148,6 @@ export default class BooksComponent extends Component {
     }).catch((error) => {
       console.log(error)
     })
-
   }
 
   render() {
@@ -214,6 +211,7 @@ export default class BooksComponent extends Component {
   }
 
   renderAllItem(item) {
+    console.log(item)
       return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
