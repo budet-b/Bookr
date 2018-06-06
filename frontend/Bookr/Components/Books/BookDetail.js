@@ -11,7 +11,8 @@ class Friend extends Component {
     return (
       <View style={styles.friend}>
         <Image
-          borderRadius={8}
+          borderRadius={50}
+          overflow="hidden"
           source={{uri: this.props.friend.img}}
           style={styles.thumbnail}
         />
@@ -167,8 +168,14 @@ var styles = StyleSheet.create({
     height: 200
   },
   thumbnail: {
-    width: 60,
-    height: 60,
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:'#fff',
+    borderRadius:32,
+    width: 64,
+    height: 64,
     justifyContent: 'flex-end'
   },
   left: {

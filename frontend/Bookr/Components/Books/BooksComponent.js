@@ -7,18 +7,14 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Book extends Component {
-  async saveBookId(value) {
-    try {
-      await AsyncStorage.setItem('bookId', JSON.stringify(value));
-    } catch (error) {
-      console.log("Error saving data" + error);
-    }
+  saveBookId(id, title, img, isbn) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
   }
 
   render() {
       return (
         <View style={styles.book} >
-          <TouchableOpacity style={styles.touch} onPress={()=> this.saveBookId(this.props.book.id)}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
