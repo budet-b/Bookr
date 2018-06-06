@@ -6,6 +6,8 @@ import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
 import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
+import Profil from './Components/Profil/Profil';
+import ProfilPage from './Components/Profil/ProfilPage';
 import BookDetail from './Components/Books/BookDetail';
 //import {getKey, saveKey} from './Components/Misc/Constant';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
@@ -88,6 +90,7 @@ export default class App extends Component {
         }
       },
       Home: { screen: Home },
+      Profil: {screen: Profil},
       BookDetail: { screen: BookDetail },
       Books: { screen: Books,
         navigationOptions: {
