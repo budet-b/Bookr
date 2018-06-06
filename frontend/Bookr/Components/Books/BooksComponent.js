@@ -7,11 +7,14 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Book extends Component {
+  saveBookId(id, title, img, isbn) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  }
+
   render() {
-    console.log(this.props.book.img);
       return (
         <View style={styles.book} >
-          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -30,10 +33,19 @@ class Book extends Component {
 }
 
 class AllBooks extends Component {
+  constructor(props) {
+    super(props);
+    this.saveBookId = this.saveBookId.bind(this);
+  }
+
+  saveBookId(id, title, img, isbn) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  }
+
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> console.log(this.props.book.isbn)}>
+          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -52,59 +64,72 @@ class AllBooks extends Component {
 export default class BooksComponent extends Component {
   constructor(props) {
   super(props);
+  this.renderItem = this.renderItem.bind(this);
+  this.renderAllItem = this.renderAllItem.bind(this);
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
   this.state = {
     dataSource: null,
     loaded: true,
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 1
     }, {
       title: 'Didier',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 42
+      isbn: 42,
+      id: 2
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 3
     },  {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 4
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 5
     },  {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 6
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 7
     },{
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 8
     },{
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 9
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 10
     }, {
       title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 11
     }, {
       title: 'Book 3',
       img: 'https://via.placeholder.com/200x200',
-      isbn: 1213
+      isbn: 1213,
+      id: 12
     }])
     }
   }
@@ -114,7 +139,6 @@ export default class BooksComponent extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return (
       <View style={{backgroundColor: "#FFF"}}>
       <Text style={styles.head}>My Books</Text>
@@ -167,11 +191,11 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} />
+      return <Book book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderAllItem(item) {
-      return <AllBooks book={item} />
+      return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
 }

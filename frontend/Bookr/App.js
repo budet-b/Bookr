@@ -6,6 +6,7 @@ import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
 import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
+import BookDetail from './Components/Books/BookDetail';
 //import {getKey, saveKey} from './Components/Misc/Constant';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import { StackNavigator } from 'react-navigation';
@@ -56,7 +57,10 @@ export default class App extends Component {
   async componentDidMount() {
     const res = await this.getToken()
     if (!res)
+    {
+      this.setState({isLoading: false})
       return;
+    }
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
@@ -84,6 +88,7 @@ export default class App extends Component {
         }
       },
       Home: { screen: Home },
+      BookDetail: { screen: BookDetail },
       Books: { screen: Books,
         navigationOptions: {
           title: "Books"
@@ -97,6 +102,8 @@ export default class App extends Component {
         </View>
       );
     console.log(this.state.isLoggin)
-    return <LoginNavigator/>
+    return <LoginNavigator
+      screenProps={{ rootNavigation: this.props.navigation }}
+    />
   }
 }
