@@ -36,7 +36,10 @@ export default class BookDetail extends Component {
       bookName: '',
       bookImg: '',
       bookIsbn: 0,
+      bookPosition: 0,
+      bookPage: 0,
       isLoading: true,
+      currentPosition: 0,
       dataSource: ds.cloneWithRows([{
         title: 'Jane',
         img: 'https://via.placeholder.com/200x200',
@@ -79,8 +82,72 @@ export default class BookDetail extends Component {
       bookIsbn: this.props.navigation.state.params.bookIsbn,
       bookAuthor: this.props.navigation.state.params.author_name,
       bookPage: this.props.navigation.state.params.nbrPage,
-      isLoading: false
+      bookPosition: this.props.navigation.state.params.position,
+      currentPosition: this.props.navigation.state.params.position,
+      isLoading: false,
     })
+    // const res = await this.getToken()
+    // if (!res)
+    // {
+    //   return;
+    // }
+    // let header = {
+    //   headers: {'Authorization': 'Bearer ' + res}
+    // };
+    // axios.put("http://localhost:8080/api/book/"+ this.state.bookId, header)
+    // .then((response) => {
+    //   this.setState({
+    //     bookPosition: response.d
+    //   })
+    //   console.log(response);
+    // }).catch((error) => {
+    //   console.log(error)
+    // })
+  }
+
+  changePosition(value) {
+    this.setState({currentPosition: value});
+  }
+  async getKey() {
+  try {
+    const value = await AsyncStorage.getItem('token');
+    return value
+  } catch (error) {
+    console.log("Error retrieving data" + error);
+    return null
+    }
+  }
+
+  async getToken() {
+    let res = ''
+    const token = await this.getKey()
+    .then((response) => {
+      res = response
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+    return res
+  }
+
+  async componentWillUnmount() {
+    if (this.state.currentPosition != this.state.bookPosition)
+    {
+      const res = await this.getToken()
+      if (!res)
+      {
+        return;
+      }
+      let header = {
+        headers: {'Authorization': 'Bearer ' + res}
+      };
+      axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + this.state.currentPosition, {}, header)
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 
   render() {
@@ -110,9 +177,9 @@ export default class BookDetail extends Component {
         <Text style={styles.desc}>{this.state.bookAuthor}</Text>
         <Text style={styles.desc}>{this.state.bookPage} pages</Text>
         </View>
-        <Text style={styles.left}>page 100</Text>
+        <Text style={styles.left}>page {this.state.currentPosition}</Text>
         <View style={styles.center}>
-        <Slider initialValue={100} min={0} max={200} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
+        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
         <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
         </View>
         <View>

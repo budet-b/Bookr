@@ -7,14 +7,14 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Book extends Component {
-  saveBookId(id, title, img, isbn) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  saveBookId(id, title, img, isbn, position, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, position: position, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.book} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -207,11 +207,10 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+      return <Book book={item.book} user={item.user_position} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderAllItem(item) {
-    console.log(item)
       return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
