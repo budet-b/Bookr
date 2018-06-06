@@ -69,14 +69,14 @@ export default class BooksComponent extends Component {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     dataSource: null,
-    loaded: true,
+    loaded: false,
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213,
       id: 1
     }, {
-      title: 'Didier',
+      title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
       isbn: 42,
       id: 2
@@ -85,53 +85,72 @@ export default class BooksComponent extends Component {
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213,
       id: 3
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 4
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 5
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 6
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 7
-    },{
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 8
-    },{
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 9
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 10
-    }, {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 11
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 12
-    }])
+    }]),
+    userBooks: []
     }
+  }
+
+  async getKey() {
+  try {
+    const value = await AsyncStorage.getItem('token');
+    return value
+  } catch (error) {
+    console.log("Error retrieving data" + error);
+    return null
+    }
+  }
+
+  async getToken() {
+    let res = ''
+    const token = await this.getKey()
+    .then((response) => {
+      res = response
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+    return res
+  }
+
+  async componentDidMount() {
+
+    // All books
+
+    axios.get("http://localhost:8080/api/books",)
+    .then((response) => {
+      console.log(response.data);
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        dataSource: ds.cloneWithRows(response.data),
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    //User's books
+
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+
+    axios.get("http://localhost:8080/api/user/books", header)
+    .then((response) => {
+      console.log(response.data);
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        userBooks: ds.cloneWithRows(response.data),
+        loaded: true
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+
   }
 
   render() {
@@ -152,7 +171,7 @@ export default class BooksComponent extends Component {
       horizontal={true}
       >
         <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
+        dataSource={this.state.userBooks}
         renderRow={(data) => this.renderItem(data)}
         />
         </ScrollView>
