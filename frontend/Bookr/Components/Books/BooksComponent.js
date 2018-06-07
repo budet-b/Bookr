@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity, Modal } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
@@ -70,6 +70,7 @@ export default class BooksComponent extends Component {
   this.state = {
     dataSource: null,
     loaded: false,
+    modalVisible: false,
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
@@ -111,6 +112,10 @@ export default class BooksComponent extends Component {
     });
     return res
   }
+  setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
+
 
   async componentDidMount() {
 
@@ -150,6 +155,10 @@ export default class BooksComponent extends Component {
     })
   }
 
+  onClickSearch() {
+    this.props.screenProps.rootNavigation.navigate('SearchBook')
+  }
+
   render() {
 
     if (!this.state.loaded) {
@@ -157,7 +166,17 @@ export default class BooksComponent extends Component {
     }
     return (
       <View style={{backgroundColor: "#FFF"}}>
+      <View style={{flexDirection: "row"}}>
       <Text style={styles.head}>My Books</Text>
+      <Button
+      textStyle={{color: '#000'}}
+      onPress={() => this.onClickSearch()}
+      backgroundColor = 'transparent'
+      rightIcon={{name: 'search', color: '#000', size: 30}}
+      title= 'Search a book'
+      underlayColor = '#FFF'
+        />
+      </View>
       <View
         style={{
           borderBottomColor: '#E8E8E8',
