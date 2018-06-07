@@ -98,8 +98,7 @@ passport.authenticate('jwt', {session: false}),
 }
 );
 
-
-
+router.get('/api/users', friends.usersList);
 
 // MARK: Other Router
 

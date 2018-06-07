@@ -168,6 +168,21 @@ function friendList(req, res) {
     })
 }
 
+function usersList(req, res) {
+  db.any('select user_profile.id,\
+                 user_profile.email,\
+                 user_profile.username,\
+                 user_profile.firstname,\
+                 user_profile.lastname,\
+                 user_profile.picture\
+          from user_profile')
+    .then(data => {
+      res.status(200).json(data)
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+}
 
 module.exports = {
   addFriend: addFriend,
@@ -175,4 +190,5 @@ module.exports = {
   receivedInvitationList: receivedInvitationList,
   sentInvitationList: sentInvitationList,
   friendList: friendList,
+  usersList: usersList
 };
