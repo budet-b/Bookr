@@ -38,14 +38,14 @@ class AllBooks extends Component {
     this.saveBookId = this.saveBookId.bind(this);
   }
 
-  saveBookId(id, title, img, isbn, author_name, nbrPage) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, authorName: author_name, nbrPage: nbrPage})
+  saveBookId(id, title, img, isbn, position, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, position: position, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.book.author_name, this.props.book.number_of_pages); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -211,7 +211,7 @@ export default class BooksComponent extends Component {
   }
 
   renderAllItem(item) {
-      return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+      return <AllBooks book={item} user={item.user_position} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
 }
