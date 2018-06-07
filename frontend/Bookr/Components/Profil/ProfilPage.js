@@ -7,14 +7,14 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
 
 class Book extends Component {
-  saveBookId(id, title, img, isbn) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  saveBookId(id, title, img, isbn, position, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, position: position, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.book} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -38,7 +38,8 @@ export default class ProfilPage extends Component {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     dataSource: null,
-    loaded: true,
+    loaded: false,
+    userBooks: [],
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
@@ -54,54 +55,72 @@ export default class ProfilPage extends Component {
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213,
       id: 3
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 4
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 5
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 6
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 7
-    },{
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 8
-    },{
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 9
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 10
-    }, {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 11
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 12
     }])
     }
   }
+
+
+    async getKey() {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      return value
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+      return null
+      }
+    }
+
+    async getToken() {
+      let res = ''
+      const token = await this.getKey()
+      .then((response) => {
+        res = response
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+      return res
+    }
+
+    async componentDidMount() {
+
+      //User's books
+
+      const res = await this.getToken()
+      if (!res)
+      {
+        this.props.navigation.navigate('Login')
+        return;
+      }
+      let header = {
+        headers: {'Authorization': 'Bearer ' + res}
+      };
+
+      axios.get("http://localhost:8080/api/user/books", header)
+      .then((response) => {
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          userBooks: ds.cloneWithRows(response.data),
+          loaded: true
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+
+    async saveKey(value) {
+      try {
+        await AsyncStorage.setItem('token', value);
+      } catch (error) {
+        console.log("Error saving data" + error);
+      }
+    }
+
+    logout() {
+      console.log('logout')
+      this.saveKey('');
+      this.props.screenProps.rootNavigation.replace('Login')
+    }
 
   render() {
 
@@ -141,7 +160,7 @@ export default class ProfilPage extends Component {
       horizontal={true}
       >
         <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
+        dataSource={this.state.userBooks}
         renderRow={(data) => this.renderItem(data)}
         />
         </ScrollView>
@@ -155,6 +174,7 @@ export default class ProfilPage extends Component {
          </View>
          <TouchableOpacity
                    style={styles.logoutButton}
+                   onPress={ () => this.logout()}
                    underlayColor='#fff'>
                    <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
@@ -176,7 +196,7 @@ export default class ProfilPage extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+    return <Book book={item.book} user={item.user_position} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 }
 

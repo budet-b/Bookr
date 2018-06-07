@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity, Modal } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Book extends Component {
-  saveBookId(id, title, img, isbn) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  saveBookId(id, title, img, isbn, position, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, position: position, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.book} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -38,14 +38,14 @@ class AllBooks extends Component {
     this.saveBookId = this.saveBookId.bind(this);
   }
 
-  saveBookId(id, title, img, isbn) {
-    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn})
+  saveBookId(id, title, img, isbn, position, nbrPage) {
+    this.props.screenProps.rootNavigation.navigate('BookDetail', {bookid: id, bookName: title, bookImg: img, bookIsbn: isbn, position: position, nbrPage: nbrPage})
   }
 
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-          <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
             source={{uri: this.props.book.img}}
@@ -69,14 +69,15 @@ export default class BooksComponent extends Component {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     dataSource: null,
-    loaded: true,
+    loaded: false,
+    modalVisible: false,
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213,
       id: 1
     }, {
-      title: 'Didier',
+      title: 'Book 2',
       img: 'https://via.placeholder.com/200x200',
       isbn: 42,
       id: 2
@@ -85,53 +86,77 @@ export default class BooksComponent extends Component {
       img: 'https://via.placeholder.com/200x200',
       isbn: 1213,
       id: 3
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 4
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 5
-    },  {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 6
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 7
-    },{
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 8
-    },{
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 9
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 10
-    }, {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 11
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 12
-    }])
+    }]),
+    userBooks: []
     }
+  }
+
+  async getKey() {
+  try {
+    const value = await AsyncStorage.getItem('token');
+    return value
+  } catch (error) {
+    console.log("Error retrieving data" + error);
+    return null
+    }
+  }
+
+  async getToken() {
+    let res = ''
+    const token = await this.getKey()
+    .then((response) => {
+      res = response
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+    return res
+  }
+  setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
+
+
+  async componentDidMount() {
+
+    // All books
+
+    axios.get("http://localhost:8080/api/books",)
+    .then((response) => {
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        dataSource: ds.cloneWithRows(response.data),
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    //User's books
+
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+
+    axios.get("http://localhost:8080/api/user/books", header)
+    .then((response) => {
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        userBooks: ds.cloneWithRows(response.data),
+        loaded: true
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  onClickSearch() {
+    this.props.screenProps.rootNavigation.navigate('SearchBook')
   }
 
   render() {
@@ -141,7 +166,17 @@ export default class BooksComponent extends Component {
     }
     return (
       <View style={{backgroundColor: "#FFF"}}>
+      <View style={{flexDirection: "row"}}>
       <Text style={styles.head}>My Books</Text>
+      <Button
+      textStyle={{color: '#000'}}
+      onPress={() => this.onClickSearch()}
+      backgroundColor = 'transparent'
+      rightIcon={{name: 'search', color: '#000', size: 30}}
+      title= 'Search a book'
+      underlayColor = '#FFF'
+        />
+      </View>
       <View
         style={{
           borderBottomColor: '#E8E8E8',
@@ -152,7 +187,7 @@ export default class BooksComponent extends Component {
       horizontal={true}
       >
         <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
+        dataSource={this.state.userBooks}
         renderRow={(data) => this.renderItem(data)}
         />
         </ScrollView>
@@ -191,11 +226,11 @@ export default class BooksComponent extends Component {
   }
 
   renderItem(item) {
-      return <Book book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+      return <Book book={item.book} user={item.user_position} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderAllItem(item) {
-      return <AllBooks book={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+      return <AllBooks book={item} user={item.user_position} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
 }
