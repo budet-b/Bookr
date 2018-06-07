@@ -5,9 +5,10 @@ DROP TABLE IF EXISTS user_profile CASCADE;
 DROP TABLE IF EXISTS book         CASCADE;
 DROP TABLE IF EXISTS user_book    CASCADE;
 DROP TABLE IF EXISTS author       CASCADE;
+DROP TABLE IF EXISTS user_relationship CASCADE;
 -- DROP TABLE IF EXISTS book_author  CASCADE;
 
-TRUNCATE TABLE user_profile, book, user_book, author RESTART IDENTITY;
+TRUNCATE TABLE user_profile, book, user_book, author, user_relationship RESTART IDENTITY;
 
 CREATE TABLE user_profile (
   id                SERIAL,
@@ -50,11 +51,21 @@ CREATE TABLE user_book (
     FOREIGN KEY     (book_id)       REFERENCES book(id)
 );
 
--- CREATE TABLE book_author (
---     id              SERIAL,
---     book_id         INT             NOT NULL,
---     author_id       INT             NOT NULL,
---     PRIMARY KEY     (id),
---     FOREIGN KEY     (book_id)       REFERENCES book(id),
---     FOREIGN KEY     (author_id)     REFERENCES author(id)
--- );
+CREATE TABLE user_relationship (
+    id                SERIAL,
+    user_1_id         INT             NOT NULL,
+    user_2_id         INT             NOT NULL,
+    friend_type       INT             NOT NULL,
+    action_user_id    INT             NOT NULL,
+    PRIMARY KEY     (id),
+    FOREIGN KEY     (user_1_id)       REFERENCES user_profile(id),
+    FOREIGN KEY     (user_2_id)       REFERENCES user_profile(id),
+    FOREIGN KEY     (action_user_id)  REFERENCES user_profile(id)
+)
+
+-- pending_first_second
+-- pending_second_first
+-- friends
+-- block_first_second
+-- block_second_first
+-- block_both

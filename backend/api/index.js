@@ -61,6 +61,45 @@ router.get('/api/user/books',
     }
 );
 
+// MARK: Friends Router
+
+router.put('/api/friends/add/:id',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        friends.addFriend(req, res)
+    }
+);
+
+router.put('/api/friends/accept/:id',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        friends.acceptFriend(req, res)
+    }
+);
+
+router.get('/api/friends/received',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.receivedInvitationList(req, res)
+}
+);
+
+router.get('/api/friends/sent',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.sentInvitationList(req, res)
+}
+);
+
+router.get('/api/user/friends',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.friendList(req, res)
+}
+);
+
+router.get('/api/users', friends.usersList);
+
 // MARK: Other Router
 
 router.get('/', (req, res) => {
