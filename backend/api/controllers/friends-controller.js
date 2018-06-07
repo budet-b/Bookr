@@ -99,24 +99,7 @@ function acceptFriend(req, res) {
     })
 }
 
-const userRelationshipList = (user_id, friend_type) => (
-  db.any('select user_profile.id,\
-                 user_profile.email,\
-                 user_profile.username,\
-                 user_profile.firstname,\
-                 user_profile.lastname,\
-                 user_profile.picture\
-                 from user_relationship\
-          left join user_profile on\
-          (user_profile.id = user_relationship.user_1_id\
-          or user_profile.id = user_relationship.user_2_id)\
-          and user_profile.id != $1\
-          where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
-          and friend_type = $2\
-          and action_user_id = $1', [user_id, friend_type])
-)
-
-function invitationList(req, res) {
+function receivedInvitationList(req, res) {
 
   db.any('select user_profile.id,\
                  user_profile.email,\
@@ -140,7 +123,7 @@ function invitationList(req, res) {
     })
 }
 
-function pendingList(req, res) {
+function sentInvitationList(req, res) {
   db.any('select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
@@ -189,7 +172,7 @@ function friendList(req, res) {
 module.exports = {
   addFriend: addFriend,
   acceptFriend: acceptFriend,
-  invitationList: invitationList,
-  pendingList: pendingList,
-  friendList: friendList
+  receivedInvitationList: receivedInvitationList,
+  sentInvitationList: sentInvitationList,
+  friendList: friendList,
 };

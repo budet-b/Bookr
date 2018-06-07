@@ -77,20 +77,19 @@ router.put('/api/friends/accept/:id',
     }
 );
 
-router.get('/api/friends/requests',
+router.get('/api/friends/received',
 passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    friends.invitationList(req, res)
+    friends.receivedInvitationList(req, res)
 }
 );
 
-router.get('/api/friends/pending',
+router.get('/api/friends/sent',
 passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    friends.pendingList(req, res)
+    friends.sentInvitationList(req, res)
 }
 );
-
 
 router.get('/api/user/friends',
 passport.authenticate('jwt', {session: false}),
