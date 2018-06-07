@@ -118,10 +118,20 @@ const userRelationshipList = (user_id, friend_type) => (
 
 function invitationList(req, res) {
 
-  db.any("select * from user_relationship\
-  where (user_1_id = $1 or user_2_id = $1)\
-  and friend_type = 0\
-  and action_user_id = $1", [req.user.id])
+  db.any('select user_profile.id,\
+                 user_profile.email,\
+                 user_profile.username,\
+                 user_profile.firstname,\
+                 user_profile.lastname,\
+                 user_profile.picture\
+         from user_relationship\
+         left join user_profile on\
+         (user_profile.id = user_relationship.user_1_id \
+          or user_profile.id = user_relationship.user_2_id)\
+        and user_profile.id != $1\
+          where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+          and friend_type = $2\
+          and action_user_id != $1', [req.user.id, 0])
     .then(data => {
       res.status(200).json(data)
     })
