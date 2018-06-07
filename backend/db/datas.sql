@@ -49,13 +49,13 @@ INSERT INTO user_book VALUES
 
 
 INSERT INTO user_relationship VALUES
-    (DEFAULT, 1, 2, 0),
-    (DEFAULT, 2, 3, 1),
-    (DEFAULT, 3, 4, 2),
-    (DEFAULT, 1, 4, 2),
-    (DEFAULT, 1, 5, 2),
-    (DEFAULT, 1, 6, 2),
-    (DEFAULT, 4, 5, 5),
-    (DEFAULT, 1, 7, 2),
-    (DEFAULT, 3, 5, 2),
-    (DEFAULT, 4, 7, 3);
+    (DEFAULT, 1, 2, 0, 1),
+    (DEFAULT, 2, 3, 1, 2),
+    (DEFAULT, 3, 4, 2, 4),
+    (DEFAULT, 1, 4, 2, 4),
+    (DEFAULT, 1, 5, 2, 5),
+    (DEFAULT, 1, 6, 2, 1),
+    (DEFAULT, 4, 5, 5, 5),
+    (DEFAULT, 1, 7, 2, 1),
+    (DEFAULT, 3, 5, 2, 5),
+    (DEFAULT, 4, 7, 3, 7);
