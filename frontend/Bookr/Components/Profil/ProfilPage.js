@@ -103,10 +103,23 @@ export default class ProfilPage extends Component {
           userBooks: ds.cloneWithRows(response.data),
           loaded: true
         })
-        console.log(this.state.userBooks)
       }).catch((error) => {
         console.log(error)
       })
+    }
+
+    async saveKey(value) {
+      try {
+        await AsyncStorage.setItem('token', value);
+      } catch (error) {
+        console.log("Error saving data" + error);
+      }
+    }
+
+    logout() {
+      console.log('logout')
+      this.saveKey('');
+      this.props.screenProps.rootNavigation.replace('Login')
     }
 
   render() {
@@ -161,6 +174,7 @@ export default class ProfilPage extends Component {
          </View>
          <TouchableOpacity
                    style={styles.logoutButton}
+                   onPress={ () => this.logout()}
                    underlayColor='#fff'>
                    <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
