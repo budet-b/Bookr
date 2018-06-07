@@ -5,19 +5,10 @@
 const db = require("../db/index");
 
 //TYPE:
-//0: id1 invite id2
-//1: id2 invite id1
-//2: id1 mutual id2
-//3: id1 blocked id2
-//4: id1 blocked id2
-
-//NEW TYPE:
 //0	Pending
 //1	Accepted
 //2	Declined
 //3	Blocked
-
-
 
 // MARK: Controller Functions
 
