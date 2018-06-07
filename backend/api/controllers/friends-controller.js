@@ -114,6 +114,17 @@ function getListFriend(user_id, friend_type) {
 
 function sentInvitationList(req, res) {
 
+  db.any("select * from user_relationship\
+  where (user_1_id = $1 or user_2_id = $1)\
+  and friend_type = 0\
+  and action_user_id = $1", [req.user.id])
+.then(data => {
+res.status(200).json(data)
+})
+.catch((err) => {
+res.status(400).json(err)
+})
+
   // db.any('select user_profile.id, email, username, firstname, lastname, picture from user_profile\
   //         inner join user_relationship as u1 on u1.user_1_id = user_profile.id\
   //         inner join user_relationship as u2 on u2.user_2_id = user_profile.id\
@@ -165,15 +176,36 @@ function sentInvitationList(req, res) {
 }
 
 function pendingList(req, res) {
+
+  db.any("select * from user_relationship\
+  where (user_1_id = $1 or user_2_id = $1)\
+  and friend_type = 0\
+  and action_user_id != $1", [req.user.id])
+.then(data => {
+res.status(200).json(data)
+})
+.catch((err) => {
+res.status(400).json(err)
+})
 }
 
 function friendList(req, res) {
-
+  db.any("select * from user_relationship\
+          where (user_1_id = $1 or user_2_id = $1)\
+          and friend_type = 1", [req.user.id])
+  .then(data => {
+    res.status(200).json(data)
+  })
+  .catch((err) => {
+    res.status(400).json(err)
+  })
 }
 
 
 module.exports = {
   addFriend: addFriend,
   acceptFriend: acceptFriend,
-  sentInvitationList: sentInvitationList
+  sentInvitationList: sentInvitationList,
+  pendingList: pendingList,
+  friendList: friendList
 };

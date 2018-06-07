@@ -84,6 +84,21 @@ passport.authenticate('jwt', {session: false}),
 }
 );
 
+router.get('/api/friends/pending',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.pendingList(req, res)
+}
+);
+
+
+router.get('/api/user/friends',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.friendList(req, res)
+}
+);
+
 
 
 
