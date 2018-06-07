@@ -23,16 +23,6 @@ const db = require("../db/index");
 
 function addFriend(req, res) {
 
-  // let arr = [req.user.id, parseInt(req.params.id)]
-  // arr.sort((a, b) => a > b)
-  // if (req.user.id < req.params.id) {
-  //   type = 0
-  // }
-  // else {
-  //   type = 1
-  // }
-
-  // console.log(arr)
   if (req.user.id === parseInt(req.params.id)) {
     res.status(400).json({
       "success": "false",
@@ -109,15 +99,24 @@ function acceptFriend(req, res) {
     })
 }
 
-function getListFriend(user_id, friend_type) {
-  db.any('select * from user_relationship\
-          where (user_1_id = $1\
-          or user_2_id = $1)\
-          and friend_type = $2',
-    [user_id, friend_type])
-}
+const userRelationshipList = (user_id, friend_type) => (
+  db.any('select user_profile.id,\
+                 user_profile.email,\
+                 user_profile.username,\
+                 user_profile.firstname,\
+                 user_profile.lastname,\
+                 user_profile.picture\
+                 from user_relationship\
+          left join user_profile on\
+          (user_profile.id = user_relationship.user_1_id\
+          or user_profile.id = user_relationship.user_2_id)\
+          and user_profile.id != $1\
+          where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+          and friend_type = $2\
+          and action_user_id = $1', [user_id, friend_type])
+)
 
-function sentInvitationList(req, res) {
+function invitationList(req, res) {
 
   db.any("select * from user_relationship\
   where (user_1_id = $1 or user_2_id = $1)\
@@ -129,71 +128,23 @@ function sentInvitationList(req, res) {
     .catch((err) => {
       res.status(400).json(err)
     })
-
-  // db.any('select user_profile.id, email, username, firstname, lastname, picture from user_profile\
-  //         inner join user_relationship as u1 on u1.user_1_id = user_profile.id\
-  //         inner join user_relationship as u2 on u2.user_2_id = user_profile.id\
-  //         where user_profile.id != 11 and (u1.friend_type = 0 or u2.friend_type = 1)')
-  // .then(data => {
-  //   res.status(200).json(data)
-  // })
-  // .catch(err => {
-  //   res.status(400).json(err)
-  // })
-
-
-  // let usersArr = []
-  // let users = []
-  // db.any('select * from user_relationship\
-  //         where (user_1_id = $1\
-  //         and friend_type = $2)\
-  //         or (user_2_id = $1\
-  //         and friend_type = $3)',
-  //   [req.user.id, 0, 1])
-  //   .then((data) => {
-  //     data.forEach(element => {
-  //       if (element.user_1_id !== req.user.id) {
-  //         users.push(element.user_1_id)
-  //       }
-  //       else if (element.user_2_id !== req.user.id) {
-  //         users.push(element.user_2_id)
-  //       }})
-  //       res.status(200).json(users)
-  //     // })
-
-  //     // users.forEach(element => {
-  //     //   db.oneOrNone("select * from user_profile where id = $1", [element])
-  //     //     .then(data => {
-  //     //       usersArr.push(data)
-  //     //     })
-  //     // })
-  //     // .then(() => {
-  //     //   res.status(200).json(usersArr)
-  //     // })
-  //   })
-  //   .catch((err) => {
-  //     res.status(400).json({
-  //       "success": "false",
-  //       "error": err.detail
-  //     })
-  //   })
-
 }
 
 function pendingList(req, res) {
-
   db.any('select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
                  user_profile.lastname,\
                  user_profile.picture\
-         from user_relationship\
-         left join user_profile on (user_profile.id = user_relationship.user_1_id\
+                 from user_relationship\
+         left join user_profile on\
+         (user_profile.id = user_relationship.user_1_id\
           or user_profile.id = user_relationship.user_2_id)\
           and user_profile.id != $1\
-where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
-and friend_type = 0', [req.user.id])
+          where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+          and friend_type = $2\
+          and action_user_id = $1', [req.user.id, 0])
     .then(data => {
       res.status(200).json(data)
     })
@@ -228,7 +179,7 @@ function friendList(req, res) {
 module.exports = {
   addFriend: addFriend,
   acceptFriend: acceptFriend,
-  sentInvitationList: sentInvitationList,
+  invitationList: invitationList,
   pendingList: pendingList,
   friendList: friendList
 };

@@ -80,7 +80,7 @@ router.put('/api/friends/accept/:id',
 router.get('/api/friends/requests',
 passport.authenticate('jwt', {session: false}),
 (req, res) => {
-    friends.sentInvitationList(req, res)
+    friends.invitationList(req, res)
 }
 );
 
