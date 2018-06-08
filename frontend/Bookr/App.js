@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, AsyncStorage } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Icon, Button, Badge } from 'react-native-elements'
 import { Router } from 'react-router'
 import Routes from './routes';
 import Login from './Components/Login/Login';
@@ -7,11 +8,13 @@ import Signup from './Components/Signup/Signup';
 import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
 import Profil from './Components/Profil/Profil';
+import FriendComponent from './Components/Friends/FriendComponent';
 import BookDetail from './Components/Books/BookDetail';
 import SearchBook from './Components/Books/SearchBook';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
+import { enhance } from 'react-navigation-addons';
 
 const AppNavigator = StackNavigator({
   Home: { screen: Home },
@@ -31,6 +34,8 @@ export default class App extends Component {
       isLoggin: false,
       isLoading: true
     }
+    this.friendPage = this.friendPage.bind(this);
+
   }
 
   async getKey() {
@@ -75,9 +80,14 @@ export default class App extends Component {
     this.setState({isLoading: false})
   }
 
+  friendPage() {
+    const { navigate } = this.props.navigation;
+    console.log(navigate)
+  }
+
   render() {
     var logged = this.state.isLoggin ? 'Home' : 'Login'
-    var LoginNavigator = StackNavigator({
+    var LoginNavigator = enhance(StackNavigator)({
       Login: { screen: Login,
         navigationOptions: {
           title: "Bookr"
@@ -88,7 +98,11 @@ export default class App extends Component {
           title: "Bookr"
         }
       },
-      Home: { screen: Home },
+      Home: { screen: Home,
+        navigationOptions :{
+          title: "Home",
+        }
+      },
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
       BookDetail: { screen: BookDetail },

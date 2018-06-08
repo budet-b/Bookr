@@ -30,6 +30,7 @@
     "react-native-typography": "^1.3.0",
     "react-native-usit-ui": "0.0.20",
     "react-navigation": "^2.0.4",
+    "react-navigation-addons": "satya164/react-navigation-addons",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-native": "^4.2.0",
