@@ -14,7 +14,7 @@ class Friend extends Component {
   render() {
       return (
         <View style={styles.friend} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveFriendId(this.props.friend.id); }}>
+        <TouchableOpacity style={styles.touch} onPress={() => console.log('didier')}>
           <Image
             borderRadius={8}
             source={{uri: 'https://via.placeholder.com/200x200'}}
@@ -23,7 +23,7 @@ class Friend extends Component {
           <View >
             <Text
             style={styles.title}
-            numberOfLines={3}>pd</Text>
+            numberOfLines={3}>{this.props.friend.firstname}</Text>
           </View>
         </TouchableOpacity>
         </View>
@@ -34,10 +34,31 @@ class Friend extends Component {
 export default class FriendComponent extends Component {
   constructor(props) {
     super();
+    this.renderItem = this.renderItem.bind(this);
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       isLoading: true,
       text: '',
-      userFriends: []
+      userFriends: ds,
+      friendRequests: ds,
+      pureFriendArray: [],
+      pureUserFriendArray: [],
+      dataSource: ds.cloneWithRows([{
+        title: 'Book 1',
+        img: 'https://via.placeholder.com/200x200',
+        isbn: 1213,
+        id: 1
+      }, {
+        title: 'Book 2',
+        img: 'https://via.placeholder.com/200x200',
+        isbn: 42,
+        id: 2
+      }, {
+        title: 'Book 3',
+        img: 'https://via.placeholder.com/200x200',
+        isbn: 1213,
+        id: 3
+      }]),
     }
     this.arrayholder = [];
   }
@@ -53,6 +74,7 @@ export default class FriendComponent extends Component {
         text: text
     })
   }
+
   async getKey() {
   try {
     const value = await AsyncStorage.getItem('token');
@@ -90,29 +112,98 @@ export default class FriendComponent extends Component {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         userFriends: ds.cloneWithRows(response.data),
+        pureUserFriendArray: response.data
       })
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    axios.get("http://localhost:8080/api/friends/received", header)
+    .then((response) => {
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        friendRequests: ds.cloneWithRows(response.data),
+        pureFriendArray: response.data
+      })
+      console.log(response.data)
     }).catch((error) => {
       console.log(error)
     })
 
     axios.get("http://localhost:8080/api/users", header)
     .then((response) => {
-      console.log(response)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
-        dataSource: ds.cloneWithRows(response.data),
-        isLoading: false,
+        dataSource: ds.cloneWithRows(response.data)
       })
       this.arrayholder = response.data
     }).catch((error) => {
       console.log(error)
     })
+
+    this.setState({
+      isLoading: false
+    })
   }
 
    GetListViewItem (rowData) {
+     console.log(rowData.username)
      this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
+   renderBookDisplay() {
+     if (this.state.pureFriendArray.length> 0) {
+       return (
+         <View style={{
+          flex:1,
+         }}>
+         <Text style={styles.head}>Friend Requests</Text>
+         <View
+           style={{
+             borderBottomColor: '#E8E8E8',
+             borderBottomWidth: 1,
+           }}
+         />
+         <ScrollView
+         horizontal={true}
+         >
+           <ListView contentContainerStyle={styles.list}
+           dataSource={this.state.friendRequests}
+           renderRow={(data) => this.renderItem(data)}
+           />
+           </ScrollView>
+          </View>
+       );
+     } else {
+        return;
+      }
+   }
+
+   renderUserFriendDisplay() {
+     if (this.state.pureUserFriendArray.length > 0) {
+       return (
+         <View >
+         <Text style={styles.head}>My Friends</Text>
+         <View
+           style={{
+             borderBottomColor: '#E8E8E8',
+             borderBottomWidth: 1,
+           }}
+         />
+         <ScrollView
+         horizontal={true}
+         >
+           <ListView contentContainerStyle={styles.list}
+           dataSource={this.state.userFriends}
+           renderRow={(data) => this.renderItem(data)}
+           />
+           </ScrollView>
+           </View>
+       )
+     } else {
+       return;
+     }
+   }
 
   ListViewItemSeparator = () => {
   return (
@@ -125,7 +216,10 @@ export default class FriendComponent extends Component {
       />
     );
   }
+
   render() {
+    let friendRequestsDisplay = this.renderBookDisplay();
+    let userFriendDisplay = this.renderUserFriendDisplay();
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -137,34 +231,8 @@ export default class FriendComponent extends Component {
     return (
 
       <View style={styles.MainContainer}>
-      <View >
-      <Text style={styles.head}>My Friends</Text>
-      <View
-        style={{
-          borderBottomColor: '#E8E8E8',
-          borderBottomWidth: 1,
-        }}
-      />
-      <ScrollView
-      horizontal={true}
-      >
-        <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.userFriends}
-        renderRow={(data) => this.renderItem(data)}
-        />
-        </ScrollView>
-        </View>
-        <View style={{
-         flex:1,
-        }}>
-        <Text style={styles.head}>Friend Request</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        </View>
+        {userFriendDisplay}
+        {friendRequestsDisplay}
         <View style={{
          flex:1,
         }}>
@@ -200,7 +268,7 @@ export default class FriendComponent extends Component {
     );
   }
   renderItem(item) {
-      return <Friend friend={item.user} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+      return <Friend friend={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 }
 
