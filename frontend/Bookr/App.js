@@ -34,8 +34,6 @@ export default class App extends Component {
       isLoggin: false,
       isLoading: true
     }
-    this.friendPage = this.friendPage.bind(this);
-
   }
 
   async getKey() {
@@ -80,11 +78,6 @@ export default class App extends Component {
     this.setState({isLoading: false})
   }
 
-  friendPage() {
-    const { navigate } = this.props.navigation;
-    console.log(navigate)
-  }
-
   render() {
     var logged = this.state.isLoggin ? 'Home' : 'Login'
     var LoginNavigator = enhance(StackNavigator)({
@@ -103,6 +96,7 @@ export default class App extends Component {
           title: "Home",
         }
       },
+      FriendComponent: {screen: FriendComponent},
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
       BookDetail: { screen: BookDetail },

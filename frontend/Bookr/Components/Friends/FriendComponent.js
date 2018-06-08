@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { Text, StyleSheet, View,TouchableOpacity,Image,  ScrollView, ListView, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
+
+class Friend extends Component {
+  saveFriendId(id) {
+    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+  }
+
+  render() {
+      return (
+        <View style={styles.friend} >
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveFriendId(this.props.friend.id); }}>
+          <Image
+            borderRadius={8}
+            source={{uri: 'https://via.placeholder.com/200x200'}}
+            style={styles.thumbnail}
+          />
+          <View >
+            <Text
+            style={styles.title}
+            numberOfLines={3}>pd</Text>
+          </View>
+        </TouchableOpacity>
+        </View>
+      );
+  }
+}
 
 export default class FriendComponent extends Component {
   constructor(props) {
@@ -12,13 +37,14 @@ export default class FriendComponent extends Component {
     this.state = {
       isLoading: true,
       text: '',
+      userFriends: []
     }
     this.arrayholder = [];
   }
 
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function(item){
-    const itemData = item.title.toUpperCase()
+    const itemData = item.username.toUpperCase()
     const textData = text.toUpperCase()
     return itemData.indexOf(textData) > -1
     })
@@ -27,10 +53,51 @@ export default class FriendComponent extends Component {
         text: text
     })
   }
+  async getKey() {
+  try {
+    const value = await AsyncStorage.getItem('token');
+    return value
+  } catch (error) {
+    console.log("Error retrieving data" + error);
+    return null
+    }
+  }
 
-  componentDidMount() {
-    axios.get("http://localhost:8080/api/books",)
+  async getToken() {
+    let res = ''
+    const token = await this.getKey()
     .then((response) => {
+      res = response
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+    return res
+  }
+
+  async componentDidMount() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.get("http://localhost:8080/api/user/friends", header)
+    .then((response) => {
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        userFriends: ds.cloneWithRows(response.data),
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    axios.get("http://localhost:8080/api/users", header)
+    .then((response) => {
+      console.log(response)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         dataSource: ds.cloneWithRows(response.data),
@@ -43,7 +110,7 @@ export default class FriendComponent extends Component {
   }
 
    GetListViewItem (rowData) {
-     this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.img, bookIsbn: rowData.isbn, position: rowData.position, nbrPage: rowData.nbrPage})
+     this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
 
@@ -70,29 +137,82 @@ export default class FriendComponent extends Component {
     return (
 
       <View style={styles.MainContainer}>
+      <View >
+      <Text style={styles.head}>My Friends</Text>
+      <View
+        style={{
+          borderBottomColor: '#E8E8E8',
+          borderBottomWidth: 1,
+        }}
+      />
+      <ScrollView
+      horizontal={true}
+      >
+        <ListView contentContainerStyle={styles.list}
+        dataSource={this.state.userFriends}
+        renderRow={(data) => this.renderItem(data)}
+        />
+        </ScrollView>
+        </View>
+        <View style={{
+         flex:1,
+        }}>
+        <Text style={styles.head}>Friend Request</Text>
+        <View
+          style={{
+            borderBottomColor: '#E8E8E8',
+            borderBottomWidth: 1,
+          }}
+        />
+        </View>
+        <View style={{
+         flex:1,
+        }}>
+        <Text style={styles.head}>Search Friend</Text>
+        <View
+          style={{
+            borderBottomColor: '#E8E8E8',
+            borderBottomWidth: 1,
+          }}
+        />
+        <View style={styles.MainContainer}>
 
-      <TextInput
-       style={styles.TextInputStyleClass}
-       onChangeText={(text) => this.SearchFilterFunction(text)}
-       value={this.state.text}
-       underlineColorAndroid='transparent'
-       placeholder="Search Here"
-        />
-        <ListView
-          dataSource={this.state.dataSource}
-          renderSeparator= {this.ListViewItemSeparator}
-          renderRow={(rowData) => <Text style={styles.rowViewContainer}
-          onPress={this.GetListViewItem.bind(this, rowData)} >{rowData.title}</Text>}
-          enableEmptySections={true}
-          style={{marginTop: 10}}
-        />
+        <TextInput
+         style={styles.TextInputStyleClass}
+         onChangeText={(text) => this.SearchFilterFunction(text)}
+         value={this.state.text}
+         underlineColorAndroid='transparent'
+         placeholder="Search Here"
+          />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderSeparator= {this.ListViewItemSeparator}
+            renderRow={(rowData) => <Text style={styles.rowViewContainer}
+            onPress={this.GetListViewItem.bind(this, rowData)} >{rowData.username}</Text>}
+            enableEmptySections={true}
+            style={{marginTop: 10}}
+          />
+        </View>
+
+        </View>
+
       </View>
     );
+  }
+  renderItem(item) {
+      return <Friend friend={item.user} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 }
 
 const styles = StyleSheet.create({
-
+  head: {
+  ...iOSUIKit.largeTitleEmphasizedObject,
+    marginHorizontal: 0,
+    textAlign: 'left',
+    paddingBottom: 5,
+    paddingLeft: 8,
+    paddingTop: 5
+  },
  MainContainer :{
    backgroundColor: '#FFF',
   justifyContent: 'center',
@@ -112,7 +232,41 @@ const styles = StyleSheet.create({
    borderColor: '#DEDEDE',
    borderRadius: 7 ,
    backgroundColor : "#FFFFFF"
+ },
+ list: {
+   flexDirection: 'row',
+   flexWrap: 'wrap',
+   alignItems: 'flex-start',
+   paddingTop: 3
 
-   }
+ },
+ thumbnail: {
+   borderWidth:1,
+   borderColor:'rgba(0,0,0,0.2)',
+   alignItems:'center',
+   justifyContent:'center',
+   backgroundColor:'#fff',
+   borderRadius:32,
+   width: 64,
+   height: 64,
+   justifyContent: 'flex-end'
+ },
+ touch: {
+   alignItems: 'center',
+ },
+ friend: {
+ height: 200,
+ flex: 1,
+ alignItems: 'center',
+ flexDirection: 'column',
+ paddingLeft: 10,
+ paddingRight: 10
+},
+title: {
+  fontSize: 10,
+  marginBottom: 8,
+  width: 90,
+  textAlign: 'center',
+},
 
 });

@@ -31,6 +31,8 @@ export default class HomeComponent extends Component {
       id: 3
     }])
     }
+    this.friendPage = this.friendPage.bind(this);
+
   }
 
     async getKey() {
@@ -55,6 +57,10 @@ export default class HomeComponent extends Component {
       return res
     }
 
+    friendPage() {
+      this.props.screenProps.rootNavigation.navigate('FriendComponent')
+    }
+
     componentWillMount() {
       this.props.screenProps.rootNavigation.setOptions({
         headerTitle: 'Home',
@@ -67,7 +73,7 @@ export default class HomeComponent extends Component {
             textStyle={{ color: '#FFF'}}
           />
           <Button
-          onPress={() => console.log("clicked")}
+          onPress={() => this.friendPage()}
           textStyle={{color: '#000'}}
           backgroundColor = 'transparent'
           rightIcon={{name: 'people', color: '#000', size: 25}}
