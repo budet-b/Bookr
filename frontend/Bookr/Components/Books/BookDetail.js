@@ -164,17 +164,32 @@ export default class BookDetail extends Component {
       };
       axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + this.state.currentPosition, {}, header)
       .then((response) => {
-        console.log(response);
+        console.log("Ok");
       }).catch((error) => {
         console.log(error)
       })
     }
   }
 
-  startBook() {
-    console.log("click")
+  async startBook() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + '1', {}, header)
+    .then((response) => {
+      console.log("Ok");
+    }).catch((error) => {
+      console.log(error)
+    })
     this.setState({
-      bookStatus: 1
+      bookStatus: 1,
+      currentPosition: 1,
+      bookPosition: 1
     })
   }
 
