@@ -3,7 +3,7 @@ import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
-import { iOSUIKit } from 'react-native-typography';
+import { iOSUIKit, sanFranciscoWeights } from 'react-native-typography';
 import { Slider } from 'react-native-usit-ui';
 
 class Friend extends Component {
@@ -171,7 +171,40 @@ export default class BookDetail extends Component {
     }
   }
 
+  startBook() {
+    console.log("click")
+    this.setState({
+      bookStatus: 1
+    })
+  }
+
+  renderBookStatus() {
+    if (this.state.bookStatus === 0) {
+      return (
+        <View>
+        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
+        <Text style={styles.buttonTextStart}>Start this book</Text>
+        </TouchableHighlight>
+        </View>
+
+      );
+    } else if (this.state.bookStatus === 1) {
+      return (
+        <View>
+        <Text style={styles.left}>page {this.state.currentPosition}</Text>
+        <View style={styles.center}>
+        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
+        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        </View>
+        </View>
+
+      )
+    }
+  }
+
   render() {
+    let bookStatusDisplay = this.renderBookStatus()
     if (this.state.isLoading)
     {
       return(
@@ -197,11 +230,7 @@ export default class BookDetail extends Component {
         />
         <Text style={styles.desc}>{this.state.bookAuthor}</Text>
         <Text style={styles.desc}>{this.state.bookPage} pages</Text>
-        </View>
-        <Text style={styles.left}>page {this.state.currentPosition}</Text>
-        <View style={styles.center}>
-        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        {bookStatusDisplay}
         </View>
         <View>
         <Text style={styles.head}>Friends</Text>
@@ -230,6 +259,22 @@ export default class BookDetail extends Component {
 }
 
 var styles = StyleSheet.create({
+  buttonTextStart: {
+    ...iOSUIKit.bodyObject,
+    ...sanFranciscoWeights.medium,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: 200
+  },
+  buttonStart: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#7BC950',
+    borderRadius: 8,
+    padding: 15,
+  },
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
