@@ -50,7 +50,7 @@ function getBook(req, res) {
 
 
 function getBookUserFriends(req, res) {
-  db.one("select user_book.id,\
+  db.oneOrNone("select user_book.id,\
                    user_book.book_id,\
                    user_book.user_status,\
                    user_book.user_position,\
@@ -67,24 +67,105 @@ function getBookUserFriends(req, res) {
             inner join author on author.id = book.author_id\
             inner join user_profile on user_profile.id = user_book.user_id\
             where user_profile.id = $1 and book.id = $2",
-            [req.user.id, req.params.id])
+    [req.user.id, req.params.id])
     .then(function (data) {
-      res.status(200).json({
-        book: {
-          id: data.book_id,
-          isbn: data.isbn,
-          title: data.title,
-          number_of_pages: data.number_of_pages,
-          publish_date: data.publish_date,
-          cover: data.cover,
-          author_id: data.author_id,
-          author_name: data.author_name,
-        },
-        user: {
-          user_status: data.user_status,
-          user_position: data.user_position
-        }
-      });
+      if (data != null) {
+        db.any("select user_profile.id,\
+                     user_profile.email,\
+                     user_profile.username,\
+                     user_profile.firstname,\
+                     user_profile.lastname,\
+                     user_profile.picture,\
+                     user_book.user_status,\
+                     user_book.user_position\
+              from user_relationship\
+              left join user_profile on\
+              (user_profile.id = user_relationship.user_1_id\
+            or user_profile.id = user_relationship.user_2_id)\
+              and user_profile.id != $1\
+              inner join user_book on user_book.user_id = user_profile.id\
+              where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+              and friend_type = 1\
+              and user_book.book_id = $2",
+          [req.user.id, req.params.id])
+          .then(data1 => {
+            res.status(200).json({
+              book: {
+                id: data.book_id,
+                isbn: data.isbn,
+                title: data.title,
+                number_of_pages: data.number_of_pages,
+                publish_date: data.publish_date,
+                cover: data.cover,
+                author_id: data.author_id,
+                author_name: data.author_name,
+              },
+              user: {
+                user_status: data.user_status,
+                user_position: data.user_position
+              },
+              friends: data1
+            });
+          })
+          .catch(err => {
+            res.status(400).json({ error: err });
+          })
+      }
+      else {
+        db.one('select book.id,\
+                       book.isbn,\
+                       book.title,\
+                       book.number_of_pages,\
+                       book.publish_date,\
+                       book.cover,\
+                       author.id as author_id,\
+                       author.name as author_name\
+                from book\
+                inner join author on author.id = book.author_id\
+                where book.id = $1', [req.params.id])
+          .then(function (data) {
+
+            db.any("select user_profile.id,\
+                           user_profile.email,\
+                           user_profile.username,\
+                           user_profile.firstname,\
+                           user_profile.lastname,\
+                           user_profile.picture,\
+                           user_book.user_status,\
+                           user_book.user_position\
+                    from user_relationship\
+                    left join user_profile on\
+                    (user_profile.id = user_relationship.user_1_id\
+                      or user_profile.id = user_relationship.user_2_id)\
+                    and user_profile.id != $1\
+                    inner join user_book on user_book.user_id = user_profile.id\
+                    where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+                    and friend_type = 1\
+                    and user_book.book_id = $2",
+              [req.user.id, req.params.id])
+              .then(data1 =>
+                res.status(200).json({
+                  book: {
+                    id: data.book_id,
+                    isbn: data.isbn,
+                    title: data.title,
+                    number_of_pages: data.number_of_pages,
+                    publish_date: data.publish_date,
+                    cover: data.cover,
+                    author_id: data.author_id,
+                    author_name: data.author_name,
+                  },
+                  user: {},
+                  friends: data1
+                }))
+              .catch(function (err) {
+                res.status(400).json({ error: err });
+              })
+          })
+          .catch(function (err) {
+            res.status(400).json({ error: err });
+          });
+      }
     })
     .catch(function (err) {
       res.status(400).json({ error: err });
