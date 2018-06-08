@@ -3,7 +3,7 @@ import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
-import { iOSUIKit } from 'react-native-typography';
+import { iOSUIKit, sanFranciscoWeights } from 'react-native-typography';
 import { Slider } from 'react-native-usit-ui';
 
 class Friend extends Component {
@@ -27,6 +27,11 @@ class Friend extends Component {
   }
 }
 
+// Book status:
+// 0 : not started
+// 1 : started but not finished
+// 2 : finished
+
 export default class BookDetail extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +45,7 @@ export default class BookDetail extends Component {
       bookPage: 0,
       isLoading: true,
       currentPosition: 0,
+      bookStatus: 0,
       dataSource: ds.cloneWithRows([{
         title: 'Jane',
         img: 'https://via.placeholder.com/200x200',
@@ -74,7 +80,7 @@ export default class BookDetail extends Component {
     }
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     this.setState({
       bookId: this.props.navigation.state.params.bookid,
       bookName: this.props.navigation.state.params.bookName,
@@ -83,31 +89,46 @@ export default class BookDetail extends Component {
       bookAuthor: this.props.navigation.state.params.author_name,
       bookPage: this.props.navigation.state.params.nbrPage,
       bookPosition: this.props.navigation.state.params.position,
-      currentPosition: this.props.navigation.state.params.position,
-      isLoading: false,
+      currentPosition: this.props.navigation.state.params.position
     })
-    // const res = await this.getToken()
-    // if (!res)
-    // {
-    //   return;
-    // }
-    // let header = {
-    //   headers: {'Authorization': 'Bearer ' + res}
-    // };
-    // axios.put("http://localhost:8080/api/book/"+ this.state.bookId, header)
-    // .then((response) => {
-    //   this.setState({
-    //     bookPosition: response.d
-    //   })
-    //   console.log(response);
-    // }).catch((error) => {
-    //   console.log(error)
-    // })
+    const res = await this.getToken()
+    if (!res)
+    {
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.get("http://localhost:8080/api/user/book/"+ this.state.bookId, header)
+    .then((response) => {
+      if (response.data.user.user_position) {
+          if (response.data.user.user_position === response.data.book.number_of_pages) {
+            this.setState({
+              bookStatus: 2
+            })
+          } else {
+            this.setState({
+              bookStatus: 1
+            })
+          }
+        this.setState({
+          bookPosition: response.data.user.user_position,
+          currentPosition: response.data.user.user_position,
+          isLoading: false
+        })
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+    this.setState({
+      isLoading: false
+    })
   }
 
   changePosition(value) {
     this.setState({currentPosition: value});
   }
+
   async getKey() {
   try {
     const value = await AsyncStorage.getItem('token');
@@ -143,14 +164,62 @@ export default class BookDetail extends Component {
       };
       axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + this.state.currentPosition, {}, header)
       .then((response) => {
-        console.log(response);
+        console.log("Ok");
       }).catch((error) => {
         console.log(error)
       })
     }
   }
 
+  async startBook() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + '1', {}, header)
+    .then((response) => {
+      console.log("Ok");
+    }).catch((error) => {
+      console.log(error)
+    })
+    this.setState({
+      bookStatus: 1,
+      currentPosition: 1,
+      bookPosition: 1
+    })
+  }
+
+  renderBookStatus() {
+    if (this.state.bookStatus === 0) {
+      return (
+        <View>
+        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
+        <Text style={styles.buttonTextStart}>Start this book</Text>
+        </TouchableHighlight>
+        </View>
+
+      );
+    } else if (this.state.bookStatus === 1) {
+      return (
+        <View>
+        <Text style={styles.left}>page {this.state.currentPosition}</Text>
+        <View style={styles.center}>
+        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
+        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        </View>
+        </View>
+
+      )
+    }
+  }
+
   render() {
+    let bookStatusDisplay = this.renderBookStatus()
     if (this.state.isLoading)
     {
       return(
@@ -176,11 +245,7 @@ export default class BookDetail extends Component {
         />
         <Text style={styles.desc}>{this.state.bookAuthor}</Text>
         <Text style={styles.desc}>{this.state.bookPage} pages</Text>
-        </View>
-        <Text style={styles.left}>page {this.state.currentPosition}</Text>
-        <View style={styles.center}>
-        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        {bookStatusDisplay}
         </View>
         <View>
         <Text style={styles.head}>Friends</Text>
@@ -209,6 +274,22 @@ export default class BookDetail extends Component {
 }
 
 var styles = StyleSheet.create({
+  buttonTextStart: {
+    ...iOSUIKit.bodyObject,
+    ...sanFranciscoWeights.medium,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: 200
+  },
+  buttonStart: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#7BC950',
+    borderRadius: 8,
+    padding: 15,
+  },
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',

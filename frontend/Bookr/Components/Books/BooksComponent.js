@@ -116,7 +116,6 @@ export default class BooksComponent extends Component {
   this.setState({modalVisible: visible});
 }
 
-
   async componentDidMount() {
 
     // All books
