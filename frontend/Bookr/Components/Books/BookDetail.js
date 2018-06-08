@@ -27,6 +27,11 @@ class Friend extends Component {
   }
 }
 
+// Book status:
+// 0 : not started
+// 1 : started but not finished
+// 2 : finished
+
 export default class BookDetail extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +45,7 @@ export default class BookDetail extends Component {
       bookPage: 0,
       isLoading: true,
       currentPosition: 0,
+      bookStatus: 0,
       dataSource: ds.cloneWithRows([{
         title: 'Jane',
         img: 'https://via.placeholder.com/200x200',
@@ -74,7 +80,7 @@ export default class BookDetail extends Component {
     }
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     this.setState({
       bookId: this.props.navigation.state.params.bookid,
       bookName: this.props.navigation.state.params.bookName,
@@ -83,31 +89,46 @@ export default class BookDetail extends Component {
       bookAuthor: this.props.navigation.state.params.author_name,
       bookPage: this.props.navigation.state.params.nbrPage,
       bookPosition: this.props.navigation.state.params.position,
-      currentPosition: this.props.navigation.state.params.position,
-      isLoading: false,
+      currentPosition: this.props.navigation.state.params.position
     })
-    // const res = await this.getToken()
-    // if (!res)
-    // {
-    //   return;
-    // }
-    // let header = {
-    //   headers: {'Authorization': 'Bearer ' + res}
-    // };
-    // axios.put("http://localhost:8080/api/book/"+ this.state.bookId, header)
-    // .then((response) => {
-    //   this.setState({
-    //     bookPosition: response.d
-    //   })
-    //   console.log(response);
-    // }).catch((error) => {
-    //   console.log(error)
-    // })
+    const res = await this.getToken()
+    if (!res)
+    {
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.get("http://localhost:8080/api/user/book/"+ this.state.bookId, header)
+    .then((response) => {
+      if (response.data.user.user_position) {
+          if (response.data.user.user_position === response.data.book.number_of_pages) {
+            this.setState({
+              bookStatus: 2
+            })
+          } else {
+            this.setState({
+              bookStatus: 1
+            })
+          }
+        this.setState({
+          bookPosition: response.data.user.user_position,
+          currentPosition: response.data.user.user_position,
+          isLoading: false
+        })
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+    this.setState({
+      isLoading: false
+    })
   }
 
   changePosition(value) {
     this.setState({currentPosition: value});
   }
+
   async getKey() {
   try {
     const value = await AsyncStorage.getItem('token');
