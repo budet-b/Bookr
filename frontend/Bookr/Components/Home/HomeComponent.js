@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity } from 'react-native';
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity, ActivityIndicator } from 'react-native';
 import {Icon, Button, Badge } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
@@ -12,8 +12,9 @@ export default class HomeComponent extends Component {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     dataSource: null,
-    loaded: false,
+    isLoading: false,
     userBooks: [],
+    pureFriendArray: [],
     dataSource: ds.cloneWithRows([{
       title: 'Book 1',
       img: 'https://via.placeholder.com/200x200',
@@ -61,15 +62,53 @@ export default class HomeComponent extends Component {
       this.props.screenProps.rootNavigation.navigate('FriendComponent')
     }
 
-    componentWillMount() {
+    async componentDidMount() {
+
+      const res = await this.getToken()
+      if (!res)
+      {
+        this.props.navigation.navigate('Login')
+        return;
+      }
+      let header = {
+        headers: {'Authorization': 'Bearer ' + res}
+      };
+
+      axios.get("http://localhost:8080/api/friends/received", header)
+      .then((response) => {
+        this.setState({
+          pureFriendArray: response.data,
+          isLoading: false
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+
+    async saveKey(value) {
+      try {
+        await AsyncStorage.setItem('token', value);
+      } catch (error) {
+        console.log("Error saving data" + error);
+      }
+    }
+
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    } else {
       this.props.screenProps.rootNavigation.setOptions({
         headerTitle: 'Home',
         headerTintColor: '#000',
         headerRight: (
           <View style={styles.rightHead}>
           <Badge
-          containerStyle={styles.badgeStyle}
-            value={3}
+            containerStyle={styles.badgeStyle}
+            value={this.state.pureFriendArray.length}
             textStyle={{ color: '#FFF'}}
           />
           <Button
@@ -83,40 +122,6 @@ export default class HomeComponent extends Component {
         )
       });
     }
-
-    async componentDidMount() {
-
-      const res = await this.getToken()
-      if (!res)
-      {
-        this.props.navigation.navigate('Login')
-        return;
-      }
-      let header = {
-        headers: {'Authorization': 'Bearer ' + res}
-      };
-
-      // axios.get("http://localhost:8080/api/user/books", header)
-      // .then((response) => {
-      //   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      //   this.setState({
-      //     userBooks: ds.cloneWithRows(response.data),
-      //     loaded: true
-      //   })
-      // }).catch((error) => {
-      //   console.log(error)
-      // })
-    }
-
-    async saveKey(value) {
-      try {
-        await AsyncStorage.setItem('token', value);
-      } catch (error) {
-        console.log("Error saving data" + error);
-      }
-    }
-
-  render() {
     return (
       <View>
       <Text> Didier 2 </Text>
