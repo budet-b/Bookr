@@ -1,0 +1,13 @@
+{
+  "name": "scrap-book",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node xml-to-json.js"
+  },
+  "dependencies": {
+    "open-file": "^1.0.0",
+    "read-file": "^0.2.0",
+    "xml-js": "^1.6.4"
+  }
+}

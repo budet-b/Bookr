@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<books>
+<work>
+    <id type="integer">245494</id>
+    <books_count type="integer">1535</books_count>
+    <ratings_count type="integer">3044992</ratings_count>
+    <text_reviews_count type="integer">55555</text_reviews_count>
+    <original_publication_year type="integer">1925</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">30164080</id>
+        <title>O Grande Gatsby</title>
+        <author>
+            <id type="integer">3190</id>
+            <name>F. Scott Fitzgerald</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1462912888m/30164080.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1462912888s/30164080.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">55380412</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">22</ratings_count>
+    <text_reviews_count type="integer">1</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.91</average_rating>
+    <best_book type="Book">
+        <id type="integer">34319876</id>
+        <title>Central Park</title>
+        <author>
+            <id type="integer">16461898</id>
+            <name>Guillaume  Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+</books>
