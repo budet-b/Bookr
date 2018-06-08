@@ -55,7 +55,7 @@ router.put('/api/books/:id/:page',
     }
 );
 
-router.get('/api/book/co/:id',
+router.get('/api/user/book/:id',
 passport.authenticate('jwt', { session: false }),
 (req, res) => {
     books.getBookUserFriends(req, res)
