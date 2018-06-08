@@ -48,6 +48,49 @@ function getBook(req, res) {
     });
 }
 
+
+function getBookUserFriends(req, res) {
+  db.one("select user_book.id,\
+                   user_book.book_id,\
+                   user_book.user_status,\
+                   user_book.user_position,\
+                   user_book.date_added,\
+                   book.isbn,\
+                   book.title,\
+                   book.number_of_pages,\
+                   book.publish_date,\
+                   book.cover,\
+                   book.author_id,\
+                   author.name as author_name\
+            from book\
+            inner join user_book on user_book.book_id = book.id\
+            inner join author on author.id = book.author_id\
+            inner join user_profile on user_profile.id = user_book.user_id\
+            where user_profile.id = $1 and book.id = $2",
+            [req.user.id, req.params.id])
+    .then(function (data) {
+      res.status(200).json({
+        book: {
+          id: data.book_id,
+          isbn: data.isbn,
+          title: data.title,
+          number_of_pages: data.number_of_pages,
+          publish_date: data.publish_date,
+          cover: data.cover,
+          author_id: data.author_id,
+          author_name: data.author_name,
+        },
+        user: {
+          user_status: data.user_status,
+          user_position: data.user_position
+        }
+      });
+    })
+    .catch(function (err) {
+      res.status(400).json({ error: err });
+    });
+}
+
 function addBook(req, res) {
 
   let author_id = 0
@@ -236,6 +279,7 @@ module.exports = {
   getAllBooks: getAllBooks,
   getBook: getBook,
   addBook: addBook,
+  getBookUserFriends: getBookUserFriends,
   updateBookUser: updateBookUser,
   getBooksUser: getBooksUser
 };

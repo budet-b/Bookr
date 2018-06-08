@@ -54,6 +54,14 @@ router.put('/api/books/:id/:page',
         books.updateBookUser(req, res)
     }
 );
+
+router.get('/api/book/co/:id',
+passport.authenticate('jwt', { session: false }),
+(req, res) => {
+    books.getBookUserFriends(req, res)
+}
+);
+
 router.get('/api/user/books',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
