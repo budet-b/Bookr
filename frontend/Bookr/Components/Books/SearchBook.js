@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, ListView, TextInput, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { Text, StyleSheet, View, AsyncStorage, ListView, TextInput, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
@@ -42,9 +42,50 @@ export default class SearchBook extends Component {
     })
   }
 
-   GetListViewItem (rowData) {
-     this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.cover, bookIsbn: rowData.isbn, position: rowData.position, nbrPage: rowData.nbrPage})
-   }
+
+    async getKey() {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      return value
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+      return null
+      }
+    }
+
+    async getToken() {
+      let res = ''
+      const token = await this.getKey()
+      .then((response) => {
+        res = response
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+      return res
+    }
+
+   async GetListViewItem (rowData) {
+     const res = await this.getToken()
+     if (!res)
+     {
+       return;
+     }
+
+     let header = {
+       headers: {'Authorization': 'Bearer ' + res}
+     };
+
+     let pos = 0;
+     axios.get("http://localhost:8080/api/user/book/"+ rowData.id, header)
+     .then((response) => {
+       let pages = response.data.book.number_of_pages
+       if (response.data.user.user_position) {
+         pos = response.data.user.user_position
+       }
+       this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.cover, bookIsbn: rowData.isbn, position: pos, nbrPage: pages})
+     })
+  }
 
 
   ListViewItemSeparator = () => {
@@ -90,7 +131,7 @@ export default class SearchBook extends Component {
     );
   }
 
-  renderSearch(item) {
+   renderSearch(item) {
     return(
       <View style={{
         flexDirection: 'row',
