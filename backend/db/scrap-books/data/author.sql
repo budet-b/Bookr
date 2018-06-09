@@ -1,9 +1,4 @@
-CREATE TABLE IF NOT EXISTS data (
-id INT NULL,
-name VARCHAR(27) NULL
-);
-
-INSERT INTO data VALUES
+INSERT INTO author VALUES
 (3190,"F. Scott Fitzgerald"),
 (656983,"J.R.R. Tolkien"),
 (498072,"Audrey Niffenegger"),
