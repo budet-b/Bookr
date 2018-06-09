@@ -71,23 +71,8 @@ export default class BooksComponent extends Component {
     dataSource: null,
     loaded: false,
     modalVisible: false,
-    dataSource: ds.cloneWithRows([{
-      title: 'Book 1',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 1
-    }, {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 42,
-      id: 2
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 3
-    }]),
-    userBooks: []
+    dataSource: ds,
+    userBooks: ds
     }
   }
 
@@ -146,8 +131,7 @@ export default class BooksComponent extends Component {
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
-        userBooks: ds.cloneWithRows(response.data),
-        loaded: true
+        userBooks: ds.cloneWithRows(response.data)
       })
     }).catch((error) => {
       console.log(error)
@@ -155,6 +139,15 @@ export default class BooksComponent extends Component {
 
 
     this.props.screenProps.rootNavigation.setOptions({
+      headerLeft: (
+        <View style={{paddingLeft: 10}}>
+        <Image source={require('../Misc/logo.png')}
+        style={{
+          width: 40,
+          height: 40
+        }} />;
+        </View>
+      ),
       headerRight: (
         <View>
         <Button
@@ -166,12 +159,12 @@ export default class BooksComponent extends Component {
         underlayColor = '#FFF'
         />
         </View>
-      ), headerLeft:(
-        <View>
-        <Text style={styles.head}>Bookr</Text>
-        </View>
       )
     });
+
+    this.setState({
+      loaded: true
+    })
   }
 
   onClickSearch() {

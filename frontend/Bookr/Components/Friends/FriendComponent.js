@@ -13,7 +13,6 @@ class Friend extends Component {
   }
 
   render() {
-    console.log(this.props.friend)
       return (
         <View style={styles.friend} >
         <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId()}>

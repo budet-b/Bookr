@@ -39,23 +39,13 @@ export default class ProfilPage extends Component {
   this.state = {
     dataSource: null,
     loaded: false,
-    userBooks: [],
-    dataSource: ds.cloneWithRows([{
-      title: 'Book 1',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 1
-    }, {
-      title: 'Didier',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 42,
-      id: 2
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 3
-    }])
+    firstname: '',
+    lastname: '',
+    picture: '',
+    username: '',
+    email: '',
+    userBooks: ds,
+    dataSource: ds
     }
   }
 
@@ -98,13 +88,45 @@ export default class ProfilPage extends Component {
 
       axios.get("http://localhost:8080/api/user/books", header)
       .then((response) => {
+        console.log(response.data)
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
-          userBooks: ds.cloneWithRows(response.data),
-          loaded: true
+          userBooks: ds.cloneWithRows(response.data)
         })
       }).catch((error) => {
         console.log(error)
+      })
+
+      axios.get("http://localhost:8080/api/user", header)
+      .then((response) => {
+        console.log(response.data.user)
+        this.setState({
+          firstname: response.data.user.firstname,
+          lastname: response.data.user.lastname,
+          picture: response.data.user.picture,
+          username: response.data.user.username,
+          email: response.data.user.email
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
+
+      this.props.screenProps.rootNavigation.setOptions({
+        headerTitle: 'Profil',
+        headerTintColor: '#000',
+        headerLeft: (
+          <View style={{paddingLeft: 10}}>
+          <Image source={require('../Misc/logo.png')}
+          style={{
+            width: 40,
+            height: 40
+          }} />;
+          </View>
+        )
+      });
+
+      this.setState({
+        loaded: true
       })
     }
 
@@ -127,6 +149,7 @@ export default class ProfilPage extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
+
     return (
       <View style={{backgroundColor: "#FFF"}}>
       <Text style={styles.head2}>Profil</Text>
@@ -139,11 +162,11 @@ export default class ProfilPage extends Component {
       <View style={styles.center}>
       <Text
       style={human.largeTitle}
-      >Didier Didier</Text>
+      >{this.state.firstname} {this.state.lastname}</Text>
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: 'https://via.placeholder.com/200x200'}}
+          source={{uri: this.state.picture}}
           style={styles.profilPic}
         />
       </View>
