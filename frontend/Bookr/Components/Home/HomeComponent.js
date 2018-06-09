@@ -65,35 +65,7 @@ export default class HomeComponent extends Component {
         console.log(error)
       })
 
-      this.props.screenProps.rootNavigation.setOptions({
-        headerTitle: 'Home',
-        headerTintColor: '#000',
-        headerLeft: (
-          <View style={{paddingLeft: 10}}>
-          <Image source={require('../Misc/logo.png')}
-          style={{
-            width: 40,
-            height: 40
-          }} />;
-          </View>
-        ),
-        headerRight: (
-          <View style={styles.rightHead}>
-          <Badge
-            containerStyle={styles.badgeStyle}
-            value={this.state.pureFriendArray.length}
-            textStyle={{ color: '#FFF'}}
-          />
-          <Button
-          onPress={() => this.friendPage()}
-          textStyle={{color: '#000'}}
-          backgroundColor = 'transparent'
-          rightIcon={{name: 'people', color: '#000', size: 25}}
-          underlayColor = 'transparent'
-          />
-          </View>
-        )
-      });
+
 
       this.setState({
         isLoading: false
@@ -116,6 +88,35 @@ export default class HomeComponent extends Component {
         </View>
       );
     }
+    this.props.screenProps.rootNavigation.setOptions({
+      headerTitle: 'Home',
+      headerTintColor: '#000',
+      headerLeft: (
+        <View style={{paddingLeft: 10}}>
+        <Image source={require('../Misc/logo.png')}
+        style={{
+          width: 40,
+          height: 40
+        }} />;
+        </View>
+      ),
+      headerRight: (
+        <View style={styles.rightHead}>
+        <Badge
+          containerStyle={styles.badgeStyle}
+          value={this.state.pureFriendArray.length}
+          textStyle={{ color: '#FFF'}}
+        />
+        <Button
+        onPress={() => this.friendPage()}
+        textStyle={{color: '#000'}}
+        backgroundColor = 'transparent'
+        rightIcon={{name: 'people', color: '#000', size: 25}}
+        underlayColor = 'transparent'
+        />
+        </View>
+      )
+    });
     return (
       <View>
       <Text> Didier 2 </Text>
