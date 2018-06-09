@@ -9,31 +9,12 @@ import { iOSUIKit, human, material } from 'react-native-typography';
 export default class HomeComponent extends Component {
   constructor(props) {
   super(props);
-  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
-    dataSource: null,
-    isLoading: false,
-    userBooks: [],
-    pureFriendArray: [],
-    dataSource: ds.cloneWithRows([{
-      title: 'Book 1',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 1
-    }, {
-      title: 'Didier',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 42,
-      id: 2
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 3
-    }])
+      isLoading: false,
+      userBooks: [],
+      pureFriendArray: [],
     }
-    this.friendPage = this.friendPage.bind(this);
-
+  this.friendPage = this.friendPage.bind(this);
   }
 
     async getKey() {
@@ -78,11 +59,44 @@ export default class HomeComponent extends Component {
       axios.get("http://localhost:8080/api/friends/received", header)
       .then((response) => {
         this.setState({
-          pureFriendArray: response.data,
-          isLoading: false
+          pureFriendArray: response.data
         })
       }).catch((error) => {
         console.log(error)
+      })
+
+      this.props.screenProps.rootNavigation.setOptions({
+        headerTitle: 'Home',
+        headerTintColor: '#000',
+        headerLeft: (
+          <View style={{paddingLeft: 10}}>
+          <Image source={require('../Misc/logo.png')}
+          style={{
+            width: 40,
+            height: 40
+          }} />;
+          </View>
+        ),
+        headerRight: (
+          <View style={styles.rightHead}>
+          <Badge
+            containerStyle={styles.badgeStyle}
+            value={this.state.pureFriendArray.length}
+            textStyle={{ color: '#FFF'}}
+          />
+          <Button
+          onPress={() => this.friendPage()}
+          textStyle={{color: '#000'}}
+          backgroundColor = 'transparent'
+          rightIcon={{name: 'people', color: '#000', size: 25}}
+          underlayColor = 'transparent'
+          />
+          </View>
+        )
+      });
+
+      this.setState({
+        isLoading: false
       })
     }
 
@@ -101,27 +115,6 @@ export default class HomeComponent extends Component {
           <ActivityIndicator />
         </View>
       );
-    } else {
-      this.props.screenProps.rootNavigation.setOptions({
-        headerTitle: 'Home',
-        headerTintColor: '#000',
-        headerRight: (
-          <View style={styles.rightHead}>
-          <Badge
-            containerStyle={styles.badgeStyle}
-            value={this.state.pureFriendArray.length}
-            textStyle={{ color: '#FFF'}}
-          />
-          <Button
-          onPress={() => this.friendPage()}
-          textStyle={{color: '#000'}}
-          backgroundColor = 'transparent'
-          rightIcon={{name: 'people', color: '#000', size: 25}}
-          underlayColor = 'transparent'
-          />
-          </View>
-        )
-      });
     }
     return (
       <View>

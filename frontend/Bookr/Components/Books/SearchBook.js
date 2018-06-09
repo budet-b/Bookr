@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { Text, StyleSheet, View, AsyncStorage, ListView, TextInput, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
@@ -42,9 +42,50 @@ export default class SearchBook extends Component {
     })
   }
 
-   GetListViewItem (rowData) {
-     this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.img, bookIsbn: rowData.isbn, position: rowData.position, nbrPage: rowData.nbrPage})
-   }
+
+    async getKey() {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      return value
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+      return null
+      }
+    }
+
+    async getToken() {
+      let res = ''
+      const token = await this.getKey()
+      .then((response) => {
+        res = response
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+      return res
+    }
+
+   async GetListViewItem (rowData) {
+     const res = await this.getToken()
+     if (!res)
+     {
+       return;
+     }
+
+     let header = {
+       headers: {'Authorization': 'Bearer ' + res}
+     };
+
+     let pos = 0;
+     axios.get("http://localhost:8080/api/user/book/"+ rowData.id, header)
+     .then((response) => {
+       let pages = response.data.book.number_of_pages
+       if (response.data.user.user_position) {
+         pos = response.data.user.user_position
+       }
+       this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.cover, bookIsbn: rowData.isbn, position: pos, nbrPage: pages})
+     })
+  }
 
 
   ListViewItemSeparator = () => {
@@ -81,14 +122,52 @@ export default class SearchBook extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderSeparator= {this.ListViewItemSeparator}
-          renderRow={(rowData) => <Text style={styles.rowViewContainer}
-          onPress={this.GetListViewItem.bind(this, rowData)} >{rowData.title}</Text>}
+          renderRow={(rowData) => this.renderSearch(rowData)}
+
           enableEmptySections={true}
           style={{marginTop: 10}}
         />
       </View>
     );
   }
+
+   renderSearch(item) {
+    return(
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'right',
+        textAlign: 'right'
+      }}>
+      <TouchableOpacity onPress={()=> {this.GetListViewItem(item)}}>
+      <View style={{height: 80, paddingTop:10, paddingLeft: 5}}>
+        <Image
+          borderRadius={8}
+          source={{uri: item.cover}}
+          style={styles.thumbnail}
+        />
+      </View>
+      <View style={{height: 70, paddingLeft: 90}}>
+        <Text
+        style={{
+          flex:1,
+          textAlign: 'left',
+          fontWeight: 'bold'
+        }}
+        >{item.title}</Text>
+        <Text
+        style={{
+          flex:1,
+          fontSize: 15,
+          fontStyle: 'italic',
+          textAlign: 'left'
+        }}
+        >{item.author_name}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+    )
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -112,7 +191,10 @@ const styles = StyleSheet.create({
    borderColor: '#DEDEDE',
    borderRadius: 7 ,
    backgroundColor : "#FFFFFF"
-
-   }
-
+ },
+ thumbnail: {
+   width: 80,
+   height: 130,
+   justifyContent: 'flex-end'
+ },
 });

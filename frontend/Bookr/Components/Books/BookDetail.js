@@ -13,7 +13,7 @@ class Friend extends Component {
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: this.props.friend.cover}}
+          source={{uri: this.props.friend.picture}}
           style={styles.thumbnail}
         />
           <Text

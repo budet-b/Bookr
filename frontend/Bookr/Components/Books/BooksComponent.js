@@ -14,10 +14,10 @@ class Book extends Component {
   render() {
       return (
         <View style={styles.book} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.book.img}}
+            source={{uri: this.props.book.cover}}
             style={styles.thumbnail}
           />
           <View >
@@ -45,10 +45,10 @@ class AllBooks extends Component {
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.book.img}}
+            source={{uri: this.props.book.cover}}
             style={styles.thumbnail}
           />
             <Text
@@ -71,23 +71,8 @@ export default class BooksComponent extends Component {
     dataSource: null,
     loaded: false,
     modalVisible: false,
-    dataSource: ds.cloneWithRows([{
-      title: 'Book 1',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 1
-    }, {
-      title: 'Book 2',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 42,
-      id: 2
-    }, {
-      title: 'Book 3',
-      img: 'https://via.placeholder.com/200x200',
-      isbn: 1213,
-      id: 3
-    }]),
-    userBooks: []
+    dataSource: ds,
+    userBooks: ds
     }
   }
 
@@ -146,11 +131,39 @@ export default class BooksComponent extends Component {
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
-        userBooks: ds.cloneWithRows(response.data),
-        loaded: true
+        userBooks: ds.cloneWithRows(response.data)
       })
     }).catch((error) => {
       console.log(error)
+    })
+
+
+    this.props.screenProps.rootNavigation.setOptions({
+      headerLeft: (
+        <View style={{paddingLeft: 10}}>
+        <Image source={require('../Misc/logo.png')}
+        style={{
+          width: 40,
+          height: 40
+        }} />;
+        </View>
+      ),
+      headerRight: (
+        <View>
+        <Button
+        textStyle={{color: '#000'}}
+        onPress={() => this.onClickSearch()}
+        backgroundColor = 'transparent'
+        rightIcon={{name: 'search', color: '#000', size: 26}}
+        title= 'Search a book'
+        underlayColor = '#FFF'
+        />
+        </View>
+      )
+    });
+
+    this.setState({
+      loaded: true
     })
   }
 
@@ -167,14 +180,7 @@ export default class BooksComponent extends Component {
       <View style={{backgroundColor: "#FFF"}}>
       <View style={{flexDirection: "row"}}>
       <Text style={styles.head}>My Books</Text>
-      <Button
-      textStyle={{color: '#000'}}
-      onPress={() => this.onClickSearch()}
-      backgroundColor = 'transparent'
-      rightIcon={{name: 'search', color: '#000', size: 30}}
-      title= 'Search a book'
-      underlayColor = '#FFF'
-        />
+
       </View>
       <View
         style={{
