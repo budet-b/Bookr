@@ -16,7 +16,7 @@ CREATE TABLE user_profile (
   username          VARCHAR(64)     NOT NULL UNIQUE,
   firstname         VARCHAR(64)     NOT NULL,
   lastname          VARCHAR(64)     NOT NULL,
-  picture           VARCHAR(64),
+  picture           VARCHAR(512),
   password          TEXT            NOT NULL,
   PRIMARY KEY       (id)
 );

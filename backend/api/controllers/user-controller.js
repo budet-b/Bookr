@@ -10,6 +10,8 @@ var passport = require("passport");
 var passportJWT = require("passport-jwt");
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+var identicon = require('identicon');
+var fs = require('fs');
 
 // MARK: Configure passport/jwt
 
@@ -40,7 +42,7 @@ function login(req, res) {
         var username = req.body.username;
         var password = req.body.password;
     }
-    db.one('select * from user_profile where username = $1', [username])
+    db.oneOrNone('select * from user_profile where username = $1', [username])
         .then((data) => {
             bcrypt.compare(password, data.password, function(err, resp) {
                 if(resp) {
@@ -63,7 +65,7 @@ function login(req, res) {
             });
         })
         .catch((err) => {
-            res.status(400).json({error: err.message});
+            res.status(400).json({error: "No account found"});
         })
 };
 
@@ -84,10 +86,20 @@ function createUser(req, res) {
     let lastname = req.body.lastname
     let picture = req.body.picture
 
+    let path = __dirname + '/../../db/img/' + username + '.png'
+    if (picture == "") {
+        console.log(picture)
+        identicon.generate({ id: username, size: 150}, function(err, buffer) {
+            if (err) throw err;
+            console.log(buffer)
+            fs.writeFileSync(path, buffer)
+        })
+    }
+
     bcrypt.hash(password, 10, function(err, hash) {
         db.none('insert into user_profile(email, username, firstname, lastname, picture, password)\
             values ($1, $2, $3, $4, $5, $6)',
-            [email, username, firstname, lastname, picture, hash])
+            [email, username, firstname, lastname, path, hash])
         .then(() => {
             res.status(200).json({
                 "success": "true",
