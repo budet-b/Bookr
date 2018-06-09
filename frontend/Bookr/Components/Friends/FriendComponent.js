@@ -8,13 +8,14 @@ import { iOSUIKit } from 'react-native-typography';
 
 class Friend extends Component {
   saveFriendId(id) {
-    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+    this.props.screenProps.rootNavigation.navigate('FriendDetail')
+    //this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
   }
 
   render() {
       return (
         <View style={styles.friend} >
-        <TouchableOpacity style={styles.touch} onPress={() => console.log('didier')}>
+        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId()}>
           <Image
             borderRadius={8}
             source={{uri: 'https://via.placeholder.com/200x200'}}
@@ -33,8 +34,10 @@ class Friend extends Component {
 
 export default class FriendComponent extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.renderItem = this.renderItem.bind(this);
+    this.renderBookDisplay = this.renderBookDisplay.bind(this);
+    this.renderUserFriendDisplay = this.renderUserFriendDisplay.bind(this);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       isLoading: true,
@@ -125,7 +128,6 @@ export default class FriendComponent extends Component {
         friendRequests: ds.cloneWithRows(response.data),
         pureFriendArray: response.data
       })
-      console.log(response.data)
     }).catch((error) => {
       console.log(error)
     })
@@ -148,7 +150,7 @@ export default class FriendComponent extends Component {
 
    GetListViewItem (rowData) {
      console.log(rowData.username)
-     this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
+     //this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
    renderBookDisplay() {
@@ -268,7 +270,7 @@ export default class FriendComponent extends Component {
     );
   }
   renderItem(item) {
-      return <Friend friend={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
+    return <Friend friend={item} screenProps={{ rootNavigation: this.props.navigation.state.params.screenProps }}/>
   }
 }
 

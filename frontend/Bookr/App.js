@@ -9,6 +9,7 @@ import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
 import Profil from './Components/Profil/Profil';
 import FriendComponent from './Components/Friends/FriendComponent';
+import FriendDetail from './Components/Friends/FriendDetail';
 import BookDetail from './Components/Books/BookDetail';
 import SearchBook from './Components/Books/SearchBook';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
@@ -96,6 +97,7 @@ export default class App extends Component {
           title: "Home",
         }
       },
+      FriendDetail: {screen: FriendDetail},
       FriendComponent: {screen: FriendComponent},
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
@@ -112,7 +114,6 @@ export default class App extends Component {
           <Text>Loading...</Text>
         </View>
       );
-    console.log(this.state.isLoggin)
     return <LoginNavigator
       screenProps={{ rootNavigation: this.props.navigation }}
     />

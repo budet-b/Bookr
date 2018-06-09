@@ -59,7 +59,8 @@ export default class HomeComponent extends Component {
     }
 
     friendPage() {
-      this.props.screenProps.rootNavigation.navigate('FriendComponent')
+      console.log('friend page')
+      this.props.screenProps.rootNavigation.navigate('FriendComponent', {screenProps: this.props.screenProps.rootNavigation})
     }
 
     async componentDidMount() {
