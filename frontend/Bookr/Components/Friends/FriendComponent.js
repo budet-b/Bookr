@@ -13,12 +13,13 @@ class Friend extends Component {
   }
 
   render() {
+    console.log(this.props.friend)
       return (
         <View style={styles.friend} >
         <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId()}>
           <Image
             borderRadius={8}
-            source={{uri: 'https://via.placeholder.com/200x200'}}
+            source={{uri: this.props.friend.picture}}
             style={styles.thumbnail}
           />
           <View >

@@ -14,10 +14,10 @@ class Book extends Component {
   render() {
       return (
         <View style={styles.book} >
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.book.img}}
+            source={{uri: this.props.book.cover}}
             style={styles.thumbnail}
           />
           <View >
@@ -45,10 +45,10 @@ class AllBooks extends Component {
   render() {
       return (
         <View style={styles.AllbookDisplay}>
-        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.img, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
+        <TouchableOpacity style={styles.touch} onPress={()=> {this.saveBookId(this.props.book.id, this.props.book.title, this.props.book.cover, this.props.book.isbn, this.props.user, this.props.book.number_of_pages); }}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.book.img}}
+            source={{uri: this.props.book.cover}}
             style={styles.thumbnail}
           />
             <Text
