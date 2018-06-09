@@ -8,14 +8,13 @@ import { iOSUIKit } from 'react-native-typography';
 
 class Friend extends Component {
   saveFriendId(id) {
-    this.props.screenProps.rootNavigation.navigate('FriendDetail')
-    //this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
   }
 
   render() {
       return (
         <View style={styles.friend} >
-        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId()}>
+        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId(this.props.friend.id)}>
           <Image
             borderRadius={8}
             source={{uri: this.props.friend.picture}}
@@ -152,8 +151,7 @@ export default class FriendComponent extends Component {
   }
 
    GetListViewItem (rowData) {
-     console.log(rowData.username)
-     //this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
+     this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
    renderBookDisplay() {
