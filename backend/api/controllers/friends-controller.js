@@ -216,10 +216,10 @@ function friendWithId(req, res) {
         else if (data.friend_type === 0)
         {
           if (data.id === data.action_user_id) { //sent
-            friend_type = 1
+            friend_type = 2
           }
           else { //received
-            friend_type = 2
+            friend_type = 1
           }
         }
         else {
