@@ -94,7 +94,6 @@ export default class BookDetail extends Component {
           pureFriendArray: response.data.friends,
           dataSource: ds.cloneWithRows(response.data.friends)
         })
-        console.log(response.data.friends)
       }
     }).catch((error) => {
       console.log(error)
@@ -197,8 +196,35 @@ export default class BookDetail extends Component {
     }
   }
 
+  renderFriendList() {
+    if (this.state.pureFriendArray.length > 0) {
+      return(
+        <View>
+        <Text style={styles.head}>Friends</Text>
+        <View
+          style={{
+            borderBottomColor: '#E8E8E8',
+            borderBottomWidth: 1,
+          }}
+        />
+        <ScrollView
+        horizontal={true}
+        >
+          <ListView contentContainerStyle={styles.list}
+          dataSource={this.state.dataSource}
+          renderRow={(data) => this.renderItem(data)}
+          />
+          </ScrollView>
+        </View>
+      );
+    } else {
+      return;
+    }
+  }
+
   render() {
     let bookStatusDisplay = this.renderBookStatus()
+    let friendDisplay = this.renderFriendList();
     if (this.state.isLoading)
     {
       return(
@@ -226,23 +252,7 @@ export default class BookDetail extends Component {
         <Text style={styles.desc}>{this.state.bookPage} pages</Text>
         {bookStatusDisplay}
         </View>
-        <View>
-        <Text style={styles.head}>Friends</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        <ScrollView
-        horizontal={true}
-        >
-          <ListView contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
-          renderRow={(data) => this.renderItem(data)}
-          />
-          </ScrollView>
-        </View>
+        {friendDisplay}
       </View>
     );
   }
