@@ -102,11 +102,13 @@ export default class HomeComponent extends Component {
       ),
       headerRight: (
         <View style={styles.rightHead}>
+        <View style={{paddingBottom: 15, justifyContent: 'flex-end'}}>
         <Badge
           containerStyle={styles.badgeStyle}
           value={this.state.pureFriendArray.length}
           textStyle={{ color: '#FFF'}}
         />
+        </View>
         <Button
         onPress={() => this.friendPage()}
         textStyle={{color: '#000'}}
@@ -135,7 +137,8 @@ var styles = StyleSheet.create({
   badgeStyle:{
     textAlign: 'right',
     position: 'absolute',
-    backgroundColor: '#F40A12'
+    backgroundColor: '#F40A12',
+    justifyContent: 'flex-end',
   }
 
 });

@@ -144,6 +144,10 @@ export default class ProfilPage extends Component {
       this.props.screenProps.rootNavigation.replace('Login')
     }
 
+    friendPage() {
+      this.props.screenProps.rootNavigation.navigate('FriendComponent')
+    }
+
   render() {
 
     if (!this.state.loaded) {
@@ -190,7 +194,9 @@ export default class ProfilPage extends Component {
         <View style={styles.center}>
         <TouchableOpacity
                   style={styles.manageButton}
-                  underlayColor='#fff'>
+                  underlayColor='#fff'
+                  onPress= {() => this.friendPage()}
+                  >
                   <Text style={styles.manageButtonText}>Manage my friends</Text>
          </TouchableOpacity>
          <View style={styles.center2}>
