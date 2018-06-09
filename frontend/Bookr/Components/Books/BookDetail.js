@@ -13,15 +13,15 @@ class Friend extends Component {
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: this.props.friend.img}}
+          source={{uri: this.props.friend.cover}}
           style={styles.thumbnail}
         />
           <Text
           style={styles.item}
-          >{this.props.friend.title}</Text>
+          >{this.props.friend.username}</Text>
           <Text
           style={styles.descItem}
-          >Page {this.props.friend.page}</Text>
+          >Page {this.props.friend.user_position}</Text>
       </View>
     )
   }
@@ -46,37 +46,8 @@ export default class BookDetail extends Component {
       isLoading: true,
       currentPosition: 0,
       bookStatus: 0,
-      dataSource: ds.cloneWithRows([{
-        title: 'Jane',
-        img: 'https://via.placeholder.com/200x200',
-        isbn: 1213,
-        page: 30,
-        id: 1
-      }, {
-        title: 'Stanislas',
-        img: 'https://via.placeholder.com/200x200',
-        isbn: 42,
-        page: 50,
-        id: 2
-      }, {
-        title: 'Didier',
-        img: 'https://via.placeholder.com/200x200',
-        isbn: 1213,
-        page: 30,
-        id: 3
-      },  {
-        title: 'Book 2',
-        img: 'https://via.placeholder.com/200x200',
-        isbn: 1213,
-        page: 20,
-        id: 4
-      }, {
-        title: 'Book 3',
-        img: 'https://via.placeholder.com/200x200',
-        isbn: 1213,
-        page: 30,
-        id: 12
-      }])
+      pureFriendArray: [],
+      dataSource: ds
     }
   }
 
@@ -115,6 +86,13 @@ export default class BookDetail extends Component {
           bookPosition: response.data.user.user_position,
           currentPosition: response.data.user.user_position,
           isLoading: false
+        })
+      }
+      if (response.data.friends.length > 0) {
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          pureFriendArray: response.data.friends,
+          dataSource: ds.cloneWithRows(response.data.friends)
         })
       }
     }).catch((error) => {
@@ -218,8 +196,35 @@ export default class BookDetail extends Component {
     }
   }
 
+  renderFriendList() {
+    if (this.state.pureFriendArray.length > 0) {
+      return(
+        <View>
+        <Text style={styles.head}>Friends</Text>
+        <View
+          style={{
+            borderBottomColor: '#E8E8E8',
+            borderBottomWidth: 1,
+          }}
+        />
+        <ScrollView
+        horizontal={true}
+        >
+          <ListView contentContainerStyle={styles.list}
+          dataSource={this.state.dataSource}
+          renderRow={(data) => this.renderItem(data)}
+          />
+          </ScrollView>
+        </View>
+      );
+    } else {
+      return;
+    }
+  }
+
   render() {
     let bookStatusDisplay = this.renderBookStatus()
+    let friendDisplay = this.renderFriendList();
     if (this.state.isLoading)
     {
       return(
@@ -247,23 +252,7 @@ export default class BookDetail extends Component {
         <Text style={styles.desc}>{this.state.bookPage} pages</Text>
         {bookStatusDisplay}
         </View>
-        <View>
-        <Text style={styles.head}>Friends</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        <ScrollView
-        horizontal={true}
-        >
-          <ListView contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
-          renderRow={(data) => this.renderItem(data)}
-          />
-          </ScrollView>
-        </View>
+        {friendDisplay}
       </View>
     );
   }

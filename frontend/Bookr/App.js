@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, AsyncStorage } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Icon, Button, Badge } from 'react-native-elements'
 import { Router } from 'react-router'
 import Routes from './routes';
 import Login from './Components/Login/Login';
@@ -7,11 +8,14 @@ import Signup from './Components/Signup/Signup';
 import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
 import Profil from './Components/Profil/Profil';
+import FriendComponent from './Components/Friends/FriendComponent';
+import FriendDetail from './Components/Friends/FriendDetail';
 import BookDetail from './Components/Books/BookDetail';
 import SearchBook from './Components/Books/SearchBook';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
+import { enhance } from 'react-navigation-addons';
 
 const AppNavigator = StackNavigator({
   Home: { screen: Home },
@@ -77,7 +81,7 @@ export default class App extends Component {
 
   render() {
     var logged = this.state.isLoggin ? 'Home' : 'Login'
-    var LoginNavigator = StackNavigator({
+    var LoginNavigator = enhance(StackNavigator)({
       Login: { screen: Login,
         navigationOptions: {
           title: "Bookr"
@@ -88,7 +92,13 @@ export default class App extends Component {
           title: "Bookr"
         }
       },
-      Home: { screen: Home },
+      Home: { screen: Home,
+        navigationOptions :{
+          title: "Home",
+        }
+      },
+      FriendDetail: {screen: FriendDetail},
+      FriendComponent: {screen: FriendComponent},
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
       BookDetail: { screen: BookDetail },
@@ -104,7 +114,6 @@ export default class App extends Component {
           <Text>Loading...</Text>
         </View>
       );
-    console.log(this.state.isLoggin)
     return <LoginNavigator
       screenProps={{ rootNavigation: this.props.navigation }}
     />

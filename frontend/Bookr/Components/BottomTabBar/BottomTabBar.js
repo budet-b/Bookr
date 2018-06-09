@@ -5,6 +5,7 @@ import Books from '../Books/Books';
 import Profil from '../Profil/Profil';
 import ProfilPage from '../Profil/ProfilPage';
 import BooksComponent from '../Books/BooksComponent';
+import HomeComponent from '../Home/HomeComponent';
 
 export default class BottomTabBar extends Component {
   propTypes: {
@@ -59,9 +60,7 @@ export default class BottomTabBar extends Component {
           selected={this.props.item === 0}
           onPress={this.homeScene}
           >
-          <View>
-          <Text>Didier</Text>
-          </View>
+          <HomeComponent screenProps={{ rootNavigation: this.props.navigation }}/>
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Books"
