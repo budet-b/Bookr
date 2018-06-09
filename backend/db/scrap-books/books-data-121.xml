@@ -1,0 +1,2423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<books>
+<work>
+    <id type="integer">245494</id>
+    <books_count type="integer">1535</books_count>
+    <ratings_count type="integer">3044992</ratings_count>
+    <text_reviews_count type="integer">55555</text_reviews_count>
+    <original_publication_year type="integer">1925</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">30164080</id>
+        <title>O Grande Gatsby</title>
+        <author>
+            <id type="integer">3190</id>
+            <name>F. Scott Fitzgerald</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1462912888m/30164080.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1462912888s/30164080.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1540236</id>
+    <books_count type="integer">1027</books_count>
+    <ratings_count type="integer">2354457</ratings_count>
+    <text_reviews_count type="integer">40269</text_reviews_count>
+    <original_publication_year type="integer">1937</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">21</original_publication_day>
+    <average_rating>4.25</average_rating>
+    <best_book type="Book">
+        <id type="integer">6332181</id>
+        <title>O Hobbit</title>
+        <author>
+            <id type="integer">656983</id>
+            <name>J.R.R. Tolkien</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1513166177m/6332181.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1513166177s/6332181.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3204327</id>
+    <books_count type="integer">502</books_count>
+    <ratings_count type="integer">1967745</ratings_count>
+    <text_reviews_count type="integer">16779</text_reviews_count>
+    <original_publication_year type="integer">1954</original_publication_year>
+    <original_publication_month type="integer">7</original_publication_month>
+    <original_publication_day type="integer">29</original_publication_day>
+    <average_rating>4.34</average_rating>
+    <best_book type="Book">
+        <id type="integer">6309474</id>
+        <title>A Irmandade do Anel (O Senhor dos Anéis, #1)</title>
+        <author>
+            <id type="integer">656983</id>
+            <name>J.R.R. Tolkien</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1307226651m/6309474.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1307226651s/6309474.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2153746</id>
+    <books_count type="integer">170</books_count>
+    <ratings_count type="integer">1381422</ratings_count>
+    <text_reviews_count type="integer">44687</text_reviews_count>
+    <original_publication_year type="integer">2003</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.95</average_rating>
+    <best_book type="Book">
+        <id type="integer">6342668</id>
+        <title>A Mulher do Viajante no Tempo</title>
+        <author>
+            <id type="integer">498072</id>
+            <name>Audrey Niffenegger</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1280312342m/6342668.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1280312342s/6342668.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1565818</id>
+    <books_count type="integer">485</books_count>
+    <ratings_count type="integer">1086474</ratings_count>
+    <text_reviews_count type="integer">28408</text_reviews_count>
+    <original_publication_year type="integer">1847</original_publication_year>
+    <original_publication_month type="integer">12</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.83</average_rating>
+    <best_book type="Book">
+        <id type="integer">7278613</id>
+        <title>O Monte dos Vendavais</title>
+        <author>
+            <id type="integer">4191</id>
+            <name>Emily Brontë</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1427154981m/7278613.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1427154981s/7278613.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3178011</id>
+    <books_count type="integer">229</books_count>
+    <ratings_count type="integer">1210125</ratings_count>
+    <text_reviews_count type="integer">19289</text_reviews_count>
+    <original_publication_year type="integer">2002</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.87</average_rating>
+    <best_book type="Book">
+        <id type="integer">8707187</id>
+        <title>Eragon (Ciclo da Herança, #1)</title>
+        <author>
+            <id type="integer">8349</id>
+            <name>Christopher Paolini</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1392249354m/8707187.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1392249354s/8707187.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2180358</id>
+    <books_count type="integer">1996</books_count>
+    <ratings_count type="integer">973360</ratings_count>
+    <text_reviews_count type="integer">28001</text_reviews_count>
+    <original_publication_year type="integer">1943</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">6</original_publication_day>
+    <average_rating>4.29</average_rating>
+    <best_book type="Book">
+        <id type="integer">30820539</id>
+        <title>O Pequeno Príncipe</title>
+        <author>
+            <id type="integer">1020792</id>
+            <name>Antoine de Saint-Exupéry</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">4836639</id>
+    <books_count type="integer">3006</books_count>
+    <ratings_count type="integer">945290</ratings_count>
+    <text_reviews_count type="integer">22742</text_reviews_count>
+    <original_publication_year type="integer">1818</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.76</average_rating>
+    <best_book type="Book">
+        <id type="integer">34350023</id>
+        <title>Frankenstein</title>
+        <author>
+            <id type="integer">11139</id>
+            <name>Mary Wollstonecraft Shelley</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1487594091m/34350023.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1487594091s/34350023.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3165724</id>
+    <books_count type="integer">2632</books_count>
+    <ratings_count type="integer">750029</ratings_count>
+    <text_reviews_count type="integer">19084</text_reviews_count>
+    <original_publication_year type="integer">1897</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.98</average_rating>
+    <best_book type="Book">
+        <id type="integer">3349233</id>
+        <title>Drácula</title>
+        <author>
+            <id type="integer">6988</id>
+            <name>Bram Stoker</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1358556803m/3349233.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1358556803s/3349233.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">391568</id>
+    <books_count type="integer">1505</books_count>
+    <ratings_count type="integer">640542</ratings_count>
+    <text_reviews_count type="integer">17073</text_reviews_count>
+    <original_publication_year type="integer">1844</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.23</average_rating>
+    <best_book type="Book">
+        <id type="integer">6398270</id>
+        <title>O Conde de Monte-Cristo</title>
+        <author>
+            <id type="integer">4785</id>
+            <name>Alexandre Dumas</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1506945609m/6398270.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1506945609s/6398270.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3356006</id>
+    <books_count type="integer">1887</books_count>
+    <ratings_count type="integer">750950</ratings_count>
+    <text_reviews_count type="integer">9080</text_reviews_count>
+    <original_publication_year type="integer">-720</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.74</average_rating>
+    <best_book type="Book">
+        <id type="integer">8335473</id>
+        <title>A Odisséia</title>
+        <author>
+            <id type="integer">903</id>
+            <name>Homer</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1370721085m/8335473.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1370721085s/8335473.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18638528</id>
+    <books_count type="integer">6</books_count>
+    <ratings_count type="integer">1479</ratings_count>
+    <text_reviews_count type="integer">259</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">4</original_publication_day>
+    <average_rating>3.49</average_rating>
+    <best_book type="Book">
+        <id type="integer">13406403</id>
+        <title>34 Pieces of You</title>
+        <author>
+            <id type="integer">1212129</id>
+            <name>Carmen Rodrigues</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1345656569m/13406403.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1345656569s/13406403.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3235327</id>
+    <books_count type="integer">17</books_count>
+    <ratings_count type="integer">84</ratings_count>
+    <text_reviews_count type="integer">9</text_reviews_count>
+    <original_publication_year type="integer">2004</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.35</average_rating>
+    <best_book type="Book">
+        <id type="integer">3202092</id>
+        <title>The Rodrigues Pregnancy</title>
+        <author>
+            <id type="integer">654</id>
+            <name>Anne Mather</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1268631</id>
+    <books_count type="integer">418</books_count>
+    <ratings_count type="integer">549490</ratings_count>
+    <text_reviews_count type="integer">19691</text_reviews_count>
+    <original_publication_year type="integer">1955</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.89</average_rating>
+    <best_book type="Book">
+        <id type="integer">3195836</id>
+        <title>Lolita</title>
+        <author>
+            <id type="integer">5152</id>
+            <name>Vladimir Nabokov</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1449008961m/3195836.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1449008961s/3195836.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2124255</id>
+    <books_count type="integer">105</books_count>
+    <ratings_count type="integer">553461</ratings_count>
+    <text_reviews_count type="integer">11548</text_reviews_count>
+    <original_publication_year type="integer">2000</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.94</average_rating>
+    <best_book type="Book">
+        <id type="integer">16211398</id>
+        <title>O Ponto da Virada: Como Pequenas Coisas Podem Fazer uma Grande Diferença</title>
+        <author>
+            <id type="integer">1439</id>
+            <name>Malcolm Gladwell</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1499352639m/16211398.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1499352639s/16211398.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3393917</id>
+    <books_count type="integer">1967</books_count>
+    <ratings_count type="integer">489167</ratings_count>
+    <text_reviews_count type="integer">13888</text_reviews_count>
+    <original_publication_year type="integer">1866</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.19</average_rating>
+    <best_book type="Book">
+        <id type="integer">25194806</id>
+        <title>Crime e Castigo (vol. I e II)</title>
+        <author>
+            <id type="integer">3137322</id>
+            <name>Fyodor Dostoyevsky</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1427033574m/25194806.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1427033574s/25194806.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">41326609</id>
+    <books_count type="integer">2785</books_count>
+    <ratings_count type="integer">639096</ratings_count>
+    <text_reviews_count type="integer">7862</text_reviews_count>
+    <original_publication_year type="integer">1876</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">8473635</id>
+        <title>As aventuras de Tom Sawyer</title>
+        <author>
+            <id type="integer">1244</id>
+            <name>Mark Twain</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1276825708m/8473635.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1276825708s/8473635.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1804929</id>
+    <books_count type="integer">174</books_count>
+    <ratings_count type="integer">636297</ratings_count>
+    <text_reviews_count type="integer">4542</text_reviews_count>
+    <original_publication_year type="integer">1989</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.04</average_rating>
+    <best_book type="Book">
+        <id type="integer">12555472</id>
+        <title>Tempo de Matar</title>
+        <author>
+            <id type="integer">721</id>
+            <name>John Grisham</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2963845</id>
+    <books_count type="integer">442</books_count>
+    <ratings_count type="integer">566716</ratings_count>
+    <text_reviews_count type="integer">7625</text_reviews_count>
+    <original_publication_year type="integer">1954</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">11</original_publication_day>
+    <average_rating>4.43</average_rating>
+    <best_book type="Book">
+        <id type="integer">6310025</id>
+        <title>As Duas Torres (O Senhor dos Anéis, #2)</title>
+        <author>
+            <id type="integer">656983</id>
+            <name>J.R.R. Tolkien</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1307292390m/6310025.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1307292390s/6310025.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2964424</id>
+    <books_count type="integer">437</books_count>
+    <ratings_count type="integer">543620</ratings_count>
+    <text_reviews_count type="integer">7278</text_reviews_count>
+    <original_publication_year type="integer">1955</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">20</original_publication_day>
+    <average_rating>4.51</average_rating>
+    <best_book type="Book">
+        <id type="integer">6320187</id>
+        <title>O Regresso do Rei (O Senhor dos Anéis, #3)</title>
+        <author>
+            <id type="integer">656983</id>
+            <name>J.R.R. Tolkien</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1296258241m/6320187.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1296258241s/6320187.jpg</small_image_url>
+    </best_book>
+</work>
+    <work>
+    <id type="integer">15732562</id>
+    <books_count type="integer">180</books_count>
+    <ratings_count type="integer">1550724</ratings_count>
+    <text_reviews_count type="integer">76578</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">20</original_publication_day>
+    <average_rating>3.66</average_rating>
+    <best_book type="Book">
+        <id type="integer">10818853</id>
+        <title>Fifty Shades of Grey (Fifty Shades, #1)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1385207843m/10818853.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1385207843s/10818853.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">16813814</id>
+    <books_count type="integer">165</books_count>
+    <ratings_count type="integer">647814</ratings_count>
+    <text_reviews_count type="integer">28463</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">13</original_publication_day>
+    <average_rating>3.86</average_rating>
+    <best_book type="Book">
+        <id type="integer">11857408</id>
+        <title>Fifty Shades Darker (Fifty Shades, #2)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1358266080m/11857408.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1358266080s/11857408.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18034963</id>
+    <books_count type="integer">149</books_count>
+    <ratings_count type="integer">632912</ratings_count>
+    <text_reviews_count type="integer">25850</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">17</original_publication_day>
+    <average_rating>3.87</average_rating>
+    <best_book type="Book">
+        <id type="integer">13536860</id>
+        <title>Fifty Shades Freed (Fifty Shades, #3)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1336418837m/13536860.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1336418837s/13536860.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">19171215</id>
+    <books_count type="integer">32</books_count>
+    <ratings_count type="integer">106207</ratings_count>
+    <text_reviews_count type="integer">6381</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">17</original_publication_day>
+    <average_rating>4.12</average_rating>
+    <best_book type="Book">
+        <id type="integer">13584236</id>
+        <title>Fifty Shades Trilogy (Fifty Shades, #1-3)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1431573483m/13584236.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1431573483s/13584236.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">45460946</id>
+    <books_count type="integer">88</books_count>
+    <ratings_count type="integer">117391</ratings_count>
+    <text_reviews_count type="integer">10738</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">18</original_publication_day>
+    <average_rating>3.78</average_rating>
+    <best_book type="Book">
+        <id type="integer">25644601</id>
+        <title>Grey (Fifty Shades of Grey as Told by Christian, #1)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1433182986m/25644601.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1433182986s/25644601.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">6219520</id>
+    <books_count type="integer">32</books_count>
+    <ratings_count type="integer">5286</ratings_count>
+    <text_reviews_count type="integer">427</text_reviews_count>
+    <original_publication_year type="integer">2008</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>4.13</average_rating>
+    <best_book type="Book">
+        <id type="integer">6043946</id>
+        <title>The 50th Law</title>
+        <author>
+            <id type="integer">499992</id>
+            <name>50 Cent</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">245494</id>
+    <books_count type="integer">1535</books_count>
+    <ratings_count type="integer">3044992</ratings_count>
+    <text_reviews_count type="integer">55555</text_reviews_count>
+    <original_publication_year type="integer">1925</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">19243257</id>
+        <title>The Great Gatsby: and Other Works (Tender Is the Night, The Beautiful and the Damned, Flappers and Philosophers, and over 50 Short Stories)</title>
+        <author>
+            <id type="integer">3190</id>
+            <name>F. Scott Fitzgerald</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">52666136</id>
+    <books_count type="integer">50</books_count>
+    <ratings_count type="integer">19576</ratings_count>
+    <text_reviews_count type="integer">1922</text_reviews_count>
+    <original_publication_year type="integer">2017</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">28</original_publication_day>
+    <average_rating>4.13</average_rating>
+    <best_book type="Book">
+        <id type="integer">32024902</id>
+        <title>Darker (Fifty Shades as Told by Christian, #2)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1507662994m/32024902.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1507662994s/32024902.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">21885940</id>
+    <books_count type="integer">5</books_count>
+    <ratings_count type="integer">8714</ratings_count>
+    <text_reviews_count type="integer">81</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">12</original_publication_day>
+    <average_rating>4.39</average_rating>
+    <best_book type="Book">
+        <id type="integer">16084702</id>
+        <title>Fifty Shades Duo: Fifty Shades Darker / Fifty Shades Freed (Fifty Shades, #2-3)</title>
+        <author>
+            <id type="integer">4725841</id>
+            <name>E.L. James</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1350174326m/16084702.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1350174326s/16084702.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">6490729</id>
+    <books_count type="integer">10</books_count>
+    <ratings_count type="integer">32527</ratings_count>
+    <text_reviews_count type="integer">1505</text_reviews_count>
+    <original_publication_year type="integer">1957</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">140278</id>
+        <title>4:50 from Paddington (Miss Marple #8)</title>
+        <author>
+            <id type="integer">123715</id>
+            <name>Agatha Christie</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1835605</id>
+    <books_count type="integer">2588</books_count>
+    <ratings_count type="integer">1045151</ratings_count>
+    <text_reviews_count type="integer">13358</text_reviews_count>
+    <original_publication_year type="integer">1884</original_publication_year>
+    <original_publication_month type="integer">12</original_publication_month>
+    <original_publication_day type="integer">10</original_publication_day>
+    <average_rating>3.81</average_rating>
+    <best_book type="Book">
+        <id type="integer">26450456</id>
+        <title>The Adventures of Huckleberry Finn (Tom Sawyer's Comrade): Scene: The Mississippi Valley; Time: Forty to Fifty Years Ago (Classic Reprint)</title>
+        <author>
+            <id type="integer">1244</id>
+            <name>Mark Twain</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1492973576m/26450456.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1492973576s/26450456.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">329823</id>
+    <books_count type="integer">10</books_count>
+    <ratings_count type="integer">1375</ratings_count>
+    <text_reviews_count type="integer">44</text_reviews_count>
+    <original_publication_year type="integer">2007</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>4.32</average_rating>
+    <best_book type="Book">
+        <id type="integer">339428</id>
+        <title>Death Before Dishonor</title>
+        <author>
+            <id type="integer">499992</id>
+            <name>50 Cent</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">14644069</id>
+    <books_count type="integer">14</books_count>
+    <ratings_count type="integer">1266</ratings_count>
+    <text_reviews_count type="integer">250</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.77</average_rating>
+    <best_book type="Book">
+        <id type="integer">9754801</id>
+        <title>Playground</title>
+        <author>
+            <id type="integer">499992</id>
+            <name>50 Cent</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327262190m/9754801.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327262190s/9754801.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">53828127</id>
+    <books_count type="integer">23</books_count>
+    <ratings_count type="integer">4035</ratings_count>
+    <text_reviews_count type="integer">351</text_reviews_count>
+    <original_publication_year type="integer">2018</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">19</original_publication_day>
+    <average_rating>3.88</average_rating>
+    <best_book type="Book">
+        <id type="integer">33143062</id>
+        <title>Fifty Fifty (Detective Harriet Blue, #2)</title>
+        <author>
+            <id type="integer">3780</id>
+            <name>James Patterson</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1491842004m/33143062.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1491842004s/33143062.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3295655</id>
+    <books_count type="integer">611</books_count>
+    <ratings_count type="integer">613560</ratings_count>
+    <text_reviews_count type="integer">23486</text_reviews_count>
+    <original_publication_year type="integer">1967</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">5</original_publication_day>
+    <average_rating>4.05</average_rating>
+    <best_book type="Book">
+        <id type="integer">38451588</id>
+        <title>Cien años de soledad 50 Aniversario</title>
+        <author>
+            <id type="integer">13450</id>
+            <name>Gabriel García Márquez</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1518019226m/38451588.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1518019226s/38451588.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">26125623</id>
+    <books_count type="integer">3</books_count>
+    <ratings_count type="integer">1269</ratings_count>
+    <text_reviews_count type="integer">63</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">19</original_publication_day>
+    <average_rating>4.02</average_rating>
+    <best_book type="Book">
+        <id type="integer">18466793</id>
+        <title>Meet Fifty Shades Continued - Fifty Shades of Grey</title>
+        <author>
+            <id type="integer">7255073</id>
+            <name>G.E.  Griffin</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1378668377m/18466793.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1378668377s/18466793.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">42852817</id>
+    <books_count type="integer">6</books_count>
+    <ratings_count type="integer">645</ratings_count>
+    <text_reviews_count type="integer">152</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>3.66</average_rating>
+    <best_book type="Book">
+        <id type="integer">23296348</id>
+        <title>Rules for 50/50 Chances</title>
+        <author>
+            <id type="integer">8642834</id>
+            <name>Kate  McGovern</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1427121116m/23296348.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1427121116s/23296348.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3393917</id>
+    <books_count type="integer">1967</books_count>
+    <ratings_count type="integer">489167</ratings_count>
+    <text_reviews_count type="integer">13888</text_reviews_count>
+    <original_publication_year type="integer">1866</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.19</average_rating>
+    <best_book type="Book">
+        <id type="integer">30821056</id>
+        <title>Crime and Punishment [The 50 Best Classic Books Ever - # 23]</title>
+        <author>
+            <id type="integer">3137322</id>
+            <name>Fyodor Dostoyevsky</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">41326609</id>
+    <books_count type="integer">2785</books_count>
+    <ratings_count type="integer">639096</ratings_count>
+    <text_reviews_count type="integer">7862</text_reviews_count>
+    <original_publication_year type="integer">1876</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">24019051</id>
+        <title>The Adventures of Tom Sawyer : [Illustrated] [More Than 50 Pictures Included] [Free Audio Links]</title>
+        <author>
+            <id type="integer">1244</id>
+            <name>Mark Twain</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">45676288</id>
+    <books_count type="integer">19</books_count>
+    <ratings_count type="integer">4038</ratings_count>
+    <text_reviews_count type="integer">747</text_reviews_count>
+    <original_publication_year type="integer">2016</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">2</original_publication_day>
+    <average_rating>3.78</average_rating>
+    <best_book type="Book">
+        <id type="integer">25819509</id>
+        <title>Leonard: My Fifty-Year Friendship with a Remarkable Man</title>
+        <author>
+            <id type="integer">43972</id>
+            <name>William Shatner</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1449593516m/25819509.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1449593516s/25819509.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">849585</id>
+    <books_count type="integer">312</books_count>
+    <ratings_count type="integer">886588</ratings_count>
+    <text_reviews_count type="integer">16677</text_reviews_count>
+    <original_publication_year type="integer">1977</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">28</original_publication_day>
+    <average_rating>4.19</average_rating>
+    <best_book type="Book">
+        <id type="integer">11588</id>
+        <title>The Shining (The Shining, #1)</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1353277730m/11588.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1353277730s/11588.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">150259</id>
+    <books_count type="integer">100</books_count>
+    <ratings_count type="integer">579874</ratings_count>
+    <text_reviews_count type="integer">17123</text_reviews_count>
+    <original_publication_year type="integer">1986</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.21</average_rating>
+    <best_book type="Book">
+        <id type="integer">830502</id>
+        <title>It</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1334416842m/830502.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1334416842s/830502.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">7251072</id>
+    <books_count type="integer">16</books_count>
+    <ratings_count type="integer">12245</ratings_count>
+    <text_reviews_count type="integer">271</text_reviews_count>
+    <original_publication_year type="integer">2008</original_publication_year>
+    <original_publication_month type="integer">8</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.23</average_rating>
+    <best_book type="Book">
+        <id type="integer">7006562</id>
+        <title>Stephen King's N.</title>
+        <author>
+            <id type="integer">61384</id>
+            <name>Marc Guggenheim</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1492728218m/7006562.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1492728218s/7006562.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1742269</id>
+    <books_count type="integer">8</books_count>
+    <ratings_count type="integer">509265</ratings_count>
+    <text_reviews_count type="integer">15041</text_reviews_count>
+    <original_publication_year type="integer">1978</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.34</average_rating>
+    <best_book type="Book">
+        <id type="integer">149267</id>
+        <title>The Stand</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1213131305m/149267.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1213131305s/149267.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">46575</id>
+    <books_count type="integer">240</books_count>
+    <ratings_count type="integer">418373</ratings_count>
+    <text_reviews_count type="integer">15365</text_reviews_count>
+    <original_publication_year type="integer">1982</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">10</original_publication_day>
+    <average_rating>3.97</average_rating>
+    <best_book type="Book">
+        <id type="integer">43615</id>
+        <title>The Gunslinger (The Dark Tower, #1)</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1375776480m/43615.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1375776480s/43615.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">15553789</id>
+    <books_count type="integer">150</books_count>
+    <ratings_count type="integer">332862</ratings_count>
+    <text_reviews_count type="integer">32399</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">8</original_publication_day>
+    <average_rating>4.30</average_rating>
+    <best_book type="Book">
+        <id type="integer">10644930</id>
+        <title>11/22/63</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327876792m/10644930.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327876792s/10644930.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1552134</id>
+    <books_count type="integer">265</books_count>
+    <ratings_count type="integer">403084</ratings_count>
+    <text_reviews_count type="integer">9610</text_reviews_count>
+    <original_publication_year type="integer">1974</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">5</original_publication_day>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">10592</id>
+        <title>Carrie</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3230869</id>
+    <books_count type="integer">209</books_count>
+    <ratings_count type="integer">387764</ratings_count>
+    <text_reviews_count type="integer">7509</text_reviews_count>
+    <original_publication_year type="integer">1987</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.13</average_rating>
+    <best_book type="Book">
+        <id type="integer">10614</id>
+        <title>Misery</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1270545451m/10614.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1270545451s/10614.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2402933</id>
+    <books_count type="integer">22</books_count>
+    <ratings_count type="integer">67669</ratings_count>
+    <text_reviews_count type="integer">931</text_reviews_count>
+    <original_publication_year type="integer">2007</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">7</original_publication_day>
+    <average_rating>4.19</average_rating>
+    <best_book type="Book">
+        <id type="integer">342445</id>
+        <title>Stephen King's The Dark Tower: The Gunslinger Born</title>
+        <author>
+            <id type="integer">13681</id>
+            <name>Peter David</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1489721554m/342445.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1489721554s/342445.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">150017</id>
+    <books_count type="integer">5</books_count>
+    <ratings_count type="integer">311718</ratings_count>
+    <text_reviews_count type="integer">6427</text_reviews_count>
+    <original_publication_year type="integer">1983</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">14</original_publication_day>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">33124137</id>
+        <title>Pet Sematary</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1480069533m/33124137.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1480069533s/33124137.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">6760952</id>
+    <books_count type="integer">24</books_count>
+    <ratings_count type="integer">217069</ratings_count>
+    <text_reviews_count type="integer">13541</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">10</original_publication_day>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">6320534</id>
+        <title>Under the Dome</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1511289992m/6320534.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1511289992s/6320534.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3048937</id>
+    <books_count type="integer">99</books_count>
+    <ratings_count type="integer">264618</ratings_count>
+    <text_reviews_count type="integer">7069</text_reviews_count>
+    <original_publication_year type="integer">1975</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">17</original_publication_day>
+    <average_rating>4.00</average_rating>
+    <best_book type="Book">
+        <id type="integer">11590</id>
+        <title>'Salem's Lot</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327891565m/11590.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327891565s/11590.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">26680281</id>
+    <books_count type="integer">120</books_count>
+    <ratings_count type="integer">169505</ratings_count>
+    <text_reviews_count type="integer">13643</text_reviews_count>
+    <original_publication_year type="integer">2014</original_publication_year>
+    <original_publication_month type="integer">6</original_publication_month>
+    <original_publication_day type="integer">3</original_publication_day>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">18775247</id>
+        <title>Mr. Mercedes (Bill Hodges Trilogy, #1)</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1468705326m/18775247.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1468705326s/18775247.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">150292</id>
+    <books_count type="integer">128</books_count>
+    <ratings_count type="integer">169780</ratings_count>
+    <text_reviews_count type="integer">13298</text_reviews_count>
+    <original_publication_year type="integer">2000</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.32</average_rating>
+    <best_book type="Book">
+        <id type="integer">10569</id>
+        <title>On Writing: A Memoir of the Craft</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1436735207m/10569.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1436735207s/10569.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">15599</id>
+    <books_count type="integer">174</books_count>
+    <ratings_count type="integer">205129</ratings_count>
+    <text_reviews_count type="integer">5468</text_reviews_count>
+    <original_publication_year type="integer">1996</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.43</average_rating>
+    <best_book type="Book">
+        <id type="integer">11566</id>
+        <title>The Green Mile</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1373903563m/11566.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1373903563s/11566.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1531072</id>
+    <books_count type="integer">14</books_count>
+    <ratings_count type="integer">4291</ratings_count>
+    <text_reviews_count type="integer">32</text_reviews_count>
+    <original_publication_year type="integer">1989</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.02</average_rating>
+    <best_book type="Book">
+        <id type="integer">1538917</id>
+        <title>The Stephen King Companion</title>
+        <author>
+            <id type="integer">9827</id>
+            <name>George Beahm</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1386100259m/1538917.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1386100259s/1538917.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">996156</id>
+    <books_count type="integer">149</books_count>
+    <ratings_count type="integer">182923</ratings_count>
+    <text_reviews_count type="integer">3268</text_reviews_count>
+    <original_publication_year type="integer">1981</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">8</original_publication_day>
+    <average_rating>3.67</average_rating>
+    <best_book type="Book">
+        <id type="integer">10603</id>
+        <title>Cujo</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1394208144m/10603.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1394208144s/10603.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2113248</id>
+    <books_count type="integer">179</books_count>
+    <ratings_count type="integer">175974</ratings_count>
+    <text_reviews_count type="integer">6220</text_reviews_count>
+    <original_publication_year type="integer">1987</original_publication_year>
+    <original_publication_month type="integer">5</original_publication_month>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.23</average_rating>
+    <best_book type="Book">
+        <id type="integer">5094</id>
+        <title>The Drawing of the Three (The Dark Tower, #2)</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1370918050m/5094.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1370918050s/5094.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">17851499</id>
+    <books_count type="integer">116</books_count>
+    <ratings_count type="integer">127961</ratings_count>
+    <text_reviews_count type="integer">14400</text_reviews_count>
+    <original_publication_year type="integer">2013</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>4.10</average_rating>
+    <best_book type="Book">
+        <id type="integer">16130549</id>
+        <title>Doctor Sleep (The Shining, #2)</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1510335480m/16130549.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1510335480s/16130549.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3017730</id>
+    <books_count type="integer">131</books_count>
+    <ratings_count type="integer">164948</ratings_count>
+    <text_reviews_count type="integer">5162</text_reviews_count>
+    <original_publication_year type="integer">2005</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.65</average_rating>
+    <best_book type="Book">
+        <id type="integer">10567</id>
+        <title>Cell</title>
+        <author>
+            <id type="integer">3389</id>
+            <name>Stephen King</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">16005831</id>
+    <books_count type="integer">205</books_count>
+    <ratings_count type="integer">690590</ratings_count>
+    <text_reviews_count type="integer">16008</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>4.11</average_rating>
+    <best_book type="Book">
+        <id type="integer">11084145</id>
+        <title>Steve Jobs</title>
+        <author>
+            <id type="integer">7111</id>
+            <name>Walter Isaacson</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1511288482m/11084145.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1511288482s/11084145.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">7133260</id>
+    <books_count type="integer">36</books_count>
+    <ratings_count type="integer">4811</ratings_count>
+    <text_reviews_count type="integer">292</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.09</average_rating>
+    <best_book type="Book">
+        <id type="integer">6908348</id>
+        <title>The Presentation Secrets of Steve Jobs</title>
+        <author>
+            <id type="integer">211224</id>
+            <name>Carmine Gallo</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">55103</id>
+    <books_count type="integer">15</books_count>
+    <ratings_count type="integer">2412</ratings_count>
+    <text_reviews_count type="integer">42</text_reviews_count>
+    <original_publication_year type="integer">2000</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.92</average_rating>
+    <best_book type="Book">
+        <id type="integer">56545</id>
+        <title>The Second Coming of Steve Jobs</title>
+        <author>
+            <id type="integer">28910</id>
+            <name>Alan Deutschman</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">14326720</id>
+    <books_count type="integer">40</books_count>
+    <ratings_count type="integer">1272</ratings_count>
+    <text_reviews_count type="integer">81</text_reviews_count>
+    <original_publication_year type="integer">2010</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">20</original_publication_day>
+    <average_rating>4.03</average_rating>
+    <best_book type="Book">
+        <id type="integer">9442092</id>
+        <title>The Innovation Secrets of Steve Jobs</title>
+        <author>
+            <id type="integer">211224</id>
+            <name>Carmine Gallo</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1392586829m/9442092.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1392586829s/9442092.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">19107304</id>
+    <books_count type="integer">16</books_count>
+    <ratings_count type="integer">1158</ratings_count>
+    <text_reviews_count type="integer">129</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>4.17</average_rating>
+    <best_book type="Book">
+        <id type="integer">13543010</id>
+        <title>Who Was Steve Jobs?</title>
+        <author>
+            <id type="integer">6280237</id>
+            <name>Pam Pollack</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">44679357</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">1750</ratings_count>
+    <text_reviews_count type="integer">55</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">19</original_publication_day>
+    <average_rating>4.09</average_rating>
+    <best_book type="Book">
+        <id type="integer">25007691</id>
+        <title>Steve Jobs: 50 Life and Business Lessons from Steve Jobs</title>
+        <author>
+            <id type="integer">10025559</id>
+            <name>George Ilian</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">15496742</id>
+    <books_count type="integer">39</books_count>
+    <ratings_count type="integer">3930</ratings_count>
+    <text_reviews_count type="integer">196</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.83</average_rating>
+    <best_book type="Book">
+        <id type="integer">10589332</id>
+        <title>The Steve Jobs Way: iLeadership for a New Generation</title>
+        <author>
+            <id type="integer">4574211</id>
+            <name>Jay Elliot</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18127806</id>
+    <books_count type="integer">23</books_count>
+    <ratings_count type="integer">3958</ratings_count>
+    <text_reviews_count type="integer">692</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.94</average_rating>
+    <best_book type="Book">
+        <id type="integer">12969593</id>
+        <title>Steve Jobs: The Man Who Thought Different</title>
+        <author>
+            <id type="integer">121951</id>
+            <name>Karen Blumenthal</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1359803535m/12969593.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1359803535s/12969593.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">43105004</id>
+    <books_count type="integer">23</books_count>
+    <ratings_count type="integer">707</ratings_count>
+    <text_reviews_count type="integer">188</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">7</original_publication_month>
+    <original_publication_day type="integer">21</original_publication_day>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">23502557</id>
+        <title>Steve Jobs: Insanely Great</title>
+        <author>
+            <id type="integer">287339</id>
+            <name>Jessie Hartland</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1417412007m/23502557.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1417412007s/23502557.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">41711568</id>
+    <books_count type="integer">49</books_count>
+    <ratings_count type="integer">10969</ratings_count>
+    <text_reviews_count type="integer">696</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">3</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>4.19</average_rating>
+    <best_book type="Book">
+        <id type="integer">22318382</id>
+        <title>Becoming Steve Jobs: The Evolution of a Reckless Upstart into a Visionary Leader</title>
+        <author>
+            <id type="integer">8268936</id>
+            <name>Brent Schlender</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1422811281m/22318382.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1422811281s/22318382.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">17740167</id>
+    <books_count type="integer">35</books_count>
+    <ratings_count type="integer">1514</ratings_count>
+    <text_reviews_count type="integer">186</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.40</average_rating>
+    <best_book type="Book">
+        <id type="integer">12634780</id>
+        <title>I, Steve: Steve Jobs In His Own Words</title>
+        <author>
+            <id type="integer">9827</id>
+            <name>George Beahm</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1357641830m/12634780.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1357641830s/12634780.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18245245</id>
+    <books_count type="integer">19</books_count>
+    <ratings_count type="integer">565</ratings_count>
+    <text_reviews_count type="integer">70</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">12</original_publication_month>
+    <original_publication_day type="integer">2</original_publication_day>
+    <average_rating>3.44</average_rating>
+    <best_book type="Book">
+        <id type="integer">13078116</id>
+        <title>The Zen of Steve Jobs</title>
+        <author>
+            <id type="integer">5339154</id>
+            <name>Caleb Melby</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1342498084m/13078116.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1342498084s/13078116.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">48234</id>
+    <books_count type="integer">23</books_count>
+    <ratings_count type="integer">6928</ratings_count>
+    <text_reviews_count type="integer">186</text_reviews_count>
+    <original_publication_year type="integer">2005</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">49312</id>
+        <title>iCon: Steve Jobs, the Greatest Second Act in the History of Business</title>
+        <author>
+            <id type="integer">27721</id>
+            <name>Jeffrey S. Young</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1284942395m/49312.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1284942395s/49312.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">42851067</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">119</ratings_count>
+    <text_reviews_count type="integer">10</text_reviews_count>
+    <original_publication_year type="integer">2014</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">28</original_publication_day>
+    <average_rating>4.36</average_rating>
+    <best_book type="Book">
+        <id type="integer">23294226</id>
+        <title>Steve Jobs: The Unauthorized Autobiography</title>
+        <author>
+            <id type="integer">6022707</id>
+            <name>J.T. Owens</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1416006000m/23294226.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1416006000s/23294226.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18486554</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">115</ratings_count>
+    <text_reviews_count type="integer">5</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">21</original_publication_day>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">13282177</id>
+        <title>Steve Jobs: His Own Words and Wisdom (Steve Jobs Biography)</title>
+        <author>
+            <id type="integer">5255891</id>
+            <name>Steve Jobs</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18461019</id>
+    <books_count type="integer">13</books_count>
+    <ratings_count type="integer">289</ratings_count>
+    <text_reviews_count type="integer">65</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.82</average_rating>
+    <best_book type="Book">
+        <id type="integer">13259517</id>
+        <title>Steve Jobs: Thinking Differently</title>
+        <author>
+            <id type="integer">86211</id>
+            <name>Patricia Lakin</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1344390865m/13259517.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1344390865s/13259517.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">18018376</id>
+    <books_count type="integer">3</books_count>
+    <ratings_count type="integer">187</ratings_count>
+    <text_reviews_count type="integer">3</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">9</original_publication_day>
+    <average_rating>3.81</average_rating>
+    <best_book type="Book">
+        <id type="integer">12866219</id>
+        <title>WIRED: Steve Jobs, Revolutionary</title>
+        <author>
+            <id type="integer">32131</id>
+            <name>Steven Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327909733m/12866219.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327909733s/12866219.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">28193941</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">122</ratings_count>
+    <text_reviews_count type="integer">5</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">26</original_publication_day>
+    <average_rating>4.54</average_rating>
+    <best_book type="Book">
+        <id type="integer">20331117</id>
+        <title>Steve Jobs Graduation Speech</title>
+        <author>
+            <id type="integer">5255891</id>
+            <name>Steve Jobs</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1097680</id>
+    <books_count type="integer">7</books_count>
+    <ratings_count type="integer">458</ratings_count>
+    <text_reviews_count type="integer">49</text_reviews_count>
+    <original_publication_year type="integer">2007</original_publication_year>
+    <original_publication_month type="integer">10</original_publication_month>
+    <original_publication_day type="integer">18</original_publication_day>
+    <average_rating>3.77</average_rating>
+    <best_book type="Book">
+        <id type="integer">1110713</id>
+        <title>Options: The Secret Life of Steve Jobs</title>
+        <author>
+            <id type="integer">7568250</id>
+            <name>Fake Steve Jobs</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">42478060</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">14</ratings_count>
+    <text_reviews_count type="integer">2</text_reviews_count>
+    <original_publication_year type="integer">2014</original_publication_year>
+    <original_publication_month type="integer">8</original_publication_month>
+    <original_publication_day type="integer">5</original_publication_day>
+    <average_rating>3.79</average_rating>
+    <best_book type="Book">
+        <id type="integer">22976375</id>
+        <title>Steve Jobs Book: Things You Should Learn from Steve Jobs</title>
+        <author>
+            <id type="integer">7219600</id>
+            <name>Can Akdeniz</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1412619104m/22976375.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1412619104s/22976375.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">24757298</id>
+    <books_count type="integer">29</books_count>
+    <ratings_count type="integer">4876</ratings_count>
+    <text_reviews_count type="integer">260</text_reviews_count>
+    <original_publication_year type="integer">2013</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.97</average_rating>
+    <best_book type="Book">
+        <id type="integer">17707768</id>
+        <title>Jony Ive: The Genius Behind Apple's Greatest Products</title>
+        <author>
+            <id type="integer">106159</id>
+            <name>Leander Kahney</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1368423659m/17707768.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1368423659s/17707768.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">44287701</id>
+    <books_count type="integer">33</books_count>
+    <ratings_count type="integer">18877</ratings_count>
+    <text_reviews_count type="integer">1316</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">5</original_publication_day>
+    <average_rating>3.70</average_rating>
+    <best_book type="Book">
+        <id type="integer">34036335</id>
+        <title>P.S. from Paris</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">954125</id>
+    <books_count type="integer">120</books_count>
+    <ratings_count type="integer">12970</ratings_count>
+    <text_reviews_count type="integer">833</text_reviews_count>
+    <original_publication_year type="integer">2000</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.65</average_rating>
+    <best_book type="Book">
+        <id type="integer">386887</id>
+        <title>If Only It Were True</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3279361</id>
+    <books_count type="integer">74</books_count>
+    <ratings_count type="integer">6492</ratings_count>
+    <text_reviews_count type="integer">490</text_reviews_count>
+    <original_publication_year type="integer">2008</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.84</average_rating>
+    <best_book type="Book">
+        <id type="integer">19322012</id>
+        <title>All Those Things We Never Said</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3301999</id>
+    <books_count type="integer">49</books_count>
+    <ratings_count type="integer">4212</ratings_count>
+    <text_reviews_count type="integer">167</text_reviews_count>
+    <original_publication_year type="integer">2005</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.66</average_rating>
+    <best_book type="Book">
+        <id type="integer">17304248</id>
+        <title>Finding You</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1359475881m/17304248.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1359475881s/17304248.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">119175</id>
+    <books_count type="integer">49</books_count>
+    <ratings_count type="integer">4822</ratings_count>
+    <text_reviews_count type="integer">179</text_reviews_count>
+    <original_publication_year type="integer">2003</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.62</average_rating>
+    <best_book type="Book">
+        <id type="integer">17304270</id>
+        <title>Seven Days for an Eternity</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1359477335m/17304270.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1359477335s/17304270.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">119172</id>
+    <books_count type="integer">38</books_count>
+    <ratings_count type="integer">4034</ratings_count>
+    <text_reviews_count type="integer">139</text_reviews_count>
+    <original_publication_year type="integer">2001</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.53</average_rating>
+    <best_book type="Book">
+        <id type="integer">123765</id>
+        <title>Où es-tu ?</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1363013460m/123765.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1363013460s/123765.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">45152360</id>
+    <books_count type="integer">46</books_count>
+    <ratings_count type="integer">3705</ratings_count>
+    <text_reviews_count type="integer">177</text_reviews_count>
+    <original_publication_year type="integer">2004</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.74</average_rating>
+    <best_book type="Book">
+        <id type="integer">182671</id>
+        <title>La prochaine fois</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1363033123m/182671.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1363033123s/182671.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">12068742</id>
+    <books_count type="integer">40</books_count>
+    <ratings_count type="integer">4122</ratings_count>
+    <text_reviews_count type="integer">337</text_reviews_count>
+    <original_publication_year type="integer">2010</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.88</average_rating>
+    <best_book type="Book">
+        <id type="integer">7970021</id>
+        <title>Le Voleur d'ombres</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327329956m/7970021.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327329956s/7970021.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">6673150</id>
+    <books_count type="integer">21</books_count>
+    <ratings_count type="integer">3195</ratings_count>
+    <text_reviews_count type="integer">190</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.79</average_rating>
+    <best_book type="Book">
+        <id type="integer">17304221</id>
+        <title>The First Day</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1359475179m/17304221.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1359475179s/17304221.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1461230</id>
+    <books_count type="integer">40</books_count>
+    <ratings_count type="integer">2862</ratings_count>
+    <text_reviews_count type="integer">116</text_reviews_count>
+    <original_publication_year type="integer">2006</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.46</average_rating>
+    <best_book type="Book">
+        <id type="integer">1470281</id>
+        <title>Mes amis, mes amours</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1330715702m/1470281.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1330715702s/1470281.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">15744670</id>
+    <books_count type="integer">37</books_count>
+    <ratings_count type="integer">2743</ratings_count>
+    <text_reviews_count type="integer">243</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.81</average_rating>
+    <best_book type="Book">
+        <id type="integer">19264666</id>
+        <title>The Strange Journey of Mr. Daldry</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">45558368</id>
+    <books_count type="integer">6</books_count>
+    <ratings_count type="integer">2120</ratings_count>
+    <text_reviews_count type="integer">106</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.79</average_rating>
+    <best_book type="Book">
+        <id type="integer">7071712</id>
+        <title>La Première Nuit</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327329844m/7071712.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327329844s/7071712.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1461231</id>
+    <books_count type="integer">41</books_count>
+    <ratings_count type="integer">2205</ratings_count>
+    <text_reviews_count type="integer">143</text_reviews_count>
+    <original_publication_year type="integer">2007</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.93</average_rating>
+    <best_book type="Book">
+        <id type="integer">1470282</id>
+        <title>Les Enfants de la liberté</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">40772075</id>
+    <books_count type="integer">17</books_count>
+    <ratings_count type="integer">1243</ratings_count>
+    <text_reviews_count type="integer">129</text_reviews_count>
+    <original_publication_year type="integer">2014</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.90</average_rating>
+    <best_book type="Book">
+        <id type="integer">21457489</id>
+        <title>Une autre idée du bonheur</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1396555237m/21457489.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1396555237s/21457489.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">24073159</id>
+    <books_count type="integer">21</books_count>
+    <ratings_count type="integer">1272</ratings_count>
+    <text_reviews_count type="integer">111</text_reviews_count>
+    <original_publication_year type="integer">2013</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.72</average_rating>
+    <best_book type="Book">
+        <id type="integer">17338668</id>
+        <title>Un sentiment plus fort que la peur</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1360223786m/17338668.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1360223786s/17338668.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">48757190</id>
+    <books_count type="integer">14</books_count>
+    <ratings_count type="integer">830</ratings_count>
+    <text_reviews_count type="integer">111</text_reviews_count>
+    <original_publication_year type="integer">2016</original_publication_year>
+    <original_publication_month type="integer">2</original_publication_month>
+    <original_publication_day type="integer">11</original_publication_day>
+    <average_rating>4.02</average_rating>
+    <best_book type="Book">
+        <id type="integer">28589771</id>
+        <title>L'horizon à l'envers</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1453054718m/28589771.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1453054718s/28589771.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">55682632</id>
+    <books_count type="integer">5</books_count>
+    <ratings_count type="integer">394</ratings_count>
+    <text_reviews_count type="integer">42</text_reviews_count>
+    <original_publication_year type="integer">2017</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">20</original_publication_day>
+    <average_rating>3.96</average_rating>
+    <best_book type="Book">
+        <id type="integer">34540520</id>
+        <title>La dernière des Stanfield</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1489353115m/34540520.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1489353115s/34540520.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2326297</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">431</ratings_count>
+    <text_reviews_count type="integer">16</text_reviews_count>
+    <original_publication_year type="integer">2005</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">7</original_publication_day>
+    <average_rating>3.86</average_rating>
+    <best_book type="Book">
+        <id type="integer">2319777</id>
+        <title>Marc Lévy coffret 2 volumes : Et si c'était vrai ; Vous revoir</title>
+        <author>
+            <id type="integer">61788</id>
+            <name>Marc Levy</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1433779291m/2319777.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1433779291s/2319777.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1885548</id>
+    <books_count type="integer">2293</books_count>
+    <ratings_count type="integer">613303</ratings_count>
+    <text_reviews_count type="integer">9954</text_reviews_count>
+    <original_publication_year type="integer">1603</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.01</average_rating>
+    <best_book type="Book">
+        <id type="integer">21803105</id>
+        <title>Hamlet</title>
+        <author>
+            <id type="integer">947</id>
+            <name>William Shakespeare</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1496434017m/21803105.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1496434017s/21803105.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">23285584</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">33</ratings_count>
+    <text_reviews_count type="integer">0</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer">9</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.82</average_rating>
+    <best_book type="Book">
+        <id type="integer">16987348</id>
+        <title>Fiche de Lecture: Et Si C'Etait Vrai de Marc Levy</title>
+        <author>
+            <id type="integer">6660900</id>
+            <name>Elena Pinaud</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">58430382</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">7</ratings_count>
+    <text_reviews_count type="integer">0</text_reviews_count>
+    <original_publication_year type="integer" nil="true"/>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.14</average_rating>
+    <best_book type="Book">
+        <id type="integer">36655746</id>
+        <title>tourne la page</title>
+        <author>
+            <id type="integer">17362846</id>
+            <name>squeezie</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1511564461m/36655746.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1511564461s/36655746.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1114957</id>
+    <books_count type="integer">46</books_count>
+    <ratings_count type="integer">11997</ratings_count>
+    <text_reviews_count type="integer">1476</text_reviews_count>
+    <original_publication_year type="integer">2007</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">12</original_publication_day>
+    <average_rating>4.09</average_rating>
+    <best_book type="Book">
+        <id type="integer">1127783</id>
+        <title>Parce que je t'aime</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">10740837</id>
+    <books_count type="integer">52</books_count>
+    <ratings_count type="integer">10714</ratings_count>
+    <text_reviews_count type="integer">1334</text_reviews_count>
+    <original_publication_year type="integer">2010</original_publication_year>
+    <original_publication_month type="integer">3</original_publication_month>
+    <original_publication_day type="integer">31</original_publication_day>
+    <average_rating>4.02</average_rating>
+    <best_book type="Book">
+        <id type="integer">7789885</id>
+        <title>La fille de papier</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327425654m/7789885.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327425654s/7789885.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">494674</id>
+    <books_count type="integer">55</books_count>
+    <ratings_count type="integer">8247</ratings_count>
+    <text_reviews_count type="integer">849</text_reviews_count>
+    <original_publication_year type="integer">2003</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.83</average_rating>
+    <best_book type="Book">
+        <id type="integer">506638</id>
+        <title>Et après ...</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">15295848</id>
+    <books_count type="integer">58</books_count>
+    <ratings_count type="integer">8647</ratings_count>
+    <text_reviews_count type="integer">891</text_reviews_count>
+    <original_publication_year type="integer">2011</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>4.01</average_rating>
+    <best_book type="Book">
+        <id type="integer">10392065</id>
+        <title>L'appel de l'ange</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327457788m/10392065.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327457788s/10392065.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">40783433</id>
+    <books_count type="integer">51</books_count>
+    <ratings_count type="integer">8183</ratings_count>
+    <text_reviews_count type="integer">936</text_reviews_count>
+    <original_publication_year type="integer">2014</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.91</average_rating>
+    <best_book type="Book">
+        <id type="integer">21466317</id>
+        <title>Central Park</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1394907424m/21466317.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1394907424s/21466317.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">24073171</id>
+    <books_count type="integer">35</books_count>
+    <ratings_count type="integer">6135</ratings_count>
+    <text_reviews_count type="integer">752</text_reviews_count>
+    <original_publication_year type="integer">2013</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>4.15</average_rating>
+    <best_book type="Book">
+        <id type="integer">17338675</id>
+        <title>Demain</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1360224126m/17338675.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1360224126s/17338675.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1804468</id>
+    <books_count type="integer">33</books_count>
+    <ratings_count type="integer">5445</ratings_count>
+    <text_reviews_count type="integer">550</text_reviews_count>
+    <original_publication_year type="integer">2004</original_publication_year>
+    <original_publication_month type="integer">11</original_publication_month>
+    <original_publication_day type="integer">18</original_publication_day>
+    <average_rating>3.77</average_rating>
+    <best_book type="Book">
+        <id type="integer">1805208</id>
+        <title>Sauve-Moi</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1914389</id>
+    <books_count type="integer">62</books_count>
+    <ratings_count type="integer">5064</ratings_count>
+    <text_reviews_count type="integer">330</text_reviews_count>
+    <original_publication_year type="integer">2006</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.95</average_rating>
+    <best_book type="Book">
+        <id type="integer">1912426</id>
+        <title>Seras-tu là?</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">3110232</id>
+    <books_count type="integer">27</books_count>
+    <ratings_count type="integer">3691</ratings_count>
+    <text_reviews_count type="integer">220</text_reviews_count>
+    <original_publication_year type="integer">2008</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">21</original_publication_day>
+    <average_rating>3.85</average_rating>
+    <best_book type="Book">
+        <id type="integer">3079196</id>
+        <title>Je reviens te chercher</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1335056540m/3079196.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1335056540s/3079196.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">6538423</id>
+    <books_count type="integer">33</books_count>
+    <ratings_count type="integer">3669</ratings_count>
+    <text_reviews_count type="integer">197</text_reviews_count>
+    <original_publication_year type="integer">2009</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">30</original_publication_day>
+    <average_rating>3.84</average_rating>
+    <best_book type="Book">
+        <id type="integer">6351848</id>
+        <title>Que serais-je sans toi?</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1327876526m/6351848.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1327876526s/6351848.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">48996117</id>
+    <books_count type="integer">37</books_count>
+    <ratings_count type="integer">3185</ratings_count>
+    <text_reviews_count type="integer">346</text_reviews_count>
+    <original_publication_year type="integer">2016</original_publication_year>
+    <original_publication_month type="integer">3</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>4.03</average_rating>
+    <best_book type="Book">
+        <id type="integer">28787462</id>
+        <title>La fille de Brooklyn</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1457180268m/28787462.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1457180268s/28787462.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">19167798</id>
+    <books_count type="integer">32</books_count>
+    <ratings_count type="integer">4110</ratings_count>
+    <text_reviews_count type="integer">341</text_reviews_count>
+    <original_publication_year type="integer">2012</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.58</average_rating>
+    <best_book type="Book">
+        <id type="integer">13582068</id>
+        <title>7 ans après...</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1333787736m/13582068.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1333787736s/13582068.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">44747346</id>
+    <books_count type="integer">28</books_count>
+    <ratings_count type="integer">2409</ratings_count>
+    <text_reviews_count type="integer">286</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">3</original_publication_month>
+    <original_publication_day type="integer">26</original_publication_day>
+    <average_rating>3.72</average_rating>
+    <best_book type="Book">
+        <id type="integer">25063541</id>
+        <title>L'instant présent</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1447769722m/25063541.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1447769722s/25063541.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">55560781</id>
+    <books_count type="integer">19</books_count>
+    <ratings_count type="integer">1081</ratings_count>
+    <text_reviews_count type="integer">142</text_reviews_count>
+    <original_publication_year type="integer">2017</original_publication_year>
+    <original_publication_month type="integer">3</original_publication_month>
+    <original_publication_day type="integer">30</original_publication_day>
+    <average_rating>3.75</average_rating>
+    <best_book type="Book">
+        <id type="integer">34449683</id>
+        <title>Un appartement à Paris</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1489352935m/34449683.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1489352935s/34449683.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">59761680</id>
+    <books_count type="integer">4</books_count>
+    <ratings_count type="integer">198</ratings_count>
+    <text_reviews_count type="integer">42</text_reviews_count>
+    <original_publication_year type="integer">2018</original_publication_year>
+    <original_publication_month type="integer">4</original_publication_month>
+    <original_publication_day type="integer">24</original_publication_day>
+    <average_rating>4.24</average_rating>
+    <best_book type="Book">
+        <id type="integer">38091412</id>
+        <title>La jeune fille et la nuit</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1523355820m/38091412.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1523355820s/38091412.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">45743552</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">0</ratings_count>
+    <text_reviews_count type="integer">0</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer">7</original_publication_month>
+    <original_publication_day type="integer">4</original_publication_day>
+    <average_rating type="float">0.0</average_rating>
+    <best_book type="Book">
+        <id type="integer">25870192</id>
+        <title>Le secret de Guillaume Musso</title>
+        <author>
+            <id type="integer">14285016</id>
+            <name>Chistophe De Sairas</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">2648694</id>
+    <books_count type="integer">2</books_count>
+    <ratings_count type="integer">113</ratings_count>
+    <text_reviews_count type="integer">8</text_reviews_count>
+    <original_publication_year type="integer">2001</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>3.53</average_rating>
+    <best_book type="Book">
+        <id type="integer">2624013</id>
+        <title>Skidamarink</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1413554718m/2624013.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1413554718s/2624013.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">1914392</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">19</ratings_count>
+    <text_reviews_count type="integer">1</text_reviews_count>
+    <original_publication_year type="integer">2008</original_publication_year>
+    <original_publication_month type="integer">1</original_publication_month>
+    <original_publication_day type="integer">1</original_publication_day>
+    <average_rating>4.42</average_rating>
+    <best_book type="Book">
+        <id type="integer">1912429</id>
+        <title>Guillaume Musso - coffret 3 volumes (Seras-tu là?, Sauve-moi et Et après...)</title>
+        <author>
+            <id type="integer">282080</id>
+            <name>Guillaume Musso</name>
+        </author>
+        <image_url>https://images.gr-assets.com/books/1389618538m/1912429.jpg</image_url>
+        <small_image_url>https://images.gr-assets.com/books/1389618538s/1912429.jpg</small_image_url>
+    </best_book>
+</work>
+<work>
+    <id type="integer">55380412</id>
+    <books_count type="integer">1</books_count>
+    <ratings_count type="integer">22</ratings_count>
+    <text_reviews_count type="integer">1</text_reviews_count>
+    <original_publication_year type="integer">2015</original_publication_year>
+    <original_publication_month type="integer" nil="true"/>
+    <original_publication_day type="integer" nil="true"/>
+    <average_rating>3.91</average_rating>
+    <best_book type="Book">
+        <id type="integer">34319876</id>
+        <title>Central Park</title>
+        <author>
+            <id type="integer">16461898</id>
+            <name>Guillaume  Musso</name>
+        </author>
+        <image_url>https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png</image_url>
+        <small_image_url>https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png</small_image_url>
+    </best_book>
+</work>
+</books>
