@@ -92,21 +92,13 @@ export default class App extends Component {
           title: "Bookr"
         }
       },
-      Home: { screen: Home,
-        navigationOptions :{
-          title: "Home",
-        }
-      },
+      Home: { screen: Home },
       FriendDetail: {screen: FriendDetail},
       FriendComponent: {screen: FriendComponent},
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
       BookDetail: { screen: BookDetail },
-      Books: { screen: Books,
-        navigationOptions: {
-          title: "Books"
-        }
-      },
+      Books: { screen: Books },
     }, {initialRouteName: logged});
     if (this.state.isLoading)
       return (

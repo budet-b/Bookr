@@ -152,6 +152,26 @@ export default class BooksComponent extends Component {
     }).catch((error) => {
       console.log(error)
     })
+
+
+    this.props.screenProps.rootNavigation.setOptions({
+      headerRight: (
+        <View>
+        <Button
+        textStyle={{color: '#000'}}
+        onPress={() => this.onClickSearch()}
+        backgroundColor = 'transparent'
+        rightIcon={{name: 'search', color: '#000', size: 26}}
+        title= 'Search a book'
+        underlayColor = '#FFF'
+        />
+        </View>
+      ), headerLeft:(
+        <View>
+        <Text style={styles.head}>Bookr</Text>
+        </View>
+      )
+    });
   }
 
   onClickSearch() {
@@ -167,14 +187,7 @@ export default class BooksComponent extends Component {
       <View style={{backgroundColor: "#FFF"}}>
       <View style={{flexDirection: "row"}}>
       <Text style={styles.head}>My Books</Text>
-      <Button
-      textStyle={{color: '#000'}}
-      onPress={() => this.onClickSearch()}
-      backgroundColor = 'transparent'
-      rightIcon={{name: 'search', color: '#000', size: 30}}
-      title= 'Search a book'
-      underlayColor = '#FFF'
-        />
+
       </View>
       <View
         style={{
