@@ -106,6 +106,13 @@ passport.authenticate('jwt', {session: false}),
 }
 );
 
+router.get('/api/friends/:id',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    friends.friendWithId(req, res)
+}
+);
+
 router.get('/api/users', friends.usersList);
 
 // MARK: Other Router
