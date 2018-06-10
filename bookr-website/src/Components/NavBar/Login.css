@@ -1,0 +1,52 @@
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+    padding-top: 15%;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+    font-size: 20px;
+  }
+  .Login body {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "PT Serif", serif;
+}
+select.form-control,
+textarea.form-control,
+input.form-control {
+  font-size: 16px;
+}
+input[type=file] {
+  width: 100%;
+}
+
+.new.btn-lg, .btn-group-lg > .btn {
+  background-color: #1574d4;
+  color: #FFF;
+}
+.new.btn-lg:hover, .btn-group-lg > .btn {
+  background-color: #0c81f7;
+  color: #FFF;
+}
+.confirm.btn-lg, .btn-group-lg > .btn {
+  background-color: #000;
+  color: #FFF;
+}
+
+.confirm.btn-lg:hover, .btn-group-lg > .btn {
+  background-color: #FFF;
+  color: #000;
+}
+.confirm.btn-default[disabled]:hover, .btn-group-lg > .btn {
+  background-color: #FFF;
+  color: #000;
+}
