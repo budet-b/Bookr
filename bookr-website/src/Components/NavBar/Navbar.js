@@ -14,7 +14,8 @@ export default class NavBar extends Component {
       showErrorLogin: false,
       redirectTo: null,
       password: '',
-      email: ''
+      email: '',
+      isLoading: true
     };
     this.handleCloseLogin = this.handleCloseLogin.bind(this);
     this.handleShowLogin = this.handleShowLogin.bind(this);
@@ -58,22 +59,41 @@ export default class NavBar extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
+  componentWillMount() {
+    console.log(Cookies.get('token'))
+    var config = {
+      headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
+                'Content-Type': 'application/json'}
+    };
+    axios.get("http://localhost:8080/api/user", config)
+    .then((response) => {
+        this.setState({
+          auth: true
+        });
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    this.setState({
+      isLoaded: false
+    })
+  }
+
   handleSubmit(e) {
     if (this.state.email.length <= 0
       || this.state.password.length <= 0)
       return null;
 
-      var config = {
-        headers: {'Content-Type': 'application/json'}
-      };
-      axios.post('http://127.0.0.1:8080/api/user/login/',config, {
+      axios.post('http://localhost:8080/api/user/login', {
         password: this.state.password,
         username: this.state.email
-      })
+      }, {})
       .then(response => {
         if (response.status === 200) {
           Cookies.set('token', response.data.token);
           console.log("POST OK");
+          this.setState({ auth : true})
           console.log('token cookie:' + Cookies.get('token'));
         }
       })
@@ -94,6 +114,20 @@ export default class NavBar extends Component {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
+      <Nav>
+        <NavItem eventKey={1} href="/#">
+          Home
+        </NavItem>
+        <NavItem eventKey={2} href="/books">
+          Books
+        </NavItem>
+        <NavItem eventKey={3} href="/friends">
+          Friends
+        </NavItem>
+        <NavItem eventKey={4} href="/profil">
+          Profil
+        </NavItem>
+      </Nav>
         <Nav pullRight>
         {this.state.auth === false ?
             <NavItem eventKey={1} onClick={() => this.handleShowLogin()} className="login">
@@ -109,7 +143,7 @@ export default class NavBar extends Component {
     </Navbar>
     <Modal show={this.state.LoginModalshow} onHide={this.handleCloseLogin}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Login form</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <div className="Login">

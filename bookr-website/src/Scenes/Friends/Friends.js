@@ -3,7 +3,7 @@ import NavBar from '../../Components/NavBar//Navbar';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-export default class HomePageScene extends Component {
+export default class FriendsPageScene extends Component {
   constructor(props) {
     super(props);
     this.state = {
