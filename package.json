@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "cd backend/api"
+    "start": "cd backend/api && npm install && npm start"
   }
 }
