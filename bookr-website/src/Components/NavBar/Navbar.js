@@ -15,6 +15,7 @@ export default class NavBar extends Component {
       redirectTo: null,
       password: '',
       email: '',
+      firstname: '',
       isLoading: true
     };
     this.handleCloseLogin = this.handleCloseLogin.bind(this);
@@ -68,7 +69,9 @@ export default class NavBar extends Component {
     axios.get("http://localhost:8080/api/user", config)
     .then((response) => {
         this.setState({
-          auth: true
+          auth: true,
+          firstname: response.data.user.firstname,
+          isLoading: false
         });
       console.log(response)
     })
@@ -76,7 +79,7 @@ export default class NavBar extends Component {
       console.log(error)
     })
     this.setState({
-      isLoaded: false
+      isLoading: false
     })
   }
 
@@ -129,13 +132,13 @@ export default class NavBar extends Component {
         </NavItem>
       </Nav>
         <Nav pullRight>
-        {this.state.auth === false ?
+        {(this.state.auth === false || this.state.isLoading) ?
             <NavItem eventKey={1} onClick={() => this.handleShowLogin()} className="login">
               Se connecter
             </NavItem>
             :
             <NavItem eventKey={1} href="/Login" className="login">
-              Bonjour,
+              Bonjour, {this.state.firstname}
             </NavItem>
         }
         </Nav>
