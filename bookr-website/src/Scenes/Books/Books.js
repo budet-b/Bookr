@@ -11,7 +11,7 @@ export default class BooksPageScene extends Component {
       isLoggin: false,
       isLoading: true,
       books: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -51,8 +51,18 @@ export default class BooksPageScene extends Component {
     console.log(this.state.isLoading)
   }
 
+  handleClose(e) {
+    let modal = "modal" + e.target.id;
+    document.getElementById(modal).style.display = "none";
+  }
+
+  handleClick(e) {
+    let modal = "modal" + e.target.id;
+    document.getElementById(modal).style.display = "block";
+  }
+
   renderBooks() {
-    //if (this.state.books)
+
     console.log(this.state.books)
     return this.state.books.map((book, index) => {
       return(
@@ -61,8 +71,25 @@ export default class BooksPageScene extends Component {
             <center>
             <img src={book.cover} width={80} height={130} alt={book.title} />
             <h6>{book.title}</h6>
+            <div className="middle">
+            <button type="button"
+              className="btn btn-success myBtn"
+              id={index}
+              data-modal={"modal" + index}
+              onClick={this.handleClick}>
+              Voir
+            </button>
+            </div>
             </center>
             </Col>
+            <div id={"modal"+index} className="modal">
+              <div className="modal-content" style={{width: '400px'}}>
+                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
+                <center>
+                  <img src={book.cover} alt={book.title} title={book.title} className="image" width={'200px'} height={'200px'}/>
+                </center>
+              </div>
+            </div>
           </div>
       )
     });
