@@ -19,10 +19,10 @@
     "nodemon": "^1.17.2",
     "npm": "^6.0.1",
     "passport-jwt": "^4.0.0",
-    "pg-promise": "^5.9.7"
-  },
-  "devDependencies": {
+    "pg-promise": "^5.9.7",
     "bcrypt": "^2.0.1",
     "passport": "^0.4.0"
+  },
+  "devDependencies": {
   }
 }
