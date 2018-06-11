@@ -126,19 +126,19 @@ export default class FriendDetail extends Component {
     // Friend
     if (this.state.friendType === 0) {
       return (
-        <View style={styles.center}>
+        <View style={styles.bottomCentered}>
         <TouchableOpacity
-                  style={{backgroundColor: '#F40A12'}}
+                  style={{backgroundColor: '#7BC950', width: '60%', borderRadius: 30 }}
                   underlayColor='#fff'>
-                  <Text style={styles.manageButtonText}>Remove this friend</Text>
+                  <Text style={styles.manageButtonText}>You are friend</Text>
          </TouchableOpacity>
           </View>
       )
     } else if (this.state.friendType === 1) {
       return (
-      <View style={styles.center}>
+      <View style={styles.bottomCentered}>
       <TouchableOpacity
-                style={{backgroundColor: '#F40A12'}}
+                style={{backgroundColor: '#EE8434'}}
                 underlayColor='#fff'>
                 <Text style={styles.manageButtonText}>Friend request sent</Text>
        </TouchableOpacity>
@@ -146,9 +146,9 @@ export default class FriendDetail extends Component {
       //sent
     } else if (this.state.friendType === 2) {
       return (
-      <View style={styles.center}>
+      <View style={styles.bottomCentered}>
       <TouchableOpacity
-                style={{backgroundColor: '#F40A12'}}
+                style={{backgroundColor: '#7BC950'}}
                 underlayColor='#fff'
                 onPress={() => this.acceptFriend()}>
                 <Text style={styles.manageButtonText}>Accept this friend ?</Text>
@@ -157,9 +157,9 @@ export default class FriendDetail extends Component {
       //received
     } else if (this.state.friendType === 3) {
       return (
-        <View style={styles.center}>
+        <View style={styles.bottomCentered}>
         <TouchableOpacity
-                  style={{backgroundColor: '#F40A12'}}
+                  style={{backgroundColor: '#496DDB'}}
                   underlayColor='#fff'
                   onPress={() => this.sendFriendRequest()}>
                   <Text style={styles.manageButtonText}>Add this friend</Text>
@@ -321,6 +321,14 @@ var styles = StyleSheet.create({
       paddingBottom: 5,
       paddingLeft: 8,
       paddingTop: 5
+  },
+  bottomCentered: {
+      height: '90%',
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: 5,
+      paddingBottom: 5
   },
   center: {
     justifyContent: 'center',
