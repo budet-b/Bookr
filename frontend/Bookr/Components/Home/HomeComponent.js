@@ -55,7 +55,7 @@ export default class HomeComponent extends Component {
       let header = {
         headers: {'Authorization': 'Bearer ' + res}
       };
-
+      //FRIENDSRECEIVED
       axios.get("http://localhost:8080/api/friends/received", header)
       .then((response) => {
         this.setState({

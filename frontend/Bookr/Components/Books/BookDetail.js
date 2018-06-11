@@ -70,6 +70,7 @@ export default class BookDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+    //USERBOOK
     axios.get("http://localhost:8080/api/user/book/"+ this.state.bookId, header)
     .then((response) => {
       if (response.data.user.user_position) {
@@ -140,6 +141,7 @@ export default class BookDetail extends Component {
       let header = {
         headers: {'Authorization': 'Bearer ' + res}
       };
+      //STARTBOOK
       axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + this.state.currentPosition, {}, header)
       .then((response) => {
         console.log("Ok");
@@ -158,6 +160,7 @@ export default class BookDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+    //STARTBOOK
     axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + '1', {}, header)
     .then((response) => {
       console.log("Ok");

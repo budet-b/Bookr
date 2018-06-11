@@ -29,6 +29,7 @@ export default class SearchBook extends Component {
   }
 
   componentDidMount() {
+    //ALLBOOKS
     axios.get("http://localhost:8080/api/books",)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -77,6 +78,7 @@ export default class SearchBook extends Component {
      };
 
      let pos = 0;
+     //USERBOOK
      axios.get("http://localhost:8080/api/user/book/"+ rowData.id, header)
      .then((response) => {
        let pages = response.data.book.number_of_pages

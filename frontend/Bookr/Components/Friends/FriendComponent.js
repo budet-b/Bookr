@@ -110,6 +110,7 @@ export default class FriendComponent extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+    //USERFRIENDS
     axios.get("http://localhost:8080/api/user/friends", header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -121,6 +122,7 @@ export default class FriendComponent extends Component {
       console.log(error)
     })
 
+    //FRIENDSRECEIVED
     axios.get("http://localhost:8080/api/friends/received", header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -132,6 +134,7 @@ export default class FriendComponent extends Component {
       console.log(error)
     })
 
+    //USER
     axios.get("http://localhost:8080/api/users", header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

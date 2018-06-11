@@ -85,7 +85,7 @@ export default class ProfilPage extends Component {
       let header = {
         headers: {'Authorization': 'Bearer ' + res}
       };
-
+      //USERBOOK
       axios.get("http://localhost:8080/api/user/books", header)
       .then((response) => {
         console.log(response.data)
@@ -96,7 +96,7 @@ export default class ProfilPage extends Component {
       }).catch((error) => {
         console.log(error)
       })
-
+      //USER
       axios.get("http://localhost:8080/api/user", header)
       .then((response) => {
         console.log(response.data.user)

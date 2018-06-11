@@ -104,7 +104,7 @@ export default class BooksComponent extends Component {
   async componentDidMount() {
 
     // All books
-
+    //ALLBOOKS
     axios.get("http://localhost:8080/api/books",)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -126,7 +126,7 @@ export default class BooksComponent extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-
+    //USERBOOK
     axios.get("http://localhost:8080/api/user/books", header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

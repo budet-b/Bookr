@@ -3,6 +3,7 @@ import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from 'axios'
+import config from '../Misc/Constant'
 
 var t = require('tcomb-form-native');
 
@@ -80,7 +81,8 @@ export default class Signup extends Component {
         email: value.email
       })
       console.log(user);
-      axios.post("http://localhost:8080/api/user/signup", {
+      //SIGNUP
+      axios.post(config.user.SIGNUP, {
         username: user.username,
         password: user.password,
         firstname: user.firstname,
