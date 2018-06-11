@@ -145,8 +145,15 @@ export default class ProfilPage extends Component {
     }
 
     friendPage() {
-      this.props.screenProps.rootNavigation.navigate('FriendComponent')
+      this.props.screenProps.rootNavigation.navigate('FriendComponent', {screenProps: this.props.screenProps.rootNavigation})
     }
+
+    onError() {
+      this.setState({
+        picture: "https://via.placeholder.com/200x200"
+      })
+    }
+
 
   render() {
 
@@ -171,6 +178,7 @@ export default class ProfilPage extends Component {
           borderRadius={50}
           overflow="hidden"
           source={{uri: this.state.picture}}
+          onError={this.onError.bind(this)}
           style={styles.profilPic}
         />
       </View>

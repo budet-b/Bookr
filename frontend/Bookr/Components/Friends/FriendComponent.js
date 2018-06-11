@@ -7,6 +7,19 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Friend extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.friend.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
   saveFriendId(id) {
     this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
   }
@@ -17,8 +30,9 @@ class Friend extends Component {
         <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId(this.props.friend.id)}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.friend.picture}}
+            source={{uri: this.state.picture}}
             style={styles.thumbnail}
+            onError={this.onError.bind(this)}
           />
           <View >
             <Text
