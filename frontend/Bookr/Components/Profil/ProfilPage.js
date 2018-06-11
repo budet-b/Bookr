@@ -42,7 +42,7 @@ export default class ProfilPage extends Component {
     loaded: false,
     firstname: '',
     lastname: '',
-    picture: '',
+    picture: "https://via.placeholder.com/200x200",
     username: '',
     email: '',
     userBooks: ds,
@@ -97,6 +97,7 @@ export default class ProfilPage extends Component {
       }).catch((error) => {
         console.log(error)
       })
+
       //USER
       axios.get(config.user.USER, header)
       .then((response) => {
@@ -104,10 +105,17 @@ export default class ProfilPage extends Component {
         this.setState({
           firstname: response.data.user.firstname,
           lastname: response.data.user.lastname,
-          picture: response.data.user.picture,
           username: response.data.user.username,
           email: response.data.user.email
         })
+        console.log('PIC')
+        if (response.data.user.picture) {
+          this.setState({
+            picture: response.data.user.picture
+          })
+        }
+
+        console.log(this.state.picture)
       }).catch((error) => {
         console.log(error)
       })
@@ -161,6 +169,8 @@ export default class ProfilPage extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
+    console.log('here')
+
 
     return (
       <View style={{backgroundColor: "#FFF"}}>
