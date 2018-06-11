@@ -6,15 +6,21 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 
-const cn = {
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-};
-console.log(process.env.DATABASE_URL)
+let cn = null
+
+if (process.env.connectionString != null) {
+  cn = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+  };
+}
+else {
+  cn = {
+    connectionString: 'postgres://localhost:5432/bookr'
+  }
+}
+
+console.log(cn)
 
 var db = pgp(cn);
-// var connectionString = process.env.DATABASE_URL
-// var connectionString = 'postgres://localhost:5432/bookr';
-// var db = pgp(connectionString);
-
 module.exports = db;
