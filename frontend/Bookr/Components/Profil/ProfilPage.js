@@ -6,6 +6,8 @@ import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
 import config from '../Misc/Constant'
+import Animation from 'lottie-react-native';
+import anim from '../Misc/soda_loader.json';
 
 class Book extends Component {
   saveBookId(id, title, img, isbn, position, nbrPage) {
@@ -73,8 +75,12 @@ export default class ProfilPage extends Component {
       return res
     }
 
-    async componentDidMount() {
+    playAnimation() {
+      this.animation.play();
+    }
 
+    async componentDidMount() {
+      this.animation.play();
       //User's books
 
       const res = await this.getToken()
@@ -119,7 +125,7 @@ export default class ProfilPage extends Component {
       }).catch((error) => {
         console.log(error)
       })
-
+      this.playAnimation()
       this.props.screenProps.rootNavigation.setOptions({
         headerTitle: 'Profil',
         headerTintColor: '#000',
@@ -133,9 +139,10 @@ export default class ProfilPage extends Component {
           </View>
         )
       });
+      this.playAnimation()
 
       this.setState({
-        loaded: true
+        loaded: false
       })
     }
 
@@ -235,10 +242,22 @@ export default class ProfilPage extends Component {
 
   renderLoadingView() {
     return (
-      <View>
-        <Text>
-          Loading Profil...
-        </Text>
+      <View style={styles.container2}>
+        <Text style={styles.welcome}>Loading...</Text>
+        <View>
+          <Animation
+            ref={animation => {
+              this.animation = animation;
+            }}
+            style={{
+              width: 200,
+              height: 200
+            }}
+            loop={true}
+            source={anim}
+          />
+        </View>
+
       </View>
     );
   }
@@ -420,5 +439,17 @@ loginText:{
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
-  }
+  },
+  container2: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#A6207E'
+},
+welcome: {
+  fontSize: 20,
+  textAlign: 'center',
+  margin: 10,
+  color: '#ffffff'
+}
 });
