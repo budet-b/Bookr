@@ -80,49 +80,46 @@ router.get(
 
 // MARK: Friends Router
 
-router.put('/api/friends/add/:id',
+router.put(
+    '/api/friends/add/:id',
     passport.authenticate('jwt', {session: false}),
-    (req, res) => {
-        friends.addFriend(req, res)
-    }
+    friends.addFriend
 );
 
-router.put('/api/friends/accept/:id',
+router.put(
+    '/api/friends/accept/:id',
     passport.authenticate('jwt', {session: false}),
-    (req, res) => {
-        friends.acceptFriend(req, res)
-    }
+    friends.acceptFriend
 );
 
-router.get('/api/friends/received',
-passport.authenticate('jwt', {session: false}),
-(req, res) => {
-    friends.receivedInvitationList(req, res)
-}
+router.get(
+    '/api/friends/received',
+    passport.authenticate('jwt', {session: false}),
+    friends.receivedInvitationList
 );
 
-router.get('/api/friends/sent',
-passport.authenticate('jwt', {session: false}),
-(req, res) => {
-    friends.sentInvitationList(req, res)
-}
+router.get(
+    '/api/friends/sent',
+    passport.authenticate('jwt', {session: false}),
+    friends.sentInvitationList
 );
 
-router.get('/api/user/friends',
-passport.authenticate('jwt', {session: false}),
-(req, res) => {
-    friends.friendList(req, res)
-}
+router.get(
+    '/api/user/friends',
+    passport.authenticate('jwt', {session: false}),
+    friends.friendList
 );
 
-router.get('/api/friends/:id',
-passport.authenticate('jwt', {session: false}),
-(req, res) => {
-    friends.friendWithId(req, res)
-}
+router.get(
+    '/api/friends/:id',
+    passport.authenticate('jwt', {session: false}),
+    friends.friendWithId
 );
 
-router.get('/api/users', friends.usersList);
+router.get(
+    '/api/users',
+    friends.usersList
+);
 
 router.get(
     '/api/timeline',
