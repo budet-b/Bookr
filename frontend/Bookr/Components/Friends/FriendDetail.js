@@ -21,7 +21,7 @@ export default class FriendDetail extends Component {
       email: '',
       firstname: '',
       lastname: '',
-      picture: '',
+      picture: "https://via.placeholder.com/200x200",
       username: '',
       isLoading: true,
       friendType: 0
@@ -49,10 +49,16 @@ export default class FriendDetail extends Component {
         email: response.data.user.email,
         firstname: response.data.user.firstname,
         lastname: response.data.user.lastname,
-        picture: response.data.user.picture,
         username: response.data.user.username,
         friendType: response.data.friend_type
       })
+
+      console.log('PIC')
+      if (response.data.user.picture) {
+        this.setState({
+          picture: response.data.user.picture
+        })
+      }
     }).catch((error) => {
       console.log(error)
     })
