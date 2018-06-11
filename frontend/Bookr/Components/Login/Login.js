@@ -66,6 +66,8 @@ export default class Login extends Component {
       })
       console.log(user); // value here is an instance of Person
       //LOGIN
+      console.log("url")
+      console.log(config.user.LOGIN)
       axios.post(config.user.LOGIN, {
         username: user.username,
         password: user.password

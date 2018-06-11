@@ -134,6 +134,10 @@ export default class SearchBook extends Component {
     );
   }
 
+  GetListViewItem (rowData) {
+    this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.img, bookIsbn: rowData.isbn, position: rowData.position, nbrPage: rowData.nbrPage})
+  }
+
    renderSearch(item) {
     return(
       <View style={{

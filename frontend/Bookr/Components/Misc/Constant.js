@@ -18,8 +18,6 @@ const dev = {
   }
 };
 
-https://bookr-api.herokuapp.com/
-
 const prod = {
   books: {
     USERBOOK: "https://bookr-api.herokuapp.com/api/user/books/",
