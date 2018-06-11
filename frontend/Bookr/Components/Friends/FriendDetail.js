@@ -42,6 +42,7 @@ export default class FriendDetail extends Component {
     this.setState({
       friendId: this.props.navigation.state.params.friendId
     })
+
     axios.get(config.user.FRIENDS + this.state.friendId, header)
     .then((response) => {
       this.setState({
@@ -92,6 +93,7 @@ export default class FriendDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+
     axios.put(config.user.ACCEPTFRIEND + this.state.friendId, {}, header)
     .then((response) => {
       this.setState({
@@ -112,6 +114,7 @@ export default class FriendDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+
     axios.put(config.user.ADDFRIEND + this.state.friendId, {}, header)
     .then((response) => {
       this.setState({
