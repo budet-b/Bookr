@@ -115,6 +115,13 @@ passport.authenticate('jwt', {session: false}),
 
 router.get('/api/users', friends.usersList);
 
+router.get('/api/timeline',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    timeline.getTimeline(req, res)
+}
+);
+
 // MARK: Other Router
 
 router.get('/', (req, res) => {
