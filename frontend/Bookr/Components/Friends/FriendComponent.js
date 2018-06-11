@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
+import config from '../Misc/Constant'
 
 class Friend extends Component {
   constructor(props) {
@@ -124,7 +125,7 @@ export default class FriendComponent extends Component {
       headers: {'Authorization': 'Bearer ' + res}
     };
     //USERFRIENDS
-    axios.get("http://localhost:8080/api/user/friends", header)
+    axios.get(config.user.USERFRIENDS, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
@@ -136,7 +137,7 @@ export default class FriendComponent extends Component {
     })
 
     //FRIENDSRECEIVED
-    axios.get("http://localhost:8080/api/friends/received", header)
+    axios.get(config.user.FRIENDSRECEIVED, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
@@ -148,7 +149,7 @@ export default class FriendComponent extends Component {
     })
 
     //USER
-    axios.get("http://localhost:8080/api/users", header)
+    axios.get(config.user.USERS, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({

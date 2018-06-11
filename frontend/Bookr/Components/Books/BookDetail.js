@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import { iOSUIKit, sanFranciscoWeights } from 'react-native-typography';
 import { Slider } from 'react-native-usit-ui';
+import config from '../Misc/Constant'
 
 class Friend extends Component {
   render() {
@@ -71,7 +72,7 @@ export default class BookDetail extends Component {
       headers: {'Authorization': 'Bearer ' + res}
     };
     //USERBOOK
-    axios.get("http://localhost:8080/api/user/book/"+ this.state.bookId, header)
+    axios.get(config.books.SPECIFIEDUSERBOOK + this.state.bookId, header)
     .then((response) => {
       if (response.data.user.user_position) {
           if (response.data.user.user_position === response.data.book.number_of_pages) {
@@ -142,7 +143,7 @@ export default class BookDetail extends Component {
         headers: {'Authorization': 'Bearer ' + res}
       };
       //STARTBOOK
-      axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + this.state.currentPosition, {}, header)
+      axios.put(config.books.STARTBOOK + this.state.bookId +'/' + this.state.currentPosition, {}, header)
       .then((response) => {
         console.log("Ok");
       }).catch((error) => {
@@ -161,7 +162,7 @@ export default class BookDetail extends Component {
       headers: {'Authorization': 'Bearer ' + res}
     };
     //STARTBOOK
-    axios.put("http://localhost:8080/api/books/"+ this.state.bookId +'/' + '1', {}, header)
+    axios.put(config.books.STARTBOOK + this.state.bookId +'/' + '1', {}, header)
     .then((response) => {
       console.log("Ok");
     }).catch((error) => {

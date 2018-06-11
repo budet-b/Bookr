@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
+import config from '../Misc/Constant'
 
 class Book extends Component {
   saveBookId(id, title, img, isbn, position, nbrPage) {
@@ -86,7 +87,7 @@ export default class ProfilPage extends Component {
         headers: {'Authorization': 'Bearer ' + res}
       };
       //USERBOOK
-      axios.get("http://localhost:8080/api/user/books", header)
+      axios.get(config.books.USERBOOK, header)
       .then((response) => {
         console.log(response.data)
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -97,7 +98,7 @@ export default class ProfilPage extends Component {
         console.log(error)
       })
       //USER
-      axios.get("http://localhost:8080/api/user", header)
+      axios.get(config.user.USER, header)
       .then((response) => {
         console.log(response.data.user)
         this.setState({

@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import { iOSUIKit, human, material, sanFranciscoWeights } from 'react-native-typography';
 import { Slider } from 'react-native-usit-ui';
+import config from '../Misc/Constant'
 
 // Friend status:
 // 0 : Friend
@@ -41,7 +42,7 @@ export default class FriendDetail extends Component {
     this.setState({
       friendId: this.props.navigation.state.params.friendId
     })
-    axios.get("http://localhost:8080/api/friends/" + this.state.friendId, header)
+    axios.get(config.user.FRIENDS + this.state.friendId, header)
     .then((response) => {
       this.setState({
         email: response.data.user.email,
@@ -91,7 +92,7 @@ export default class FriendDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-    axios.put("http://localhost:8080/api/friends/accept/" + this.state.friendId, {}, header)
+    axios.put(config.user.ACCEPTFRIEND + this.state.friendId, {}, header)
     .then((response) => {
       this.setState({
         friendType: 0
@@ -111,7 +112,7 @@ export default class FriendDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-    axios.put("http://localhost:8080/api/friends/add/" + this.state.friendId, {}, header)
+    axios.put(config.user.ADDFRIEND + this.state.friendId, {}, header)
     .then((response) => {
       this.setState({
         friendType: 1

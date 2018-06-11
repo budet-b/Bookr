@@ -84,14 +84,11 @@ export default class Login extends Component {
   }
 
   signup() {
-    console.log("route");
     this.setState({ signup: true})
     ;
   }
 
   render() {
-    console.log('CONFIG')
-    console.log(config.user.LOGIN)
     let options = {
       order: ['username', 'password'],
       fields: {

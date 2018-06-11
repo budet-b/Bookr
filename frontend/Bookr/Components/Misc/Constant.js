@@ -1,15 +1,20 @@
 const dev = {
   books: {
-    USERBOOK: "http://localhost:8080/api/user/book/",
+    USERBOOK: "http://localhost:8080/api/user/books/",
+    SPECIFIEDUSERBOOK: "http://localhost:8080/api/user/book/",
     STARTBOOK: "http://localhost:8080/api/books/",
-    ALLBOOKS: "http://localhost:8080/api/books"
+    ALLBOOKS: "http://localhost:8080/api/books/"
   },
   user: {
     USERFRIENDS: "http://localhost:8080/api/user/friends",
     FRIENDSRECEIVED: "http://localhost:8080/api/friends/received",
-    USER: "http://localhost:8080/api/users",
+    USERS: "http://localhost:8080/api/users",
+    USER: "http://localhost:8080/api/user",
     LOGIN: "http://localhost:8080/api/user/login",
-    SIGNUP: "http://localhost:8080/api/user/signup"
+    SIGNUP: "http://localhost:8080/api/user/signup",
+    FRIENDS: "http://localhost:8080/api/friends/",
+    ACCEPTFRIEND: "http://localhost:8080/api/friends/accept/",
+    ADDFRIEND: "http://localhost:8080/api/friends/add/"
   }
 };
 
