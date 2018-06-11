@@ -286,6 +286,8 @@ export default class FriendComponent extends Component {
     );
   }
   renderItem(item) {
+    let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
+    item.picture = picture
     return <Friend friend={item} screenProps={{ rootNavigation: this.props.navigation.state.params.screenProps }}/>
   }
 }
