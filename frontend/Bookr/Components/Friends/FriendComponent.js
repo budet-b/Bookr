@@ -7,19 +7,32 @@ import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
 
 class Friend extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.friend.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
   saveFriendId(id) {
-    this.props.screenProps.rootNavigation.navigate('FriendDetail')
-    //this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
   }
 
   render() {
       return (
         <View style={styles.friend} >
-        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId()}>
+        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId(this.props.friend.id)}>
           <Image
             borderRadius={8}
-            source={{uri: this.props.friend.picture}}
+            source={{uri: this.state.picture}}
             style={styles.thumbnail}
+            onError={this.onError.bind(this)}
           />
           <View >
             <Text
@@ -149,8 +162,7 @@ export default class FriendComponent extends Component {
   }
 
    GetListViewItem (rowData) {
-     console.log(rowData.username)
-     //this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
+     this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
    renderBookDisplay() {

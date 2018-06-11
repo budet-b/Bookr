@@ -144,6 +144,17 @@ export default class ProfilPage extends Component {
       this.props.screenProps.rootNavigation.replace('Login')
     }
 
+    friendPage() {
+      this.props.screenProps.rootNavigation.navigate('FriendComponent', {screenProps: this.props.screenProps.rootNavigation})
+    }
+
+    onError() {
+      this.setState({
+        picture: "https://via.placeholder.com/200x200"
+      })
+    }
+
+
   render() {
 
     if (!this.state.loaded) {
@@ -167,6 +178,7 @@ export default class ProfilPage extends Component {
           borderRadius={50}
           overflow="hidden"
           source={{uri: this.state.picture}}
+          onError={this.onError.bind(this)}
           style={styles.profilPic}
         />
       </View>
@@ -190,7 +202,9 @@ export default class ProfilPage extends Component {
         <View style={styles.center}>
         <TouchableOpacity
                   style={styles.manageButton}
-                  underlayColor='#fff'>
+                  underlayColor='#fff'
+                  onPress= {() => this.friendPage()}
+                  >
                   <Text style={styles.manageButtonText}>Manage my friends</Text>
          </TouchableOpacity>
          <View style={styles.center2}>

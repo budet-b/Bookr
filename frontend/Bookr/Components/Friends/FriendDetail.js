@@ -7,16 +7,25 @@ import { iOSUIKit, human, material, sanFranciscoWeights } from 'react-native-typ
 import { Slider } from 'react-native-usit-ui';
 
 // Friend status:
-// 1 : Friend
-// 2 : Pending
+// 0 : Friend
+// 1 : Sent
+// 2 : Received
 // 3 : Not friend
 
 export default class FriendDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      friendId: -1,
+      email: '',
+      firstname: '',
+      lastname: '',
+      picture: '',
+      username: '',
+      isLoading: true,
+      friendType: 0
     }
+    this.renderFriendStatus = this.renderFriendStatus.bind(this);
   }
 
   async componentWillMount() {
@@ -29,6 +38,22 @@ export default class FriendDetail extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
+    this.setState({
+      friendId: this.props.navigation.state.params.friendId
+    })
+    axios.get("http://localhost:8080/api/friends/" + this.state.friendId, header)
+    .then((response) => {
+      this.setState({
+        email: response.data.user.email,
+        firstname: response.data.user.firstname,
+        lastname: response.data.user.lastname,
+        picture: response.data.user.picture,
+        username: response.data.user.username,
+        friendType: response.data.friend_type
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
     this.setState({
       isLoading: false
     })
@@ -56,6 +81,100 @@ export default class FriendDetail extends Component {
     return res
   }
 
+  async acceptFriend() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.put("http://localhost:8080/api/friends/accept/" + this.state.friendId, {}, header)
+    .then((response) => {
+      this.setState({
+        friendType: 0
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  async sendFriendRequest() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    axios.put("http://localhost:8080/api/friends/add/" + this.state.friendId, {}, header)
+    .then((response) => {
+      this.setState({
+        friendType: 1
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+    console.log("send friend")
+  }
+
+  renderFriendStatus() {
+    // Friend
+    if (this.state.friendType === 0) {
+      return (
+        <View style={styles.bottomCentered}>
+        <TouchableOpacity
+                  style={{backgroundColor: '#7BC950', width: '60%', borderRadius: 30 }}
+                  underlayColor='#fff'>
+                  <Text style={styles.manageButtonText}>You are friend</Text>
+         </TouchableOpacity>
+          </View>
+      )
+    } else if (this.state.friendType === 1) {
+      return (
+      <View style={styles.bottomCentered}>
+      <TouchableOpacity
+                style={{backgroundColor: '#EE8434', width: '60%', borderRadius: 30 }}
+                underlayColor='#fff'>
+                <Text style={styles.manageButtonText}>Friend request sent</Text>
+       </TouchableOpacity>
+        </View>);
+      //sent
+    } else if (this.state.friendType === 2) {
+      return (
+      <View style={styles.bottomCentered}>
+      <TouchableOpacity
+                style={{backgroundColor: '#7BC950', width: '60%', borderRadius: 30 }}
+                underlayColor='#fff'
+                onPress={() => this.acceptFriend()}>
+                <Text style={styles.manageButtonText}>Accept this friend ?</Text>
+       </TouchableOpacity>
+        </View> );
+      //received
+    } else if (this.state.friendType === 3) {
+      return (
+        <View style={styles.bottomCentered}>
+        <TouchableOpacity
+                  style={{backgroundColor: '#496DDB', width: '60%', borderRadius: 30 }}
+                  underlayColor='#fff'
+                  onPress={() => this.sendFriendRequest()}>
+                  <Text style={styles.manageButtonText}>Add this friend</Text>
+        </TouchableOpacity>
+        </View>
+      )
+      //nothing
+    }
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
 
   render() {
     if (this.state.isLoading)
@@ -66,6 +185,7 @@ export default class FriendDetail extends Component {
         </View>
       )
     }
+    let friendDisplay = this.renderFriendStatus();
     return (
       <View style={{backgroundColor: "#FFF"}}>
       <Text style={styles.head2}>Friend detail</Text>
@@ -78,24 +198,19 @@ export default class FriendDetail extends Component {
       <View style={styles.center}>
       <Text
       style={styles.userNameStyle}
-      >Didier Friend</Text>
+      >{this.state.firstname} {this.state.lastname}</Text>
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: 'https://via.placeholder.com/200x200'}}
+          source={{uri: this.state.picture}}
+          onError={this.onError.bind(this)}
           style={styles.profilPic}
         />
       <Text
       style={styles.userNameStyle2}
-      >Didier</Text>
+      >{this.state.username}</Text>
       </View>
-        <View style={styles.center}>
-        <TouchableOpacity
-                  style={styles.manageButton}
-                  underlayColor='#fff'>
-                  <Text style={styles.manageButtonText}>Add this friend</Text>
-         </TouchableOpacity>
-          </View>
+      {friendDisplay}
       </View>
     );
   }
@@ -213,6 +328,14 @@ var styles = StyleSheet.create({
       paddingBottom: 5,
       paddingLeft: 8,
       paddingTop: 5
+  },
+  bottomCentered: {
+      height: '90%',
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: 5,
+      paddingBottom: 5
   },
   center: {
     justifyContent: 'center',
