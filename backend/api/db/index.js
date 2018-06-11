@@ -8,7 +8,7 @@ var pgp = require('pg-promise')(options);
 
 let cn = null
 
-if (process.env.connectionString != null) {
+if (process.env.DATABASE_URL != null) {
   cn = {
     connectionString: process.env.DATABASE_URL,
     ssl: true
