@@ -16,6 +16,7 @@ import SplashScreen from './Components/SplashScreen/SplashScreen';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
 import { enhance } from 'react-navigation-addons';
+import config from './Components/Misc/Constant'
 
 const AppNavigator = StackNavigator({
   Home: { screen: Home },
@@ -69,7 +70,7 @@ export default class App extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-    axios.get("http://localhost:8080/api/user/", header)
+    axios.get(config.user.USER, header)
     .then((response) => {
       this.setState({isLoggin: true})
     })

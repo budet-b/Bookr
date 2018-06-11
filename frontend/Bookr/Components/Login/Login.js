@@ -4,6 +4,7 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import Signup from '../Signup/Signup';
+import config from '../Misc/Constant'
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
@@ -64,7 +65,10 @@ export default class Login extends Component {
         password: value.password
       })
       console.log(user); // value here is an instance of Person
-      axios.post("http://localhost:8080/api/user/login", {
+      //LOGIN
+      console.log("url")
+      console.log(config.user.LOGIN)
+      axios.post(config.user.LOGIN, {
         username: user.username,
         password: user.password
       })
@@ -82,13 +86,11 @@ export default class Login extends Component {
   }
 
   signup() {
-    console.log("route");
     this.setState({ signup: true})
     ;
   }
 
   render() {
-
     let options = {
       order: ['username', 'password'],
       fields: {

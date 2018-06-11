@@ -9,10 +9,12 @@
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
+    "start": "REACT_NATIVE_ENVIRONMENT_CURRENT=dev react-native-scripts start",
+    "run": "REACT_NATIVE_ENVIRONMENT_CURRENT=prod react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "ios-dev": "REACT_NATIVE_ENVIRONMENT_CURRENT=dev react-native-scripts ios",
+    "ios-prod": "REACT_NATIVE_ENVIRONMENT_CURRENT=prod react-native-scripts ios",
     "test": "jest"
   },
   "jest": {

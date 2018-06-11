@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
+import config from '../Misc/Constant'
 
 export default class SearchBook extends Component {
   constructor(props) {
@@ -29,7 +30,8 @@ export default class SearchBook extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:8080/api/books",)
+    //ALLBOOKS
+    axios.get(config.books.ALLBOOKS,)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
@@ -77,7 +79,8 @@ export default class SearchBook extends Component {
      };
 
      let pos = 0;
-     axios.get("http://localhost:8080/api/user/book/"+ rowData.id, header)
+     //USERBOOK
+     axios.get(config.books.USERBOOK + rowData.id, header)
      .then((response) => {
        let pages = response.data.book.number_of_pages
        if (response.data.user.user_position) {
@@ -129,6 +132,10 @@ export default class SearchBook extends Component {
         />
       </View>
     );
+  }
+
+  GetListViewItem (rowData) {
+    this.props.navigation.navigate('BookDetail', {bookid: rowData.id, bookName: rowData.title, bookImg: rowData.img, bookIsbn: rowData.isbn, position: rowData.position, nbrPage: rowData.nbrPage})
   }
 
    renderSearch(item) {

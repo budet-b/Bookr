@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit } from 'react-native-typography';
+import config from '../Misc/Constant'
 
 class Friend extends Component {
   constructor(props) {
@@ -123,7 +124,8 @@ export default class FriendComponent extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-    axios.get("http://localhost:8080/api/user/friends", header)
+    //USERFRIENDS
+    axios.get(config.user.USERFRIENDS, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
@@ -134,7 +136,8 @@ export default class FriendComponent extends Component {
       console.log(error)
     })
 
-    axios.get("http://localhost:8080/api/friends/received", header)
+    //FRIENDSRECEIVED
+    axios.get(config.user.FRIENDSRECEIVED, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
@@ -145,7 +148,8 @@ export default class FriendComponent extends Component {
       console.log(error)
     })
 
-    axios.get("http://localhost:8080/api/users", header)
+    //USER
+    axios.get(config.user.USERS, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({

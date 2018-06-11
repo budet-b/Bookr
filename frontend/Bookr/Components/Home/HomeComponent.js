@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
+import config from '../Misc/Constant'
 
 export default class HomeComponent extends Component {
   constructor(props) {
@@ -55,8 +56,8 @@ export default class HomeComponent extends Component {
       let header = {
         headers: {'Authorization': 'Bearer ' + res}
       };
-
-      axios.get("http://localhost:8080/api/friends/received", header)
+      //FRIENDSRECEIVED
+      axios.get(config.user.FRIENDSRECEIVED, header)
       .then((response) => {
         this.setState({
           pureFriendArray: response.data
