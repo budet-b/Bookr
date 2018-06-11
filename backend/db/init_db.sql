@@ -1,14 +1,15 @@
 -- DROP DATABASE IF EXISTS bookr;
 -- CREATE DATABASE bookr;
 
-DROP TABLE IF EXISTS user_profile CASCADE;
-DROP TABLE IF EXISTS book         CASCADE;
-DROP TABLE IF EXISTS user_book    CASCADE;
-DROP TABLE IF EXISTS author       CASCADE;
+DROP TABLE IF EXISTS user_profile      CASCADE;
+DROP TABLE IF EXISTS book              CASCADE;
+DROP TABLE IF EXISTS user_book         CASCADE;
+DROP TABLE IF EXISTS author            CASCADE;
 DROP TABLE IF EXISTS user_relationship CASCADE;
+DROP TABLE IF EXISTS newsfeed          CASCADE;
 -- DROP TABLE IF EXISTS book_author  CASCADE;
 
-TRUNCATE TABLE user_profile, book, user_book, author, user_relationship RESTART IDENTITY;
+TRUNCATE TABLE user_profile, book, user_book, author, user_relationship, newsfeed RESTART IDENTITY;
 
 CREATE TABLE user_profile (
   id                SERIAL,
@@ -61,6 +62,18 @@ CREATE TABLE user_relationship (
     FOREIGN KEY     (user_1_id)       REFERENCES user_profile(id),
     FOREIGN KEY     (user_2_id)       REFERENCES user_profile(id),
     FOREIGN KEY     (action_user_id)  REFERENCES user_profile(id)
+);
+
+CREATE TABLE newsfeed (
+    id                SERIAL,
+    user_id           INT             NOT NULL,
+    book_id           INT             NOT NULL,
+    date_added        TIMESTAMP       NOT NULL,
+    user_status       INT             NOT NULL,
+    user_position     INT,
+    PRIMARY KEY     (id),
+    FOREIGN KEY     (user_id)       REFERENCES user_profile(id),
+    FOREIGN KEY     (book_id)       REFERENCES book(id)
 )
 
 -- pending_first_second

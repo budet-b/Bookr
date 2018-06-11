@@ -266,6 +266,14 @@ function addBook(req, res) {
 }
 
 function updateBookUser(req, res) {
+  db.none("insert into newsfeed (user_id,\
+                                 book_id,\
+                                 date_added,\
+                                 user_status,\
+                                 user_position)\
+                      values ($1, $2, $3, $4, $5)",
+           [req.user.id, req.params.id, new Date(), 0, req.params.page])
+  .then(() => {
   db.one("select *\
                 from user_book\
                 where user_book.user_id = $1\
@@ -307,6 +315,13 @@ function updateBookUser(req, res) {
           });
         })
     })
+  })
+  .catch(err => {
+    res.status(400).json({
+      "success": false,
+      error: err.message
+    });
+  })
 }
 
 function getBooksUser(req, res) {
