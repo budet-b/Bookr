@@ -20,7 +20,5 @@ else {
   }
 }
 
-console.log(cn)
-
 var db = pgp(cn);
 module.exports = db;
