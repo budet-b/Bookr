@@ -118,7 +118,8 @@ const getBookUserFriends = (req, res, next) => {
           .catch(err => {
             return next(err);
           });
-      } else {
+      }
+      else {
         db.one(
           "select book.id,\
                        book.isbn,\
@@ -196,7 +197,8 @@ const addBook = (req, res, next) => {
 
   if (typeof isbn != "string") {
     res.status(400).json({ error: "Type error for 'isbn'" });
-  } else {
+  }
+  else {
     db.one("select id from books where book.isbn = $1", [isbn])
       .then(data => {
         res.status(400).json({ error: "ISBN error" });

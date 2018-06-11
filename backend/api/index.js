@@ -10,7 +10,6 @@ var passportJWT     = require("passport-jwt");
 // MARK: Import controllers
 
 var books           = require('./controllers/books-controller');
-var book            = require('./controllers/book-controller');
 var friends         = require('./controllers/friends-controller');
 var timeline        = require('./controllers/timeline-controller');
 var user            = require('./controllers/user-controller');
@@ -21,26 +20,19 @@ var router = express.Router();
 
 // MARK: User Router
 
-router.post('/api/user/login', (req, res) => {
-    user.login(req, res)
-});
-
-router.get('/secret',
-    passport.authenticate('jwt', { session: false }),
-    function(req, res){
-        res.json("Success! You can not see this without a token");
-    }
+router.post(
+    '/api/user/login',
+    user.login
 );
 
-router.post('/api/user/signup', (req, res) => {
-    user.createUser(req, res)
-});
+router.post(
+    '/api/user/signup',
+    user.createUser
+);
 
 router.get('/api/user',
     passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-        user.getUser(req, res)
-    }
+    user.getUser
 );
 
 // MARK: Book Router
