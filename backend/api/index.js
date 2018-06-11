@@ -45,28 +45,37 @@ router.get('/api/user',
 
 // MARK: Book Router
 
-router.get('/api/books', books.getAllBooks);
-router.get('/api/book/:id', books.getBook);
-router.post('/api/books/book', books.addBook);
-router.put('/api/books/:id/:page',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-        books.updateBookUser(req, res)
-    }
+router.get(
+    '/api/books',
+    books.getAllBooks
 );
 
-router.get('/api/user/book/:id',
-passport.authenticate('jwt', { session: false }),
-(req, res) => {
-    books.getBookUserFriends(req, res)
-}
+router.get(
+    '/api/book/:id',
+    books.getBook
 );
 
-router.get('/api/user/books',
+router.post(
+    '/api/books/book',
+    books.addBook
+);
+
+router.put(
+    '/api/books/:id/:page',
     passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-        books.getBooksUser(req, res)
-    }
+    books.updateBookUser
+);
+
+router.get(
+    '/api/user/book/:id',
+    passport.authenticate('jwt', { session: false }),
+    books.getBookUserFriends
+);
+
+router.get(
+    '/api/user/books',
+    passport.authenticate('jwt', { session: false }),
+    books.getBooksUser
 );
 
 // MARK: Friends Router
