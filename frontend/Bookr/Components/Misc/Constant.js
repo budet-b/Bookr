@@ -18,18 +18,25 @@ const dev = {
   }
 };
 
+https://bookr-api.herokuapp.com/
+
 const prod = {
   books: {
-    USERBOOK: "https://bookr-api.herokuapp.com/api/user/book/",
+    USERBOOK: "https://bookr-api.herokuapp.com/api/user/books/",
+    SPECIFIEDUSERBOOK: "https://bookr-api.herokuapp.com/api/user/book/",
     STARTBOOK: "https://bookr-api.herokuapp.com/api/books/",
-    ALLBOOKS: "https://bookr-api.herokuapp.com/api/books"
+    ALLBOOKS: "https://bookr-api.herokuapp.com/api/books/"
   },
   user: {
     USERFRIENDS: "https://bookr-api.herokuapp.com/api/user/friends",
     FRIENDSRECEIVED: "https://bookr-api.herokuapp.com/api/friends/received",
-    USER: "https://bookr-api.herokuapp.com/api/users",
+    USERS: "https://bookr-api.herokuapp.com/api/users",
+    USER: "https://bookr-api.herokuapp.com/api/user",
     LOGIN: "https://bookr-api.herokuapp.com/api/user/login",
-    SIGNUP: "https://bookr-api.herokuapp.com/api/user/signup"
+    SIGNUP: "https://bookr-api.herokuapp.com/api/user/signup",
+    FRIENDS: "https://bookr-api.herokuapp.com/api/friends/",
+    ACCEPTFRIEND: "https://bookr-api.herokuapp.com/api/friends/accept/",
+    ADDFRIEND: "https://bookr-api.herokuapp.com/api/friends/add/"
   }
 };
 
