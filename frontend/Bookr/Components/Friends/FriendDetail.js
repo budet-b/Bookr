@@ -138,7 +138,7 @@ export default class FriendDetail extends Component {
       return (
       <View style={styles.bottomCentered}>
       <TouchableOpacity
-                style={{backgroundColor: '#EE8434'}}
+                style={{backgroundColor: '#EE8434', width: '60%', borderRadius: 30 }}
                 underlayColor='#fff'>
                 <Text style={styles.manageButtonText}>Friend request sent</Text>
        </TouchableOpacity>
@@ -148,7 +148,7 @@ export default class FriendDetail extends Component {
       return (
       <View style={styles.bottomCentered}>
       <TouchableOpacity
-                style={{backgroundColor: '#7BC950'}}
+                style={{backgroundColor: '#7BC950', width: '60%', borderRadius: 30 }}
                 underlayColor='#fff'
                 onPress={() => this.acceptFriend()}>
                 <Text style={styles.manageButtonText}>Accept this friend ?</Text>
@@ -159,7 +159,7 @@ export default class FriendDetail extends Component {
       return (
         <View style={styles.bottomCentered}>
         <TouchableOpacity
-                  style={{backgroundColor: '#496DDB'}}
+                  style={{backgroundColor: '#496DDB', width: '60%', borderRadius: 30 }}
                   underlayColor='#fff'
                   onPress={() => this.sendFriendRequest()}>
                   <Text style={styles.manageButtonText}>Add this friend</Text>
@@ -168,6 +168,12 @@ export default class FriendDetail extends Component {
       )
       //nothing
     }
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
   }
 
   render() {
@@ -197,6 +203,7 @@ export default class FriendDetail extends Component {
           borderRadius={50}
           overflow="hidden"
           source={{uri: this.state.picture}}
+          onError={this.onError.bind(this)}
           style={styles.profilPic}
         />
       <Text
