@@ -24,7 +24,7 @@ app.use('/', index);
 app.use((req, res, next) => { next(createError(404)) });
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
-  res.status(404).json({
+  res.status(400).json({
     error: err.message
   });
 });

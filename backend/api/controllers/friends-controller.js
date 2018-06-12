@@ -12,16 +12,14 @@ const db = require("../db/index");
 
 // MARK: Controller Functions
 
-function addFriend(req, res) {
-
+const addFriend = (req, res, next) => {
   if (req.user.id === parseInt(req.params.id)) {
-    res.status(400).json({
-      "success": "false",
-      "error": "You can't add yourself!"
-    })
+    let err = { message: "You can't add yourself!" };
+    return next(err);
   }
   else {
-    db.oneOrNone('insert into user_relationship(\
+    db.oneOrNone(
+      "insert into user_relationship(\
                   user_1_id,\
                   user_2_id,\
                   friend_type,\
@@ -31,68 +29,59 @@ function addFriend(req, res) {
                 select id from user_relationship\
                 where user_1_id = $1\
                 and user_2_id = $2)\
-                returning id', [req.user.id, req.params.id, 0])
-      .then((data) => {
+                returning id",
+      [req.user.id, req.params.id, 0]
+    )
+      .then(data => {
         if (data != null) {
           res.status(200).json({
-            "success": true,
-            "status": 0
-          })
+            success: true,
+            status: 0
+          });
         }
         else {
-          res.status(400).json({
-            "success": false,
-            "error": "Error while adding"
-          })
+          let err = { message: "Error while adding" };
+          return next(err);
         }
       })
-      .catch((err) => {
-        console.log(err)
-        res.status(400).json({
-          "success": "false",
-          "error": err.detail
-        })
-      })
+      .catch(err => {
+        return next(err);
+      });
   }
-}
+};
 
+const acceptFriend = (req, res, next) => {
+  let arr = [req.user.id, parseInt(req.params.id)];
 
-function acceptFriend(req, res) {
-
-  let arr = [req.user.id, parseInt(req.params.id)]
-
-  db.oneOrNone('update user_relationship\
+  db.oneOrNone(
+    "update user_relationship\
            set friend_type = 1,\
            action_user_id = $1\
            where user_1_id = $2\
              and user_2_id = $1\
-           returning *',
-    [arr[0], arr[1]])
-    .then((data) => {
+           returning *",
+    [arr[0], arr[1]]
+  )
+    .then(data => {
       if (data != null) {
         res.status(200).json({
-          "success": true,
-          "status": 1
-        })
+          success: true,
+          status: 1
+        });
       }
       else {
-        res.status(400).json({
-          "success": false,
-          "status": "Error"
-        })
+        let err = { message: "No friend request found" };
+        return next(err);
       }
     })
-    .catch((err) => {
-      res.status(400).json({
-        "success": false,
-        "error": err.detail
-      })
-    })
-}
+    .catch(err => {
+      return next(err);
+    });
+};
 
-function receivedInvitationList(req, res) {
-
-  db.any('select user_profile.id,\
+function receivedInvitationList(req, res, next) {
+  db.any(
+    "select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
@@ -105,17 +94,20 @@ function receivedInvitationList(req, res) {
         and user_profile.id != $1\
           where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
           and friend_type = $2\
-          and action_user_id != $1', [req.user.id, 0])
+          and action_user_id != $1",
+    [req.user.id, 0]
+  )
     .then(data => {
-      res.status(200).json(data)
+      res.status(200).json(data);
     })
-    .catch((err) => {
-      res.status(400).json(err)
-    })
+    .catch(err => {
+      return next(err);
+    });
 }
 
-function sentInvitationList(req, res) {
-  db.any('select user_profile.id,\
+function sentInvitationList(req, res, next) {
+  db.any(
+    "select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
@@ -128,17 +120,20 @@ function sentInvitationList(req, res) {
           and user_profile.id != $1\
           where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
           and friend_type = $2\
-          and action_user_id = $1', [req.user.id, 0])
+          and action_user_id = $1",
+    [req.user.id, 0]
+  )
     .then(data => {
-      res.status(200).json(data)
+      res.status(200).json(data);
     })
-    .catch((err) => {
-      res.status(400).json(err)
-    })
+    .catch(err => {
+      return next(err);
+    });
 }
 
-function friendList(req, res) {
-  db.any('select user_profile.id,\
+function friendList(req, res, next) {
+  db.any(
+    "select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
@@ -150,40 +145,43 @@ function friendList(req, res) {
             or user_profile.id = user_relationship.user_2_id)\
             and user_profile.id != $1\
           where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
-          and friend_type = $2', [req.user.id, 1])
+          and friend_type = $2",
+    [req.user.id, 1]
+  )
     .then(data => {
-      res.status(200).json(data)
+      res.status(200).json(data);
     })
-    .catch((err) => {
-      res.status(400).json(err)
-    })
+    .catch(err => {
+      return next(err);
+    });
 }
 
-function usersList(req, res) {
-  db.any('select user_profile.id,\
+function usersList(req, res, next) {
+  db.any(
+    "select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
                  user_profile.lastname,\
                  user_profile.picture\
-          from user_profile')
+          from user_profile"
+  )
     .then(data => {
-      res.status(200).json(data)
+      res.status(200).json(data);
     })
-    .catch((err) => {
-      res.status(400).json(err)
-    })
+    .catch(err => {
+      return next(err);
+    });
 }
 
-function friendWithId(req, res) {
+function friendWithId(req, res, next) {
   if (req.user.id === parseInt(req.params.id)) {
-    res.status(400).json({
-      "success": false,
-      "error": "You can't search yourself"
-    })
+    let err = { message: "You can't add yourself!" };
+    return next(err);
   }
   else {
-  db.oneOrNone('select user_profile.id,\
+    db.oneOrNone(
+      "select user_profile.id,\
                        user_profile.email,\
                        user_profile.username,\
                        user_profile.firstname,\
@@ -194,90 +192,88 @@ function friendWithId(req, res) {
                        from user_relationship\
                        left join user_profile on\
                        (user_profile.id = user_relationship.user_1_id \
-                        or user_profile.id = user_relationship.user_2_id)\
-                        and user_profile.id != $1\
-                        where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
-                        and (user_relationship.user_1_id = $2 or user_relationship.user_2_id = $2)',
-                        [req.user.id, req.params.id])
-    .then(data => {
-      if (data != null) {
-        let user = {
-          id: data.id,
-          username: data.username,
-          firstname: data.firstname,
-          lastname: data.lastname,
-          email: data.email,
-          picture: data.picture
-        }
-        let friend_type = 0
-        if (data.friend_type === 1) { //friend
-          friend_type = 0
-        }
-        else if (data.friend_type === 0)
-        {
-          if (data.id === data.action_user_id) { //sent
-            friend_type = 2
+                       or user_profile.id = user_relationship.user_2_id)\
+                       and user_profile.id != $1\
+                       where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
+                       and (user_relationship.user_1_id = $2 or user_relationship.user_2_id = $2)",
+      [req.user.id, req.params.id]
+    )
+      .then(data => {
+        if (data != null) {
+          let user = {
+            id: data.id,
+            username: data.username,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            picture: data.picture
+          };
+          let friend_type = 0;
+          if (data.friend_type === 1) {
+            //friend
+            friend_type = 0;
           }
-          else { //received
-            friend_type = 1
-          }
-        }
-        else {
-          friend_type = 3
-        }
-        res.status(200).json({
-          user: user,
-          friend_type: friend_type
-        })
-      }
-      else {
-        db.oneOrNone('select * from user_profile\
-                      where user_profile.id = $1', [req.params.id])
-        .then(data => {
-            if (data != null) {
-              let user = {
-                id: data.id,
-                username: data.username,
-                firstname: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                picture: data.picture
-              }
-              res.status(200).json({
-                user: user,
-                friend_type: 3
-              })
+          else if (data.friend_type === 0) {
+            if (data.id === data.action_user_id) {
+              //sent
+              friend_type = 2;
             }
             else {
-              res.status(400).json({
-                "success": false,
-                "error": "User not in db"
-              })
+              //received
+              friend_type = 1;
             }
-        })
-        .catch(err => {
-          res.status(400).json({
-            "success": false,
-            "error": "Unknown error"
-          })
-        })
-      }
-    })
-    .catch(err => {
-      res.status(400).json({
-        "success": false,
-        "error": "Unknown error"
+          }
+          else {
+            friend_type = 3;
+          }
+          res.status(200).json({
+            user: user,
+            friend_type: friend_type
+          });
+        }
+        else {
+          db.oneOrNone(
+            "select * from user_profile\
+                      where user_profile.id = $1",
+            [req.params.id]
+          )
+            .then(data => {
+              if (data != null) {
+                let user = {
+                  id: data.id,
+                  username: data.username,
+                  firstname: data.firstname,
+                  lastname: data.lastname,
+                  email: data.email,
+                  picture: data.picture
+                };
+                res.status(200).json({
+                  user: user,
+                  friend_type: 3
+                });
+              }
+              else {
+                let err = { message: "User not in db" };
+                return next(err);
+              }
+            })
+            .catch(err => {
+              return next(err);
+            });
+        }
       })
-    })
+      .catch(err => {
+        return next(err);
+      });
   }
 }
 
 module.exports = {
-  addFriend: addFriend,
-  acceptFriend: acceptFriend,
-  receivedInvitationList: receivedInvitationList,
-  sentInvitationList: sentInvitationList,
-  friendList: friendList,
-  usersList: usersList,
-  friendWithId: friendWithId
+  addFriend,
+  acceptFriend,
+  receivedInvitationList,
+  sentInvitationList,
+  friendList,
+  usersList,
+  friendWithId
 };

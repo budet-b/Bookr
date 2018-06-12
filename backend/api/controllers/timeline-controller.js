@@ -6,7 +6,7 @@ const db = require("../db/index");
 
 // MARK: Controller Functions
 
-function getTimeline(req, res) {
+const getTimeline = (req, res, next) => {
   let arr = []
   db.any('select newsfeed.book_id,\
                  newsfeed.date_added,\
@@ -60,11 +60,11 @@ function getTimeline(req, res) {
       })
       res.status(200).json(arr)
     })
-    .catch((err) => {
-      res.status(400).json(err)
+    .catch(err => {
+      next(err)
     })
 }
 
 module.exports = {
-  getTimeline: getTimeline
+  getTimeline
 };
