@@ -28,9 +28,8 @@ const getTimeline = (req, res, next) => {
           inner join book on newsfeed.book_id = book.id\
           inner join user_relationship on (user_relationship.user_1_id = newsfeed.user_id or user_relationship.user_2_id = newsfeed.user_id)\
           left join user_profile on user_profile.id = newsfeed.user_id\
-          and user_profile.id != $1\
           where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)\
-          and friend_type = 1 order by newsfeed.date_added desc', [req.user.id])
+          and friend_type = 1 and user_profile.id != $1 order by newsfeed.date_added desc', [req.user.id])
     .then(data => {
       data.forEach(element => {
         let book = {
