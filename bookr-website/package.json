@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "element-react": "^1.4.19",
+    "element-theme-default": "^1.4.13",
     "js-cookie": "^2.2.0",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",

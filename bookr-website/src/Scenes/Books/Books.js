@@ -3,6 +3,7 @@ import NavBar from '../../Components/NavBar/Navbar';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Grid, Row, Col } from 'react-bootstrap';
+import './book.css';
 
 export default class BooksPageScene extends Component {
   constructor(props) {
@@ -65,33 +66,38 @@ export default class BooksPageScene extends Component {
 
     console.log(this.state.books)
     return this.state.books.map((book, index) => {
-      return(
-          <div>
-          <Col xs={6} md={2}>
-            <center>
-            <img src={book.cover} width={80} height={130} alt={book.title} />
-            <h6>{book.title}</h6>
-            <div className="middle">
-            <button type="button"
-              className="btn btn-success myBtn"
-              id={index}
-              data-modal={"modal" + index}
-              onClick={this.handleClick}>
-              Voir
-            </button>
-            </div>
-            </center>
-            </Col>
-            <div id={"modal"+index} className="modal">
-              <div className="modal-content" style={{width: '400px'}}>
-                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
-                <center>
-                  <img src={book.cover} alt={book.title} title={book.title} className="image" width={'200px'} height={'200px'}/>
-                </center>
+      return <div>
+          <Col xs={6} md={3}>
+            <div className="book">
+              <div className="container-book">
+                <img src={book.cover} className="img_100" alt={book.title} />
+              <div className="spacer5" />
+              <p>
+                <b>{book.title}</b>
+                <br />
+                {book.author_name}
+              </p>
+              <button type="button"
+                      className="btn btn-success myBtn"
+                      id={index}
+                      data-modal={"modal" + index}
+                      onClick={this.handleClick}>
+                Voir
+              </button>
               </div>
             </div>
+          </Col>
+          <div id={"modal" + index} className="modal">
+            <div className="modal-content" style={{ width: "400px" }}>
+              <span className="close" id={index} onClick={this.handleClose}>
+                &times;
+              </span>
+              <center>
+                <img src={book.cover} alt={book.title} title={book.title} className="image" width={"200px"} height={"200px"} />
+              </center>
+            </div>
           </div>
-      )
+        </div>;
     });
   }
 
@@ -114,9 +120,11 @@ export default class BooksPageScene extends Component {
       <NavBar/>
       <div style={{paddingTop: 60}}>
       <Grid>
+      <div className="container-books">
       <Row className="show-grid">
         {renderBooks}
       </Row>
+      </div>
       </Grid>
       </div>
       </div>
