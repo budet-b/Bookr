@@ -23,15 +23,32 @@ class TimelineCell extends Component {
 
   render() {
     console.log(this.props.cell.user)
+    let usr = this.props.cell.user.username ? this.props.cell.user.username : "username"
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'column', width: '100%'}}>
+      <View style={{flexDirection: 'row', width: '100%'}}>
       <Image
         borderRadius={8}
         source={{uri: "https://via.placeholder.com/200x200"}}
         style={styles.thumbnail}
         onError={this.onError.bind(this)}
       />
-      <Text>{this.props.cell.book.title}</Text>
+      <Text style={{paddingTop: 10, paddingLeft: 5}}>{usr}</Text>
+      <Text style={{alignItems: 'flex-end',textAlign: 'right'}}>9:45</Text>
+      </View>
+      <View style={{flexDirection: 'row', width: '100%', textAlign: 'center', flexDirection: 'row'}}>
+      <Image
+        borderRadius={8}
+        source={{uri: this.props.cell.book.cover}}
+        style={styles.thumbnail2}
+      />
+      <View style={{flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center'}}>
+        <Text>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+      </View>
+      </View>
       </View>
     )
   }
@@ -158,7 +175,6 @@ export default class HomeComponent extends Component {
               renderSeparator= {this.ListViewItemSeparator}
               renderRow={(rowData) => this.renderTimelineItem(rowData)}
               enableEmptySections={true}
-              style={{marginTop: 10}}
             />
           </View>
         )
@@ -206,7 +222,7 @@ export default class HomeComponent extends Component {
     });
     let timeline = this.renderTimeline()
     return (
-      <View style={{flex: 1, paddingTop: 20}}>
+      <View style={{flex: 1, paddingTop: 20, width:'100%'}}>
       {timeline}
       </View>
     );
@@ -216,9 +232,9 @@ export default class HomeComponent extends Component {
 var styles = StyleSheet.create({
   MainContainer :{
     backgroundColor: '#FFF',
-    justifyContent: 'center',
     flex:1,
-    paddingTop: 5
+    paddingTop: 5,
+    width: '100%'
   },
   rightHead: {
     flex: 1,
@@ -232,9 +248,14 @@ var styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     backgroundColor:'#fff',
-    borderRadius:32,
-    width: 64,
-    height: 64,
+    borderRadius:20,
+    width: 40,
+    height: 40,
+    justifyContent: 'flex-end'
+  },
+  thumbnail2: {
+    width: 60,
+    height: 100,
     justifyContent: 'flex-end'
   },
   badgeStyle:{
