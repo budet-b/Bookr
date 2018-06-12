@@ -258,13 +258,11 @@ function friendWithId(req, res, next) {
               }
             })
             .catch(err => {
-              let err = { message: "Unknown error" };
               return next(err);
             });
         }
       })
       .catch(err => {
-        let err = { message: "Unknown error" };
         return next(err);
       });
   }
