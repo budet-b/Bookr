@@ -25,7 +25,6 @@ class Book extends Component {
             <Text
             style={styles.title}
             numberOfLines={3}>{this.props.book.title}</Text>
-            <Text style={styles.year}>{2001}</Text>
           </View>
         </TouchableOpacity>
         </View>
@@ -181,7 +180,6 @@ export default class BooksComponent extends Component {
       <View style={{backgroundColor: "#FFF"}}>
       <View style={{flexDirection: "row"}}>
       <Text style={styles.head}>My Books</Text>
-
       </View>
       <View
         style={{
@@ -194,6 +192,7 @@ export default class BooksComponent extends Component {
       >
         <ListView contentContainerStyle={styles.list}
         dataSource={this.state.userBooks}
+        style={{height: 200}}
         renderRow={(data) => this.renderItem(data)}
         />
         </ScrollView>
