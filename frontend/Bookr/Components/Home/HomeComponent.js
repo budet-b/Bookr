@@ -6,6 +6,7 @@ import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
 import config from '../Misc/Constant'
+import Moment from 'moment';
 
 class TimelineCell extends Component {
   constructor(props) {
@@ -22,31 +23,34 @@ class TimelineCell extends Component {
   }
 
   render() {
-    console.log(this.props.cell.user)
     let usr = this.props.cell.user.username ? this.props.cell.user.username : "username"
+    Moment.locale('en');
+    let date = Moment(this.props.cell.date_added).fromNow()
     return (
-      <View style={{flexDirection: 'column', width: '100%'}}>
+      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 5}}>
       <View style={{flexDirection: 'row', width: '100%'}}>
       <Image
         borderRadius={8}
-        source={{uri: "https://via.placeholder.com/200x200"}}
+        source={{uri: this.state.picture}}
         style={styles.thumbnail}
         onError={this.onError.bind(this)}
       />
-      <Text style={{paddingTop: 10, paddingLeft: 5}}>{usr}</Text>
-      <Text style={{alignItems: 'flex-end',textAlign: 'right'}}>9:45</Text>
+      <Text style={styles.userDisplay}>{usr}</Text>
+      <View style={{alignItems: 'flex-end', flexDirection: 'row', justifyContent: 'flex-end', width: '60%'}}>
+      <Text style={{alignItems: 'flex-end',paddingBottom: 6}}>{date}</Text>
       </View>
-      <View style={{flexDirection: 'row', width: '100%', textAlign: 'center', flexDirection: 'row'}}>
+      </View>
+      <View style={{flexDirection: 'row', width: '100%', textAlign: 'center', flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
       <Image
         borderRadius={8}
         source={{uri: this.props.cell.book.cover}}
         style={styles.thumbnail2}
       />
       <View style={{flex:1,
-        flexDirection:'row',
+        flexDirection:'column',
         alignItems:'center',
         justifyContent:'center'}}>
-        <Text>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
       </View>
       </View>
       </View>
@@ -153,7 +157,6 @@ export default class HomeComponent extends Component {
     renderTimelineItem(item) {
       let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
       item.picture = picture
-      console.log(item.picture)
       return <TimelineCell cell={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation}}/>
     }
 
@@ -167,7 +170,6 @@ export default class HomeComponent extends Component {
           </View>
         )
       } else {
-        console.log(this.state.timeline)
         return (
           <View style={styles.MainContainer}>
             <ListView
@@ -222,7 +224,7 @@ export default class HomeComponent extends Component {
     });
     let timeline = this.renderTimeline()
     return (
-      <View style={{flex: 1, paddingTop: 20, width:'100%'}}>
+      <View style={{flex: 1, width:'100%', paddingBottom: 80}}>
       {timeline}
       </View>
     );
@@ -253,10 +255,26 @@ var styles = StyleSheet.create({
     height: 40,
     justifyContent: 'flex-end'
   },
+  textBook: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems:'center',
+    justifyContent:'center',
+    paddingLeft: 5
+  },
+  userDisplay: {
+    paddingTop: 10,
+    paddingLeft: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems:'center',
+    justifyContent:'center'
+  },
   thumbnail2: {
     width: 60,
     height: 100,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    paddingBottom: 10
   },
   badgeStyle:{
     textAlign: 'right',
@@ -264,5 +282,4 @@ var styles = StyleSheet.create({
     backgroundColor: '#F40A12',
     justifyContent: 'flex-end',
   }
-
 });
