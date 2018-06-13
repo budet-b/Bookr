@@ -176,6 +176,11 @@ export default class BookDetail extends Component {
   }
 
   renderBookStatus() {
+    return(
+      <View>
+      <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+      </View>
+    )
     if (this.state.bookStatus === 0) {
       return (
         <View>
@@ -238,26 +243,25 @@ export default class BookDetail extends Component {
       )
     }
     return (
-      <View style={styles.view}>
-        <Text style={styles.head}>{this.state.bookName}</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        <View style={styles.center}>
+      <View style={{flexDirection: 'column', flex: 1, paddingTop: 10}}>
+      <View style={{flexDirection: 'row', flex: 1, paddingTop: 10}}>
+        <View style={{paddingLeft: 20}}>
         <Image
           borderRadius={8}
           source={{uri: this.state.bookImg}}
           style={styles.image}
-        />
-        <Text style={styles.desc}>{this.state.bookAuthor}</Text>
-        <Text style={styles.desc}>{this.state.bookPage} pages</Text>
-        {bookStatusDisplay}
+          />
         </View>
+        <View style={{paddingLeft: 10}}>
+        <Text style={styles.bookName}>{this.state.bookName}</Text>
+        <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookName}</Text></Text>
+        <Text style={{paddingTop: 60, fontSize: 20}}>{this.state.bookPage} pages</Text>
+        </View>
+        </View>
+        {bookStatusDisplay}
         {friendDisplay}
-      </View>
+
+        </View>
     );
   }
 
@@ -329,6 +333,11 @@ var styles = StyleSheet.create({
       paddingTop: 5,
       textAlign: 'left'
   },
+  leftImage: {
+    flexDirection: 'column',
+    borderColor:'blue',
+    borderWidth:2
+  },
   desc: {
     ...iOSUIKit.footnoteEmphasizedObject,
       marginHorizontal: 0,
@@ -343,14 +352,31 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   image: {
-    width: 130,
+    width: 160,
     height: 250,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
+    justifyContent: 'left',
+    alignItems: 'left',
+    textAlign: 'left',
+    paddingLeft: 30
   },
+    item2:{
+     borderColor:'black',
+     borderWidth:2,
+     flexDirection:'column',
+   },
   view: {
     backgroundColor: "#FFF",
+  },
+  bookName: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.heavy,
+    fontSize: 20
+  },
+  bookAuthor: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.regular,
+    fontSize: 18,
+    fontStyle: 'italic'
   },
   head: {
   ...iOSUIKit.largeTitleEmphasizedObject,

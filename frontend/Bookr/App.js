@@ -98,7 +98,11 @@ export default class App extends Component {
       FriendComponent: {screen: FriendComponent},
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
-      BookDetail: { screen: BookDetail },
+      BookDetail: { screen: BookDetail,
+        navigationOptions: {
+          title: "Books"
+        }
+      },
       Books: { screen: Books },
     }, {initialRouteName: logged});
     if (this.state.isLoading)
