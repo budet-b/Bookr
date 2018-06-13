@@ -6,16 +6,71 @@ import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
 import { iOSUIKit, human, material } from 'react-native-typography';
 import config from '../Misc/Constant'
+import Moment from 'moment';
+
+class TimelineCell extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.cell.user.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
+  render() {
+    let usr = this.props.cell.user.username ? this.props.cell.user.username : "username"
+    Moment.locale('en');
+    let date = Moment(this.props.cell.date_added).fromNow()
+    return (
+      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 5}}>
+      <View style={{flexDirection: 'row', width: '100%'}}>
+      <Image
+        borderRadius={8}
+        source={{uri: this.state.picture}}
+        style={styles.thumbnail}
+        onError={this.onError.bind(this)}
+      />
+      <Text style={styles.userDisplay}>{usr}</Text>
+      <View style={{alignItems: 'flex-end', flexDirection: 'row', justifyContent: 'flex-end', width: '60%'}}>
+      <Text style={{alignItems: 'flex-end',paddingBottom: 6}}>{date}</Text>
+      </View>
+      </View>
+      <View style={{flexDirection: 'row', width: '100%', textAlign: 'center', flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
+      <Image
+        borderRadius={8}
+        source={{uri: this.props.cell.book.cover}}
+        style={styles.thumbnail2}
+      />
+      <View style={{flex:1,
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center'}}>
+        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+      </View>
+      </View>
+      </View>
+    )
+  }
+}
+
 
 export default class HomeComponent extends Component {
   constructor(props) {
   super(props);
+  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
-      isLoading: false,
+      isLoading: true,
       userBooks: [],
       pureFriendArray: [],
+      timeline: [],
+      timelineDataSource: ds
     }
-  this.friendPage = this.friendPage.bind(this);
+    this.friendPage = this.friendPage.bind(this);
   }
 
     async getKey() {
@@ -41,7 +96,6 @@ export default class HomeComponent extends Component {
     }
 
     friendPage() {
-      console.log('friend page')
       this.props.screenProps.rootNavigation.navigate('FriendComponent', {screenProps: this.props.screenProps.rootNavigation})
     }
 
@@ -66,10 +120,17 @@ export default class HomeComponent extends Component {
         console.log(error)
       })
 
-
-
-      this.setState({
-        isLoading: false
+      axios.get(config.user.TIMELINE, header)
+      .then((response) => {
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          timeline: response.data,
+          timelineDataSource: ds.cloneWithRows(response.data),
+          isLoading: false
+        })
+      })
+      .catch((error) => {
+        console.log(error)
       })
     }
 
@@ -78,6 +139,47 @@ export default class HomeComponent extends Component {
         await AsyncStorage.setItem('token', value);
       } catch (error) {
         console.log("Error saving data" + error);
+      }
+    }
+
+    ListViewItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: .5,
+          width: "100%",
+          backgroundColor: "#000",
+        }}
+        />
+      );
+    }
+
+    renderTimelineItem(item) {
+      let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
+      item.picture = picture
+      return <TimelineCell cell={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation}}/>
+    }
+
+    renderTimeline() {
+       if (this.state.timeline.length === 0) {
+        return (
+          <View style={{flex: 1, paddingTop: 20}}>
+          <Text>
+            Sorry, please add some friend to have activity.
+          </Text>
+          </View>
+        )
+      } else {
+        return (
+          <View style={styles.MainContainer}>
+            <ListView
+              dataSource={this.state.timelineDataSource}
+              renderSeparator= {this.ListViewItemSeparator}
+              renderRow={(rowData) => this.renderTimelineItem(rowData)}
+              enableEmptySections={true}
+            />
+          </View>
+        )
       }
     }
 
@@ -120,20 +222,59 @@ export default class HomeComponent extends Component {
         </View>
       )
     });
+    let timeline = this.renderTimeline()
     return (
-      <View>
-      <Text> Didier 2 </Text>
+      <View style={{flex: 1, width:'100%', paddingBottom: 80}}>
+      {timeline}
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
+  MainContainer :{
+    backgroundColor: '#FFF',
+    flex:1,
+    paddingTop: 5,
+    width: '100%'
+  },
   rightHead: {
     flex: 1,
     flexDirection: "row",
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  thumbnail: {
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:'#fff',
+    borderRadius:20,
+    width: 40,
+    height: 40,
+    justifyContent: 'flex-end'
+  },
+  textBook: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems:'center',
+    justifyContent:'center',
+    paddingLeft: 5
+  },
+  userDisplay: {
+    paddingTop: 10,
+    paddingLeft: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  thumbnail2: {
+    width: 60,
+    height: 100,
+    justifyContent: 'flex-end',
+    paddingBottom: 10
   },
   badgeStyle:{
     textAlign: 'right',
@@ -141,5 +282,4 @@ var styles = StyleSheet.create({
     backgroundColor: '#F40A12',
     justifyContent: 'flex-end',
   }
-
 });

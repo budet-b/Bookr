@@ -14,7 +14,8 @@ const dev = {
     SIGNUP: "http://localhost:8080/api/user/signup",
     FRIENDS: "http://localhost:8080/api/friends/",
     ACCEPTFRIEND: "http://localhost:8080/api/friends/accept/",
-    ADDFRIEND: "http://localhost:8080/api/friends/add/"
+    ADDFRIEND: "http://localhost:8080/api/friends/add/",
+    TIMELINE: "http://localhost:8080/api/timeline"
   }
 };
 
@@ -34,7 +35,8 @@ const prod = {
     SIGNUP: "https://bookr-api.herokuapp.com/api/user/signup",
     FRIENDS: "https://bookr-api.herokuapp.com/api/friends/",
     ACCEPTFRIEND: "https://bookr-api.herokuapp.com/api/friends/accept/",
-    ADDFRIEND: "https://bookr-api.herokuapp.com/api/friends/add/"
+    ADDFRIEND: "https://bookr-api.herokuapp.com/api/friends/add/",
+    TIMELINE: "https://bookr-api.herokuapp.com/api/timeline"
   }
 };
 
