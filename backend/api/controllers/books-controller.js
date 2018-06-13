@@ -248,7 +248,6 @@ const addBook = (req, res, next) => {
   }).then(result => {
     db.task(y => {
       if (result === -1) {
-        console.log(y)
         return y
           .oneOrNone("insert into author(name) values($1) returning id", [
             author_name
