@@ -14,6 +14,7 @@ const getAllBooks = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.summary,\
                  author.id as author_id,\
                  author.name as author_name\
             from book\
@@ -36,6 +37,7 @@ const getBook = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.summary,\
                  author.id as author_id,\
                  author.name as author_name\
           from book\
@@ -63,6 +65,7 @@ const getBookUserFriends = (req, res, next) => {
                    book.number_of_pages,\
                    book.publish_date,\
                    book.cover,\
+                   book.summary,\
                    book.author_id,\
                    author.name as author_name\
             from book\
@@ -127,6 +130,7 @@ const getBookUserFriends = (req, res, next) => {
                        book.number_of_pages,\
                        book.publish_date,\
                        book.cover,\
+                       book.summary,\
                        author.id as author_id,\
                        author.name as author_name\
                 from book\
@@ -194,6 +198,7 @@ const addBook = (req, res, next) => {
   let author_name = req.body.author_name;
   let publish_date = req.body.publish_date;
   let cover = req.body.cover;
+  let summary = req.body.summary;
 
   if (typeof isbn != "string") {
     res.status(400).json({ error: "Type error for 'isbn'" });
@@ -226,6 +231,10 @@ const addBook = (req, res, next) => {
     let err = { message: "Type error for 'cover'"}
     return next(err)
   }
+  if (typeof summary != "string") {
+    let err = { message: "Type error for 'summary'"}
+    return next(err)
+  }
 
   db.task(t => {
     return t
@@ -238,14 +247,17 @@ const addBook = (req, res, next) => {
       });
   }).then(result => {
     db.task(y => {
-      if (result == -1) {
+      if (result === -1) {
         return y
           .oneOrNone("insert into author(name) values($1) returning id", [
             author_name
           ])
           .then(datas => {
             return datas.id;
-          });
+          })
+          .catch(() => {
+            return -1
+          })
       }
       return result;
     }).then(events => {
@@ -256,15 +268,18 @@ const addBook = (req, res, next) => {
                      number_of_pages,\
                      publish_date,\
                      cover,\
+                     summary,\
                      author_id)\
-                values ($1, $2, $3, $4, $5, $6)\
+                values ($1, $2, $3, $4, $5, $6, $7)\
                 returning id,\
                           isbn,\
                           title,\
                           number_of_pages,\
                           publish_date,\
-                          cover, author_id",
-        [isbn, title, number_of_pages, publish_date, cover, events]
+                          cover,\
+                          summary,\
+                          author_id",
+        [isbn, title, number_of_pages, publish_date, cover, summary, events]
       )
         .then(data => {
           let book = {
@@ -274,6 +289,7 @@ const addBook = (req, res, next) => {
             number_of_pages: data.number_of_pages,
             publish_date: data.publish_date,
             cover: data.cover,
+            summary: data.summary,
             author_id: data.author_id
           };
           res.status(200).json({ book });
@@ -357,6 +373,7 @@ const getBooksUser = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.summary,\
                  book.author_id,\
                  author.name as author_name\
           from book\
@@ -375,6 +392,7 @@ const getBooksUser = (req, res, next) => {
           number_of_pages: element.number_of_pages,
           publish_date: element.publish_date,
           cover: element.cover,
+          summary: element.summary,
           author_id: element.author_id,
           author_name: element.author_name
         };
