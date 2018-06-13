@@ -236,7 +236,6 @@ const addBook = (req, res, next) => {
     return next(err)
   }
 
-
   db.task(t => {
     return t
       .oneOrNone("select * from author where author.name = $1", [author_name])
@@ -248,14 +247,18 @@ const addBook = (req, res, next) => {
       });
   }).then(result => {
     db.task(y => {
-      if (result == -1) {
+      if (result === -1) {
+        console.log(y)
         return y
           .oneOrNone("insert into author(name) values($1) returning id", [
             author_name
           ])
           .then(datas => {
             return datas.id;
-          });
+          })
+          .catch(() => {
+            return -1
+          })
       }
       return result;
     }).then(events => {
@@ -274,7 +277,9 @@ const addBook = (req, res, next) => {
                           title,\
                           number_of_pages,\
                           publish_date,\
-                          cover, author_id",
+                          cover,\
+                          summary,\
+                          author_id",
         [isbn, title, number_of_pages, publish_date, cover, summary, events]
       )
         .then(data => {
