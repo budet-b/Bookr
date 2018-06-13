@@ -23,7 +23,7 @@ const getTimeline = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
-                 book.sumary,\
+                 book.summary,\
                  book.author_id\
           from newsfeed\
           inner join book on newsfeed.book_id = book.id\
