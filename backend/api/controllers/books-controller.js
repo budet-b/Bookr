@@ -14,6 +14,7 @@ const getAllBooks = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.sumary,\
                  author.id as author_id,\
                  author.name as author_name\
             from book\
@@ -36,6 +37,7 @@ const getBook = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.sumary,\
                  author.id as author_id,\
                  author.name as author_name\
           from book\
@@ -63,6 +65,7 @@ const getBookUserFriends = (req, res, next) => {
                    book.number_of_pages,\
                    book.publish_date,\
                    book.cover,\
+                   book.sumary,\
                    book.author_id,\
                    author.name as author_name\
             from book\
@@ -127,6 +130,7 @@ const getBookUserFriends = (req, res, next) => {
                        book.number_of_pages,\
                        book.publish_date,\
                        book.cover,\
+                       book.sumary,\
                        author.id as author_id,\
                        author.name as author_name\
                 from book\
@@ -194,6 +198,7 @@ const addBook = (req, res, next) => {
   let author_name = req.body.author_name;
   let publish_date = req.body.publish_date;
   let cover = req.body.cover;
+  let sumary = req.body.sumary;
 
   if (typeof isbn != "string") {
     res.status(400).json({ error: "Type error for 'isbn'" });
@@ -226,6 +231,11 @@ const addBook = (req, res, next) => {
     let err = { message: "Type error for 'cover'"}
     return next(err)
   }
+  if (typeof sumary != "string") {
+    let err = { message: "Type error for 'sumary'"}
+    return next(err)
+  }
+
 
   db.task(t => {
     return t
@@ -256,15 +266,16 @@ const addBook = (req, res, next) => {
                      number_of_pages,\
                      publish_date,\
                      cover,\
+                     sumary,\
                      author_id)\
-                values ($1, $2, $3, $4, $5, $6)\
+                values ($1, $2, $3, $4, $5, $6, $7)\
                 returning id,\
                           isbn,\
                           title,\
                           number_of_pages,\
                           publish_date,\
                           cover, author_id",
-        [isbn, title, number_of_pages, publish_date, cover, events]
+        [isbn, title, number_of_pages, publish_date, cover, sumary, events]
       )
         .then(data => {
           let book = {
@@ -274,6 +285,7 @@ const addBook = (req, res, next) => {
             number_of_pages: data.number_of_pages,
             publish_date: data.publish_date,
             cover: data.cover,
+            sumary: data.sumary,
             author_id: data.author_id
           };
           res.status(200).json({ book });
@@ -357,6 +369,7 @@ const getBooksUser = (req, res, next) => {
                  book.number_of_pages,\
                  book.publish_date,\
                  book.cover,\
+                 book.sumary,\
                  book.author_id,\
                  author.name as author_name\
           from book\
@@ -375,6 +388,7 @@ const getBooksUser = (req, res, next) => {
           number_of_pages: element.number_of_pages,
           publish_date: element.publish_date,
           cover: element.cover,
+          sumary: element.sumary,
           author_id: element.author_id,
           author_name: element.author_name
         };
