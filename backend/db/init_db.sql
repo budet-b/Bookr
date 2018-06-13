@@ -35,6 +35,7 @@ CREATE TABLE book (
   number_of_pages   INT             NOT NULL,
   publish_date      DATE,
   cover             VARCHAR(256),
+  summary           TEXT,
   author_id         INT             NOT NULL,
   PRIMARY KEY       (id),
   FOREIGN KEY       (author_id)     REFERENCES author(id)
