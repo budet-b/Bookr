@@ -175,10 +175,53 @@ export default class BookDetail extends Component {
     })
   }
 
+  updateCurrentPageValue(val) {
+    if (this.state.currentPosition + val <= 0)
+      console.log('fdp')
+    else {
+      this.setState({
+        currentPosition: this.state.currentPosition + val
+      })
+    }
+  }
+
   renderBookStatus() {
     return(
-      <View>
+      <View style={{flexDirection: 'column', flex: 0, paddingTop: 10}}>
+      <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
       <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+      <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+        -10
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-5)} underlayColor='#7CE577'>
+      <Text style={{textAlign: 'center', fontSize: 18}}>
+        -5
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-1)} underlayColor='#7CE577'>
+      <Text style={{textAlign: 'center', fontSize: 18}}>
+        -1
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(1)} underlayColor='#7CE577'>
+      <Text style={{textAlign: 'center', fontSize: 18}}>
+        +1
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(5)} underlayColor='#7CE577'>
+      <Text style={{textAlign: 'center', fontSize: 18}}>
+        +5
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={[styles.action2, {borderTopRightRadius: 5, borderBottomRightRadius: 5, borderColor: '#000', borderWidth: 1,}]} onPress={() => this.updateCurrentPageValue(10)} underlayColor='#7CE577'>
+      <Text style={{textAlign: 'center', fontSize: 18}}>
+        +10
+        </Text>
+      </TouchableHighlight>
+      </View>
       </View>
     )
     if (this.state.bookStatus === 0) {
@@ -258,7 +301,9 @@ export default class BookDetail extends Component {
         <Text style={{paddingTop: 60, fontSize: 20}}>{this.state.bookPage} pages</Text>
         </View>
         </View>
+        <View>
         {bookStatusDisplay}
+        </View>
         {friendDisplay}
 
         </View>
@@ -278,6 +323,22 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     width: 200
+  },
+  action: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 40,
+    borderColor: '#000',
+    borderWidth: 1,
+    backgroundColor: '#FFF'
+  },
+  action2: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 40,
+    backgroundColor: '#FFF'
   },
   buttonStart: {
     textAlign: 'center',
@@ -327,6 +388,7 @@ var styles = StyleSheet.create({
   },
   left: {
     ...iOSUIKit.footnoteEmphasizedObject,
+    ...sanFranciscoWeights.thin,
       marginHorizontal: 0,
       paddingBottom: 5,
       paddingLeft: 8,
