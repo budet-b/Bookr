@@ -110,6 +110,7 @@ router.get(
 
 router.get(
     '/api/users',
+    passport.authenticate('jwt', {session: false}),
     friends.usersList
 );
 

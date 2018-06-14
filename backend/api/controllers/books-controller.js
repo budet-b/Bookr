@@ -320,18 +320,34 @@ const updateBookUser = (req, res, next) => {
         [req.user.id, req.params.id]
       )
         .then(data => {
-          db.one(
-            "update user_book\
-              set user_position = $1\
-              where id = $2\
-              returning *",
-            [req.params.page, data.id]
-          ).then(data_update => {
-            res.status(200).json({
-              success: true,
-              page_position: req.params.page
+          let nb_pages = -1
+          db.one("select * from book where book.id = $1", req.params.id)
+          .then(data1 => {
+            let status = 0
+            let page = parseInt(req.params.page)
+            if (page >= parseInt(data1.number_of_pages)) {
+              status = 1;
+              page = parseInt(data1.number_of_pages)
+            }
+            db.one(
+              "update user_book\
+                set user_position = $1,\
+                    user_status = $2\
+                where id = $3\
+                returning *",
+              [page, status, data.id]
+            )
+            .then(data_update => {
+              res.status(200).json({
+                success: true,
+                page_position: page,
+                status: status
+              });
             });
-          });
+          })
+          .catch(err => {
+            console.log("err")
+          })
         })
         .catch(err => {
           db.none(
@@ -347,7 +363,8 @@ const updateBookUser = (req, res, next) => {
             .then(() => {
               res.status(200).json({
                 success: true,
-                page_position: req.params.page
+                page_position: parseInt(req.params.page),
+                status: 0
               });
             })
             .catch(err => {
