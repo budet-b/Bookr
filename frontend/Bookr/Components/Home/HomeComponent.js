@@ -27,8 +27,13 @@ class TimelineCell extends Component {
     Moment.locale('en');
     let date = Moment(this.props.cell.date_added).fromNow()
     return (
-      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 5}}>
-      <View style={{flexDirection: 'row', width: '100%'}}>
+      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 10, paddingRight: 10, backgroundColor: '#dedede', alignItems: 'center',justifyContent: 'flex-start'}}>
+      <View style={{backgroundColor: '#FFF', borderWidth: 1, borderColor: '#dedede', borderRadius: 8, padding: 7,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,}}>
+      <View style={{flexDirection: 'row'}}>
       <Image
         borderRadius={8}
         source={{uri: this.state.picture}}
@@ -51,6 +56,7 @@ class TimelineCell extends Component {
         alignItems:'center',
         justifyContent:'center'}}>
         <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+      </View>
       </View>
       </View>
       </View>
@@ -148,7 +154,7 @@ export default class HomeComponent extends Component {
         style={{
           height: .5,
           width: "100%",
-          backgroundColor: "#000",
+          backgroundColor: "transparent",
         }}
         />
       );
@@ -233,9 +239,8 @@ export default class HomeComponent extends Component {
 
 var styles = StyleSheet.create({
   MainContainer :{
-    backgroundColor: '#FFF',
+    backgroundColor: '#dedede',
     flex:1,
-    paddingTop: 5,
     width: '100%'
   },
   rightHead: {
@@ -271,8 +276,8 @@ var styles = StyleSheet.create({
     justifyContent:'center'
   },
   thumbnail2: {
-    width: 60,
-    height: 100,
+    width: 110,
+    height: 170,
     justifyContent: 'flex-end',
     paddingBottom: 10
   },
