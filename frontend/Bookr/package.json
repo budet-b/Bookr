@@ -15,6 +15,7 @@
     "android": "react-native-scripts android",
     "ios-dev": "REACT_NATIVE_ENVIRONMENT_CURRENT=dev react-native-scripts ios",
     "ios-prod": "REACT_NATIVE_ENVIRONMENT_CURRENT=prod react-native-scripts ios",
+    "react-devtools": "react-devtools",
     "test": "jest"
   },
   "jest": {

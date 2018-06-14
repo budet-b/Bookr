@@ -187,7 +187,7 @@ export default class BookDetail extends Component {
 
   renderBookStatus() {
     return(
-      <View style={{flexDirection: 'column', flex: 0, paddingTop: 10}}>
+      <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
       <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
       <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
@@ -295,17 +295,18 @@ export default class BookDetail extends Component {
           style={styles.image}
           />
         </View>
-        <View style={{paddingLeft: 10}}>
-        <Text style={styles.bookName}>{this.state.bookName}</Text>
-        <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookName}</Text></Text>
-        <Text style={{paddingTop: 60, fontSize: 20}}>{this.state.bookPage} pages</Text>
+          <View style={{paddingLeft: 10}}>
+            <Text style={styles.bookName}>{this.state.bookName}</Text>
+            <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookName}</Text></Text>
+            <Text style={{paddingTop: 60, fontSize: 20}}>{this.state.bookPage} pages</Text>
+          </View>
         </View>
+        <View style={{flexDirection: 'row', flex: 1, paddingTop: 15}}>
+          {bookStatusDisplay}
         </View>
         <View>
-        {bookStatusDisplay}
-        </View>
         {friendDisplay}
-
+        </View>
         </View>
     );
   }
