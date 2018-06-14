@@ -18,7 +18,7 @@ var user            = require('./controllers/user-controller');
 
 var router = express.Router();
 
-// MARK: User Router
+// MARK: Auth Router
 
 router.post(
     '/api/user/login',
@@ -30,26 +30,55 @@ router.post(
     user.createUser
 );
 
-router.get('/api/user',
+// MARK: User Router
+
+router.get(
+    '/api/user',
     passport.authenticate('jwt', { session: false }),
     user.getUser
 );
 
-// MARK: Book Router
+router.get(
+    '/api/user/books',
+    passport.authenticate('jwt', { session: false }),
+    books.getBooksUser
+);
+
+router.get(
+    '/api/user/books/finished',
+    passport.authenticate('jwt', { session: false }),
+    books.getFinishedBooksUser
+);
+
+router.get(
+    '/api/user/books/current',
+    passport.authenticate('jwt', { session: false }),
+    books.getCurrentBooksUser
+);
+
+router.get(
+    '/api/user/friends',
+    passport.authenticate('jwt', {session: false}),
+    friends.friendList
+);
+
+// MARK: Books Router
 
 router.get(
     '/api/books',
     books.getAllBooks
 );
 
-router.get(
-    '/api/book/:id',
-    books.getBook
-);
-
 router.post(
     '/api/books/book',
     books.addBook
+);
+
+// MARK: Book Router
+
+router.get(
+    '/api/book/:id',
+    books.getBook
 );
 
 router.put(
@@ -62,12 +91,6 @@ router.get(
     '/api/user/book/:id',
     passport.authenticate('jwt', { session: false }),
     books.getBookUserFriends
-);
-
-router.get(
-    '/api/user/books',
-    passport.authenticate('jwt', { session: false }),
-    books.getBooksUser
 );
 
 // MARK: Friends Router
@@ -97,12 +120,6 @@ router.get(
 );
 
 router.get(
-    '/api/user/friends',
-    passport.authenticate('jwt', {session: false}),
-    friends.friendList
-);
-
-router.get(
     '/api/friends/:id',
     passport.authenticate('jwt', {session: false}),
     friends.friendWithId
@@ -110,6 +127,7 @@ router.get(
 
 router.get(
     '/api/users',
+    passport.authenticate('jwt', {session: false}),
     friends.usersList
 );
 

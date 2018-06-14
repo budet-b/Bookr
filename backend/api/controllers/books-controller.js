@@ -312,25 +312,39 @@ const updateBookUser = (req, res, next) => {
     [req.user.id, req.params.id, new Date(), 0, req.params.page]
   )
     .then(() => {
-      db.one(
-        "select *\
-                from user_book\
-                where user_book.user_id = $1\
-                  and user_book.book_id = $2",
-        [req.user.id, req.params.id]
-      )
+      db.one("select * from book where book.id = $1", req.params.id)
+      .then(bookData => {
+        let status = 0
+        let page = parseInt(req.params.page)
+        if (page >= parseInt(bookData.number_of_pages)) {
+          status = 1;
+          page = parseInt(bookData.number_of_pages)
+        }
+        db.one(
+          "select *\
+                  from user_book\
+                  where user_book.user_id = $1\
+                    and user_book.book_id = $2",
+          [req.user.id, req.params.id]
+        )
         .then(data => {
           db.one(
             "update user_book\
-              set user_position = $1\
-              where id = $2\
+              set user_position = $1,\
+                  user_status = $2\
+              where id = $3\
               returning *",
-            [req.params.page, data.id]
-          ).then(data_update => {
+            [page, status, data.id]
+          )
+          .then(data_update => {
             res.status(200).json({
               success: true,
-              page_position: req.params.page
+              page_position: page,
+              status: status
             });
+          })
+          .catch(err => {
+            return next(err);
           });
         })
         .catch(err => {
@@ -342,23 +356,95 @@ const updateBookUser = (req, res, next) => {
                 user_status,\
                 user_position)\
               values ($1,$2, $3, $4, $5)",
-            [req.user.id, req.params.id, new Date(), 0, req.params.page]
+            [req.user.id, req.params.id, new Date(), status, page]
           )
-            .then(() => {
-              res.status(200).json({
-                success: true,
-                page_position: req.params.page
-              });
-            })
-            .catch(err => {
-              return next(err)
+          .then(() => {
+            res.status(200).json({
+              success: true,
+              page_position: page,
+              status: status
             });
-        });
+          })
+          .catch(err => {
+            return next(err)
+          });
+        })
+      })
+      .catch(err => {
+        let err1 = {message: "Book not found"}
+        return next(err1)
+      })
     })
     .catch(err => {
-       return next(err)
-    });
-}
+      return next(err)
+    })
+  }
+
+
+    //   db.one(
+    //     "select *\
+    //             from user_book\
+    //             where user_book.user_id = $1\
+    //               and user_book.book_id = $2",
+    //     [req.user.id, req.params.id]
+    //   )
+    //     .then(data => {
+    //       let nb_pages = -1
+    //       db.one("select * from book where book.id = $1", req.params.id)
+    //       .then(data1 => {
+    //         let status = 0
+    //         let page = parseInt(req.params.page)
+    //         if (page >= parseInt(data1.number_of_pages)) {
+    //           status = 1;
+    //           page = parseInt(data1.number_of_pages)
+    //         }
+    //         db.one(
+    //           "update user_book\
+    //             set user_position = $1,\
+    //                 user_status = $2\
+    //             where id = $3\
+    //             returning *",
+    //           [page, status, data.id]
+    //         )
+    //         .then(data_update => {
+    //           res.status(200).json({
+    //             success: true,
+    //             page_position: page,
+    //             status: status
+    //           });
+    //         });
+    //       })
+    //       .catch(err => {
+    //         console.log("err")
+    //       })
+    //     })
+    //     .catch(err => {
+    //       db.none(
+    //         "insert into user_book(\
+    //             user_id,\
+    //             book_id,\
+    //             date_added,\
+    //             user_status,\
+    //             user_position)\
+    //           values ($1,$2, $3, $4, $5)",
+    //         [req.user.id, req.params.id, new Date(), 0, req.params.page]
+    //       )
+    //         .then(() => {
+    //           res.status(200).json({
+    //             success: true,
+    //             page_position: parseInt(req.params.page),
+    //             status: 0
+    //           });
+    //         })
+    //         .catch(err => {
+    //           return next(err)
+    //         });
+    //     });
+    // })
+    // .catch(err => {
+    //    return next(err)
+    // });
+// }
 
 const getBooksUser = (req, res, next) => {
   var arr = [];
@@ -411,11 +497,115 @@ const getBooksUser = (req, res, next) => {
     });
 }
 
+const getFinishedBooksUser = (req, res, next) => {
+  var arr = [];
+  db.any(
+    "select user_book.id,\
+                 user_book.book_id,\
+                 user_book.user_status,\
+                 user_book.user_position,\
+                 user_book.date_added,\
+                 book.isbn,\
+                 book.title,\
+                 book.number_of_pages,\
+                 book.publish_date,\
+                 book.cover,\
+                 book.summary,\
+                 book.author_id,\
+                 author.name as author_name\
+          from book\
+          inner join user_book on user_book.book_id = book.id\
+          inner join author on author.id = book.author_id\
+          inner join user_profile on user_profile.id = user_book.user_id\
+          where user_profile.id = $1 and user_book.user_status = 1",
+    [req.user.id]
+  )
+    .then(data => {
+      data.forEach(element => {
+        let book = {
+          id: element.book_id,
+          isbn: element.isbn,
+          title: element.title,
+          number_of_pages: element.number_of_pages,
+          publish_date: element.publish_date,
+          cover: element.cover,
+          summary: element.summary,
+          author_id: element.author_id,
+          author_name: element.author_name
+        };
+        let new_elt = {
+          book: book,
+          user_status: element.user_status,
+          user_position: element.user_position,
+          date_added: element.date_added
+        };
+        arr.push(new_elt);
+      });
+      res.status(200).json(arr);
+    })
+    .catch(err => {
+      return next(err)
+    });
+}
+
+const getCurrentBooksUser = (req, res, next) => {
+  var arr = [];
+  db.any(
+    "select user_book.id,\
+                 user_book.book_id,\
+                 user_book.user_status,\
+                 user_book.user_position,\
+                 user_book.date_added,\
+                 book.isbn,\
+                 book.title,\
+                 book.number_of_pages,\
+                 book.publish_date,\
+                 book.cover,\
+                 book.summary,\
+                 book.author_id,\
+                 author.name as author_name\
+          from book\
+          inner join user_book on user_book.book_id = book.id\
+          inner join author on author.id = book.author_id\
+          inner join user_profile on user_profile.id = user_book.user_id\
+          where user_profile.id = $1 and user_book.user_status = 0",
+    [req.user.id]
+  )
+    .then(data => {
+      data.forEach(element => {
+        let book = {
+          id: element.book_id,
+          isbn: element.isbn,
+          title: element.title,
+          number_of_pages: element.number_of_pages,
+          publish_date: element.publish_date,
+          cover: element.cover,
+          summary: element.summary,
+          author_id: element.author_id,
+          author_name: element.author_name
+        };
+        let new_elt = {
+          book: book,
+          user_status: element.user_status,
+          user_position: element.user_position,
+          date_added: element.date_added
+        };
+        arr.push(new_elt);
+      });
+      res.status(200).json(arr);
+    })
+    .catch(err => {
+      return next(err)
+    });
+}
+
 module.exports = {
   getAllBooks,
   getBook,
   addBook,
   getBookUserFriends,
   updateBookUser,
-  getBooksUser
+  getBooksUser,
+  getFinishedBooksUser,
+  getCurrentBooksUser
 };
