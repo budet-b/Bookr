@@ -224,7 +224,7 @@ const usersList = (req, res, next) => {
 
 const friendWithId = (req, res, next) => {
   if (req.user.id === parseInt(req.params.id)) {
-    let err = { message: "You can't add yourself!" };
+    let err = { message: "You can't search yourself!" };
     return next(err);
   }
   else {
