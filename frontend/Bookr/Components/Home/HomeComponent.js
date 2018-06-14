@@ -53,9 +53,21 @@ class TimelineCell extends Component {
       />
       <View style={{flex:1,
         flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center'}}>
+        justifyContent: 'center',
+        alignItems: 'flex-start'}}>
         <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+        <View
+        style={{
+          flex:0,
+          justifyContent: 'flex-start',
+          flexDirection: 'row'
+        }}
+        >
+        <Text style={{
+          paddingTop: 10,
+          fontSize: 18,
+          paddingLeft: 5}}>by </Text> <Text style={styles.author}>Rodrigue</Text>
+        </View>
       </View>
       </View>
       </View>
@@ -265,7 +277,13 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     alignItems:'center',
     justifyContent:'center',
-    paddingLeft: 5
+    paddingLeft: 5,
+  },
+  author: {
+    fontWeight: 'bold',
+    paddingTop: 10,
+    fontSize: 18,
+    fontStyle: 'italic'
   },
   userDisplay: {
     paddingTop: 10,
