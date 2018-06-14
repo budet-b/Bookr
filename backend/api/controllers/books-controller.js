@@ -497,11 +497,115 @@ const getBooksUser = (req, res, next) => {
     });
 }
 
+const getFinishedBooksUser = (req, res, next) => {
+  var arr = [];
+  db.any(
+    "select user_book.id,\
+                 user_book.book_id,\
+                 user_book.user_status,\
+                 user_book.user_position,\
+                 user_book.date_added,\
+                 book.isbn,\
+                 book.title,\
+                 book.number_of_pages,\
+                 book.publish_date,\
+                 book.cover,\
+                 book.summary,\
+                 book.author_id,\
+                 author.name as author_name\
+          from book\
+          inner join user_book on user_book.book_id = book.id\
+          inner join author on author.id = book.author_id\
+          inner join user_profile on user_profile.id = user_book.user_id\
+          where user_profile.id = $1 and user_book.user_status = 1",
+    [req.user.id]
+  )
+    .then(data => {
+      data.forEach(element => {
+        let book = {
+          id: element.book_id,
+          isbn: element.isbn,
+          title: element.title,
+          number_of_pages: element.number_of_pages,
+          publish_date: element.publish_date,
+          cover: element.cover,
+          summary: element.summary,
+          author_id: element.author_id,
+          author_name: element.author_name
+        };
+        let new_elt = {
+          book: book,
+          user_status: element.user_status,
+          user_position: element.user_position,
+          date_added: element.date_added
+        };
+        arr.push(new_elt);
+      });
+      res.status(200).json(arr);
+    })
+    .catch(err => {
+      return next(err)
+    });
+}
+
+const getCurrentBooksUser = (req, res, next) => {
+  var arr = [];
+  db.any(
+    "select user_book.id,\
+                 user_book.book_id,\
+                 user_book.user_status,\
+                 user_book.user_position,\
+                 user_book.date_added,\
+                 book.isbn,\
+                 book.title,\
+                 book.number_of_pages,\
+                 book.publish_date,\
+                 book.cover,\
+                 book.summary,\
+                 book.author_id,\
+                 author.name as author_name\
+          from book\
+          inner join user_book on user_book.book_id = book.id\
+          inner join author on author.id = book.author_id\
+          inner join user_profile on user_profile.id = user_book.user_id\
+          where user_profile.id = $1 and user_book.user_status = 0",
+    [req.user.id]
+  )
+    .then(data => {
+      data.forEach(element => {
+        let book = {
+          id: element.book_id,
+          isbn: element.isbn,
+          title: element.title,
+          number_of_pages: element.number_of_pages,
+          publish_date: element.publish_date,
+          cover: element.cover,
+          summary: element.summary,
+          author_id: element.author_id,
+          author_name: element.author_name
+        };
+        let new_elt = {
+          book: book,
+          user_status: element.user_status,
+          user_position: element.user_position,
+          date_added: element.date_added
+        };
+        arr.push(new_elt);
+      });
+      res.status(200).json(arr);
+    })
+    .catch(err => {
+      return next(err)
+    });
+}
+
 module.exports = {
   getAllBooks,
   getBook,
   addBook,
   getBookUserFriends,
   updateBookUser,
-  getBooksUser
+  getBooksUser,
+  getFinishedBooksUser,
+  getCurrentBooksUser
 };
