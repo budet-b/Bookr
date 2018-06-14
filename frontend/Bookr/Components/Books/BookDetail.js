@@ -75,7 +75,7 @@ export default class BookDetail extends Component {
     axios.get(config.books.SPECIFIEDUSERBOOK + this.state.bookId, header)
     .then((response) => {
       if (response.data.user.user_position) {
-          if (response.data.user.user_position === response.data.book.number_of_pages) {
+          if (response.data.user.user_position >= response.data.book.number_of_pages) {
             this.setState({
               bookStatus: 2
             })
@@ -183,50 +183,17 @@ export default class BookDetail extends Component {
         currentPosition: this.state.currentPosition + val
       })
     }
+    if (this.state.currentPosition >= this.state.bookPage) {
+      this.setState({
+        bookStatus: 2
+      })
+    }
   }
 
   renderBookStatus() {
-    return(
-      <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
-      <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
-      <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
-      <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
-        <Text style={{textAlign: 'center', fontSize: 18}}>
-        -10
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-5)} underlayColor='#7CE577'>
-      <Text style={{textAlign: 'center', fontSize: 18}}>
-        -5
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-1)} underlayColor='#7CE577'>
-      <Text style={{textAlign: 'center', fontSize: 18}}>
-        -1
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(1)} underlayColor='#7CE577'>
-      <Text style={{textAlign: 'center', fontSize: 18}}>
-        +1
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(5)} underlayColor='#7CE577'>
-      <Text style={{textAlign: 'center', fontSize: 18}}>
-        +5
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={[styles.action2, {borderTopRightRadius: 5, borderBottomRightRadius: 5, borderColor: '#000', borderWidth: 1,}]} onPress={() => this.updateCurrentPageValue(10)} underlayColor='#7CE577'>
-      <Text style={{textAlign: 'center', fontSize: 18}}>
-        +10
-        </Text>
-      </TouchableHighlight>
-      </View>
-      </View>
-    )
     if (this.state.bookStatus === 0) {
       return (
-        <View>
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
         <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
         <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
         <Text style={styles.buttonTextStart}>Start this book</Text>
@@ -236,14 +203,50 @@ export default class BookDetail extends Component {
       );
     } else if (this.state.bookStatus === 1) {
       return (
-        <View>
-        <Text style={styles.left}>page {this.state.currentPosition}</Text>
-        <View style={styles.center}>
-        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
+        <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
         <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', paddingTop: 30}}>
+        <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
+          <Text style={{textAlign: 'center', fontSize: 18}}>
+          -10
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-5)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          -5
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-1)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          -1
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(1)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +1
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(5)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +5
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.action2, {borderTopRightRadius: 5, borderBottomRightRadius: 5, borderColor: '#000', borderWidth: 1,}]} onPress={() => this.updateCurrentPageValue(10)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +10
+          </Text>
+        </TouchableHighlight>
         </View>
         </View>
-
+      )
+     } else if (this.state.bookStatus === 2) {
+       return (
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
+        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 20}]}>You finished </Text>
+        <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 10}]}>this book ! 🎉 </Text>
+        </View>
       )
     }
   }
@@ -270,7 +273,19 @@ export default class BookDetail extends Component {
         </View>
       );
     } else {
-      return;
+      return (
+        <View style={styles.list2}>
+        <Text style={styles.head}>Friends</Text>
+        <View style={{
+          flex: 1,
+
+          flexWrap: 'wrap',
+          flexDirection: 'column',
+          height: 200
+        }}/>
+        <Text style={{paddingLeft: 10, fontSize: 23}}>No friends are reading this book 😭</Text>
+        </View>
+      )
     }
   }
 
@@ -298,10 +313,10 @@ export default class BookDetail extends Component {
           <View style={{paddingLeft: 10}}>
             <Text style={styles.bookName}>{this.state.bookName}</Text>
             <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookName}</Text></Text>
-            <Text style={{paddingTop: 60, fontSize: 20}}>{this.state.bookPage} pages</Text>
+            <Text style={{fontSize: 20}}>{this.state.bookPage} pages</Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', flex: 1, paddingTop: 15}}>
+        <View style={{flexDirection: 'row', flex: 1}}>
           {bookStatusDisplay}
         </View>
         <View>
@@ -355,6 +370,12 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingTop: 3
   },
+  list2: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    paddingBottom: 100
+  },
   descItem: {
     color: 'grey',
     margin: 1,
@@ -393,7 +414,7 @@ var styles = StyleSheet.create({
       marginHorizontal: 0,
       paddingBottom: 5,
       paddingLeft: 8,
-      paddingTop: 5,
+      paddingTop: 10,
       textAlign: 'left'
   },
   leftImage: {
