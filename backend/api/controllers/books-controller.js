@@ -51,7 +51,7 @@ const getBook = (req, res, next) => {
     .catch(err => {
       return next(err);
     });
-}
+};
 
 const getBookUserFriends = (req, res, next) => {
   db.oneOrNone(
@@ -76,8 +76,7 @@ const getBookUserFriends = (req, res, next) => {
     [req.user.id, req.params.id]
   )
     .then(data => {
-
-      console.log("err")
+      console.log("err");
       if (data != null) {
         db.any(
           "select user_profile.id,\
@@ -121,8 +120,7 @@ const getBookUserFriends = (req, res, next) => {
           .catch(err => {
             return next(err);
           });
-      }
-      else {
+      } else {
         db.one(
           "select book.id,\
                        book.isbn,\
@@ -187,7 +185,7 @@ const getBookUserFriends = (req, res, next) => {
     .catch(err => {
       return next(err);
     });
-}
+};
 
 const addBook = (req, res, next) => {
   let author_id = 0;
@@ -202,8 +200,7 @@ const addBook = (req, res, next) => {
 
   if (typeof isbn != "string") {
     res.status(400).json({ error: "Type error for 'isbn'" });
-  }
-  else {
+  } else {
     db.one("select id from books where book.isbn = $1", [isbn])
       .then(data => {
         res.status(400).json({ error: "ISBN error" });
@@ -212,28 +209,28 @@ const addBook = (req, res, next) => {
   }
 
   if (typeof title != "string") {
-    let err = { message: "Type error for 'title'"}
-    return next(err)
+    let err = { message: "Type error for 'title'" };
+    return next(err);
   }
   if (typeof number_of_pages != "number") {
-    let err = { message: "Type error for 'number_of_pages'"}
-    return next(err)
+    let err = { message: "Type error for 'number_of_pages'" };
+    return next(err);
   }
   if (typeof author_name != "string") {
-    let err = { message: "Type error for 'author_name'"}
-    return next(err)
+    let err = { message: "Type error for 'author_name'" };
+    return next(err);
   }
   if (typeof publish_date != "string") {
-    let err = { message: "Type error for 'publish_date'"}
-    return next(err)
+    let err = { message: "Type error for 'publish_date'" };
+    return next(err);
   }
   if (typeof cover != "string") {
-    let err = { message: "Type error for 'cover'"}
-    return next(err)
+    let err = { message: "Type error for 'cover'" };
+    return next(err);
   }
   if (typeof summary != "string") {
-    let err = { message: "Type error for 'summary'"}
-    return next(err)
+    let err = { message: "Type error for 'summary'" };
+    return next(err);
   }
 
   db.task(t => {
@@ -256,8 +253,8 @@ const addBook = (req, res, next) => {
             return datas.id;
           })
           .catch(() => {
-            return -1
-          })
+            return -1;
+          });
       }
       return result;
     }).then(events => {
@@ -295,156 +292,90 @@ const addBook = (req, res, next) => {
           res.status(200).json({ book });
         })
         .catch(err => {
-          return next(err)
+          return next(err);
         });
     });
   });
-}
+};
 
 const updateBookUser = (req, res, next) => {
-  db.none(
-    "insert into newsfeed (user_id,\
-                                 book_id,\
-                                 date_added,\
-                                 user_status,\
-                                 user_position)\
-                      values ($1, $2, $3, $4, $5)",
-    [req.user.id, req.params.id, new Date(), 0, req.params.page]
-  )
-    .then(() => {
-      db.one("select * from book where book.id = $1", req.params.id)
-      .then(bookData => {
-        let status = 0
-        let page = parseInt(req.params.page)
-        if (page >= parseInt(bookData.number_of_pages)) {
-          status = 1;
-          page = parseInt(bookData.number_of_pages)
-        }
-        db.one(
-          "select *\
-                  from user_book\
-                  where user_book.user_id = $1\
-                    and user_book.book_id = $2",
-          [req.user.id, req.params.id]
-        )
-        .then(data => {
+  db.one("select * from book where book.id = $1", req.params.id)
+    .then(bookData => {
+      let status = 0;
+      let page = parseInt(req.params.page);
+      if (page >= parseInt(bookData.number_of_pages)) {
+        status = 1;
+        page = parseInt(bookData.number_of_pages);
+      }
+      db.none(
+        "insert into newsfeed (user_id,\
+                                  book_id,\
+                                  date_added,\
+                                  user_status,\
+                                  user_position)\
+                        values ($1, $2, $3, $4, $5)",
+        [req.user.id, req.params.id, new Date(), status, page]
+      )
+        .then(() => {
           db.one(
-            "update user_book\
-              set user_position = $1,\
-                  user_status = $2\
-              where id = $3\
-              returning *",
-            [page, status, data.id]
+            "select *\
+              from user_book\
+              where user_book.user_id = $1\
+                and user_book.book_id = $2",
+            [req.user.id, req.params.id]
           )
-          .then(data_update => {
-            res.status(200).json({
-              success: true,
-              page_position: page,
-              status: status
+            .then(data => {
+              db.one(
+                "update user_book\
+          set user_position = $1,\
+              user_status = $2\
+          where id = $3\
+          returning *",
+                [page, status, data.id]
+              )
+                .then(data_update => {
+                  res.status(200).json({
+                    success: true,
+                    page_position: page,
+                    status: status
+                  });
+                })
+                .catch(err => {
+                  return next(err);
+                });
+            })
+            .catch(err => {
+              db.none(
+                "insert into user_book(\
+            user_id,\
+            book_id,\
+            date_added,\
+            user_status,\
+            user_position)\
+          values ($1,$2, $3, $4, $5)",
+                [req.user.id, req.params.id, new Date(), status, page]
+              )
+                .then(() => {
+                  res.status(200).json({
+                    success: true,
+                    page_position: page,
+                    status: status
+                  });
+                })
+                .catch(err => {
+                  return next(err);
+                });
             });
-          })
-          .catch(err => {
-            return next(err);
-          });
         })
         .catch(err => {
-          db.none(
-            "insert into user_book(\
-                user_id,\
-                book_id,\
-                date_added,\
-                user_status,\
-                user_position)\
-              values ($1,$2, $3, $4, $5)",
-            [req.user.id, req.params.id, new Date(), status, page]
-          )
-          .then(() => {
-            res.status(200).json({
-              success: true,
-              page_position: page,
-              status: status
-            });
-          })
-          .catch(err => {
-            return next(err)
-          });
-        })
-      })
-      .catch(err => {
-        let err1 = {message: "Book not found"}
-        return next(err1)
-      })
+          let err1 = { message: "Book not found" };
+          return next(err1);
+        });
     })
     .catch(err => {
-      return next(err)
-    })
-  }
-
-
-    //   db.one(
-    //     "select *\
-    //             from user_book\
-    //             where user_book.user_id = $1\
-    //               and user_book.book_id = $2",
-    //     [req.user.id, req.params.id]
-    //   )
-    //     .then(data => {
-    //       let nb_pages = -1
-    //       db.one("select * from book where book.id = $1", req.params.id)
-    //       .then(data1 => {
-    //         let status = 0
-    //         let page = parseInt(req.params.page)
-    //         if (page >= parseInt(data1.number_of_pages)) {
-    //           status = 1;
-    //           page = parseInt(data1.number_of_pages)
-    //         }
-    //         db.one(
-    //           "update user_book\
-    //             set user_position = $1,\
-    //                 user_status = $2\
-    //             where id = $3\
-    //             returning *",
-    //           [page, status, data.id]
-    //         )
-    //         .then(data_update => {
-    //           res.status(200).json({
-    //             success: true,
-    //             page_position: page,
-    //             status: status
-    //           });
-    //         });
-    //       })
-    //       .catch(err => {
-    //         console.log("err")
-    //       })
-    //     })
-    //     .catch(err => {
-    //       db.none(
-    //         "insert into user_book(\
-    //             user_id,\
-    //             book_id,\
-    //             date_added,\
-    //             user_status,\
-    //             user_position)\
-    //           values ($1,$2, $3, $4, $5)",
-    //         [req.user.id, req.params.id, new Date(), 0, req.params.page]
-    //       )
-    //         .then(() => {
-    //           res.status(200).json({
-    //             success: true,
-    //             page_position: parseInt(req.params.page),
-    //             status: 0
-    //           });
-    //         })
-    //         .catch(err => {
-    //           return next(err)
-    //         });
-    //     });
-    // })
-    // .catch(err => {
-    //    return next(err)
-    // });
-// }
+      return next(err);
+    });
+};
 
 const getBooksUser = (req, res, next) => {
   var arr = [];
@@ -493,9 +424,9 @@ const getBooksUser = (req, res, next) => {
       res.status(200).json(arr);
     })
     .catch(err => {
-      return next(err)
+      return next(err);
     });
-}
+};
 
 const getFinishedBooksUser = (req, res, next) => {
   var arr = [];
@@ -544,9 +475,9 @@ const getFinishedBooksUser = (req, res, next) => {
       res.status(200).json(arr);
     })
     .catch(err => {
-      return next(err)
+      return next(err);
     });
-}
+};
 
 const getCurrentBooksUser = (req, res, next) => {
   var arr = [];
@@ -595,9 +526,9 @@ const getCurrentBooksUser = (req, res, next) => {
       res.status(200).json(arr);
     })
     .catch(err => {
-      return next(err)
+      return next(err);
     });
-}
+};
 
 module.exports = {
   getAllBooks,
