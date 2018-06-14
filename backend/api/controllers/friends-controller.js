@@ -79,7 +79,7 @@ const acceptFriend = (req, res, next) => {
     });
 };
 
-function receivedInvitationList(req, res, next) {
+const receivedInvitationList = (req, res, next) => {
   db.any(
     "select user_profile.id,\
                  user_profile.email,\
@@ -105,7 +105,7 @@ function receivedInvitationList(req, res, next) {
     });
 }
 
-function sentInvitationList(req, res, next) {
+const sentInvitationList = (req, res, next) => {
   db.any(
     "select user_profile.id,\
                  user_profile.email,\
@@ -131,7 +131,7 @@ function sentInvitationList(req, res, next) {
     });
 }
 
-function friendList(req, res, next) {
+const friendList = (req, res, next) => {
   db.any(
     "select user_profile.id,\
                  user_profile.email,\
@@ -156,27 +156,75 @@ function friendList(req, res, next) {
     });
 }
 
-function usersList(req, res, next) {
-  db.any(
-    "select user_profile.id,\
+const usersList = (req, res, next) => {
+  db.any("select user_profile.id,\
                  user_profile.email,\
                  user_profile.username,\
                  user_profile.firstname,\
                  user_profile.lastname,\
                  user_profile.picture\
-          from user_profile"
-  )
-    .then(data => {
-      res.status(200).json(data);
+          from user_profile")
+  .then(data => {
+    db.any(
+      "select user_profile.id,\
+              user_profile.email,\
+              user_profile.username,\
+              user_profile.firstname,\
+              user_profile.lastname,\
+              user_profile.picture,\
+              user_relationship.friend_type,\
+              user_relationship.action_user_id\
+       from user_profile\
+       left join user_relationship on\
+       (user_relationship.user_1_id = user_profile.id or user_relationship.user_2_id = user_profile.id)\
+       and user_profile.id != $1\
+       where (user_relationship.user_1_id = $1 or user_relationship.user_2_id = $1)", [req.user.id])
+    .then(user_rela_res => {
+      let datas = []
+      data.forEach(element => {
+        let pushed = false
+        user_rela_res.forEach(element_rela => {
+          if (pushed === false && element.id === element_rela.id) {
+            datas.push({user: {id: element_rela.id,
+                        email: element_rela.email,
+                        username: element_rela.username,
+                        firstname: element_rela.firstname,
+                        lastname: element_rela.lastname,
+                        picture: element_rela.picture,
+                      },
+                      friend_type: convertFriendType(element_rela.id, element_rela.friend_type, element_rela.action_user_id)
+                    })
+              pushed = true
+          }
+        })
+        if (pushed === false) {
+          if (element.id !== req.user.id) {
+            datas.push({user: {id: element.id,
+              email: element.email,
+              username: element.username,
+              firstname: element.firstname,
+              lastname: element.lastname,
+              picture: element.picture,
+            },
+            friend_type: 3
+          })
+        }
+      }
+      })
+      res.status(200).json(datas);
     })
     .catch(err => {
-      return next(err);
-    });
+      return next(err)
+    })
+  })
+  .catch(err => {
+    return next(err)
+  })
 }
 
-function friendWithId(req, res, next) {
+const friendWithId = (req, res, next) => {
   if (req.user.id === parseInt(req.params.id)) {
-    let err = { message: "You can't add yourself!" };
+    let err = { message: "You can't search yourself!" };
     return next(err);
   }
   else {
@@ -208,24 +256,7 @@ function friendWithId(req, res, next) {
             email: data.email,
             picture: data.picture
           };
-          let friend_type = 0;
-          if (data.friend_type === 1) {
-            //friend
-            friend_type = 0;
-          }
-          else if (data.friend_type === 0) {
-            if (data.id === data.action_user_id) {
-              //sent
-              friend_type = 2;
-            }
-            else {
-              //received
-              friend_type = 1;
-            }
-          }
-          else {
-            friend_type = 3;
-          }
+          let friend_type = convertFriendType(data.id, data.friend_type, data.action_user_id)
           res.status(200).json({
             user: user,
             friend_type: friend_type
@@ -267,6 +298,30 @@ function friendWithId(req, res, next) {
       });
   }
 }
+
+const convertFriendType = (id, friend_type, action_user_id) => {
+  let type = 0;
+  if (friend_type === 1) { //friend
+    return 0;
+    // type = 0;
+  }
+  else if (friend_type === 0) {
+    if (id === action_user_id) { //sent
+      return 2;
+      // type = 2;
+    }
+    else { //received
+      // type = 1;
+      return 1;
+    }
+  }
+  else {
+    // type = 3;
+    return 3;
+  }
+}
+
+
 
 module.exports = {
   addFriend,

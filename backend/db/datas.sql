@@ -197,10 +197,10 @@ INSERT INTO user_relationship VALUES
     (DEFAULT, 1, 4, 2, 4),
     (DEFAULT, 1, 5, 2, 5),
     (DEFAULT, 1, 6, 2, 1),
-    (DEFAULT, 4, 5, 5, 5),
+    (DEFAULT, 4, 5, 0, 5),
     (DEFAULT, 1, 7, 2, 1),
     (DEFAULT, 3, 5, 2, 5),
-    (DEFAULT, 4, 7, 3, 7);
+    (DEFAULT, 4, 7, 1, 7);
 
 INSERT INTO newsfeed VALUES
     (DEFAULT, 1, 1, TIMESTAMP '2018-06-11 22:43:06.351', 0, 5),
