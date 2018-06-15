@@ -4,8 +4,48 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
-import { iOSUIKit, human, material } from 'react-native-typography';
+import { iOSUIKit, human, material, sanFranciscoWeights } from 'react-native-typography';
 import config from '../Misc/Constant'
+
+class Friend extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.friend.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
+  saveFriendId(id) {
+    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+  }
+
+  render() {
+      return (
+        <View style={styles.friend} >
+        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId(this.props.friend.id)}>
+          <Image
+            borderRadius={8}
+            source={{uri: this.state.picture}}
+            style={styles.thumbnail}
+            onError={this.onError.bind(this)}
+          />
+          <View >
+            <Text
+            style={styles.title}
+            numberOfLines={3}>{this.props.friend.firstname}</Text>
+          </View>
+        </TouchableOpacity>
+        </View>
+      );
+  }
+}
+
 
 class Book extends Component {
   saveBookId(id, title, img, isbn, position, nbrPage) {
@@ -39,12 +79,15 @@ export default class ProfilPage extends Component {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   this.state = {
     dataSource: null,
+    userFriends: ds,
+    pureUserFriendArray: [],
     loaded: false,
     firstname: '',
     lastname: '',
     picture: "https://via.placeholder.com/200x200",
     username: '',
     email: '',
+    pureFinishedBooks: [],
     userBooks: ds,
     dataSource: ds
     }
@@ -90,9 +133,11 @@ export default class ProfilPage extends Component {
       axios.get(config.books.USERBOOK, header)
       .then((response) => {
         console.log(response.data)
+        let booksFinished = response.data.filter(book => book.user_status === 1)
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
-          userBooks: ds.cloneWithRows(response.data)
+          userBooks: ds.cloneWithRows(booksFinished),
+          pureFinishedBooks: booksFinished
         })
       }).catch((error) => {
         console.log(error)
@@ -114,6 +159,18 @@ export default class ProfilPage extends Component {
             picture: response.data.user.picture
           })
         }
+
+        //USERFRIENDS
+        axios.get(config.user.USERFRIENDS, header)
+        .then((response) => {
+          const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+          this.setState({
+            userFriends: ds.cloneWithRows(response.data),
+            pureUserFriendArray: response.data
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
 
         console.log(this.state.picture)
       }).catch((error) => {
@@ -163,28 +220,63 @@ export default class ProfilPage extends Component {
       })
     }
 
+  renderFinishedBooks() {
+    if (this.state.pureFinishedBooks.length > 0) {
+      return (
+        <ScrollView
+        horizontal={true}
+        >
+          <ListView contentContainerStyle={styles.list}
+          dataSource={this.state.userBooks}
+          renderRow={(data) => this.renderItem(data)}
+          />
+          </ScrollView>
+      );
+    } else {
+      return (
+        <View style ={{
+          margin: 3,
+          height: 100,
+          alignSelf: 'center',
+          textAlign: 'center'
+        }}>
+        <Text style={{fontSize: 20, paddingTop: 40}}>Still no finished books ? Keep reading ! </Text>
+        </View>
+      )
+    }
+  }
+
+  renderUserFriends() {
+    if (this.state.pureUserFriendArray.length > 0) {
+      return (
+        <ScrollView
+        horizontal={true}
+        >
+          <ListView contentContainerStyle={styles.list}
+          dataSource={this.state.userFriends}
+          renderRow={(data) => this.renderItemFriend(data)}
+          />
+          </ScrollView>
+      )
+    } else {
+      return (
+        <Text>No friend ? Maybe you should add some... </Text>
+      )
+    }
+  }
+
 
   render() {
 
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-    console.log('here')
-
-
+    let finishedBooks = this.renderFinishedBooks();
+    let userFriends = this.renderUserFriends();
     return (
       <View style={{backgroundColor: "#FFF"}}>
-      <Text style={styles.head2}>Profil</Text>
-      <View
-        style={{
-          borderBottomColor: '#E8E8E8',
-          borderBottomWidth: 1,
-        }}
-      />
-      <View style={styles.center}>
-      <Text
-      style={human.largeTitle}
-      >{this.state.firstname} {this.state.lastname}</Text>
+      <View style={[styles.center, {paddingTop: 20, paddingBottom: 20}]}>
+
         <Image
           borderRadius={50}
           overflow="hidden"
@@ -192,9 +284,12 @@ export default class ProfilPage extends Component {
           onError={this.onError.bind(this)}
           style={styles.profilPic}
         />
+        <Text
+        style={styles.head3}
+        >{this.state.firstname} {this.state.lastname}</Text>
       </View>
 
-      <Text style={styles.head3}>Finished Books</Text>
+      <Text style={styles.head3}>Finished books.</Text>
       <View
         style={{
           borderBottomColor: '#E8E8E8',
@@ -202,32 +297,19 @@ export default class ProfilPage extends Component {
         }}
       />
 
-      <ScrollView
-      horizontal={true}
-      >
-        <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.userBooks}
-        renderRow={(data) => this.renderItem(data)}
-        />
-        </ScrollView>
+        {finishedBooks}
+        <View>
+        <Text style={styles.head}>My Friends</Text>
+
+        </View>
+
         <View style={styles.center}>
-        <TouchableOpacity
-                  style={styles.manageButton}
-                  underlayColor='#fff'
-                  onPress= {() => this.friendPage()}
-                  >
-                  <Text style={styles.manageButtonText}>Manage my friends</Text>
-         </TouchableOpacity>
-         <View style={styles.center2}>
-         </View>
          <TouchableOpacity
                    style={styles.logoutButton}
                    onPress={ () => this.logout()}
                    underlayColor='#fff'>
                    <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
-          <View style={{height: 50, backgroundColor: '#FFF'}}>
-          </View>
         </View>
       </View>
     );
@@ -241,6 +323,13 @@ export default class ProfilPage extends Component {
         </Text>
       </View>
     );
+  }
+
+  renderItemFriend(item) {
+    //probleme ici
+    let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
+    item.picture = picture
+    return <Friend friend={item} screenProps={{ rootNavigation:rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderItem(item) {
@@ -367,7 +456,9 @@ var styles = StyleSheet.create({
     color: '#000'
   },
   head3: {
-    ...material.display1Object,
+    ...iOSUIKit.bodyObject,
+    ...sanFranciscoWeights.black,
+    fontSize: 23,
     marginHorizontal: 0,
     textAlign: 'left',
     paddingBottom: 5,
@@ -387,6 +478,14 @@ var styles = StyleSheet.create({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center'
+},
+friend: {
+height: 200,
+flex: 1,
+alignItems: 'center',
+flexDirection: 'column',
+paddingLeft: 10,
+paddingRight: 10
 },
 manageButtonText: {
     ...material.titleObject,
