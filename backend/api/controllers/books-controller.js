@@ -76,7 +76,6 @@ const getBookUserFriends = (req, res, next) => {
     [req.user.id, req.params.id]
   )
     .then(data => {
-      console.log("err");
       if (data != null) {
         db.any(
           "select user_profile.id,\
@@ -107,6 +106,7 @@ const getBookUserFriends = (req, res, next) => {
                 number_of_pages: data.number_of_pages,
                 publish_date: data.publish_date,
                 cover: data.cover,
+                summary: data.summary,
                 author_id: data.author_id,
                 author_name: data.author_name
               },
