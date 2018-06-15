@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity, Button } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ListView, ScrollView, Image,TouchableOpacity } from 'react-native';
+import { FormLabel,Icon, Button, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
@@ -269,6 +269,19 @@ export default class ProfilPage extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
+    this.props.screenProps.rootNavigation.setOptions({
+      headerRight: (
+        <View style={styles.rightHead}>
+        <Button
+        onPress={() => this.props.screenProps.rootNavigation.navigate('SearchFriendComponent', {screenProps: this.props.screenProps.rootNavigation})}
+        textStyle={{color: '#000'}}
+        backgroundColor = 'transparent'
+        rightIcon={{name: 'add', color: '#000', size: 25}}
+        underlayColor = 'transparent'
+        />
+        </View>
+      )
+    })
     let finishedBooks = this.renderFinishedBooks();
     let userFriends = this.renderUserFriends();
     return (
@@ -477,6 +490,12 @@ var styles = StyleSheet.create({
     paddingLeft: 8,
     paddingTop: 5,
     color: '#000'
+  },
+  rightHead: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   manageButton:{
   marginRight:40,
