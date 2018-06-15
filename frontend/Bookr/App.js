@@ -95,7 +95,11 @@ export default class App extends Component {
       },
       Home: { screen: Home },
       FriendDetail: {screen: FriendDetail},
-      FriendComponent: {screen: FriendComponent},
+      FriendComponent: {screen: FriendComponent,
+        navigationOptions: {
+          title: "Friend requests"
+        }
+      },
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
       BookDetail: { screen: BookDetail,

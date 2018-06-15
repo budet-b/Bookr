@@ -4,7 +4,7 @@ import { FormLabel, FormInput, FormValidationMessage, Icon, SearchBar, Button } 
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import BottomTabBar from '../BottomTabBar/BottomTabBar';
-import { iOSUIKit } from 'react-native-typography';
+import { iOSUIKit,sanFranciscoWeights } from 'react-native-typography';
 import config from '../Misc/Constant'
 
 class Friend extends Component {
@@ -21,26 +21,57 @@ class Friend extends Component {
     })
   }
 
+  async acceptFriend(id) {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+
+    axios.put(config.user.ACCEPTFRIEND + id, {}, header)
+    .then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
   saveFriendId(id) {
     this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
   }
 
   render() {
       return (
-        <View style={styles.friend} >
-        <TouchableOpacity style={styles.touch} onPress={() => this.saveFriendId(this.props.friend.id)}>
-          <Image
-            borderRadius={8}
-            source={{uri: this.state.picture}}
-            style={styles.thumbnail}
-            onError={this.onError.bind(this)}
-          />
-          <View >
-            <Text
-            style={styles.title}
-            numberOfLines={3}>{this.props.friend.firstname}</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'column', paddingLeft: 20, paddingRight: 10, backgroundColor: '#FFF', paddingBottom: 10}}>
+        <View style={{flexDirection: 'row', width: 200}}>
+        <Image
+          borderRadius={8}
+          source={{uri: this.state.picture}}
+          style={styles.thumbnail}
+          onError={this.onError.bind(this)}
+        />
+        <Text style={{alignItems: 'flex-end',paddingBottom: 6, paddingLeft: 30, paddingTop: 20, paddingRight: 30,...iOSUIKit.bodyObject,
+        ...sanFranciscoWeights.black}}>{this.props.friend.firstname} {this.props.friend.lastname}</Text>
+        <View style={{alignItems: 'flex-end', paddingTop: 10}}>
+        <TouchableOpacity
+                  style={{backgroundColor: '#7BC950', width: 100, height: 40,paddingBottom: 6,  borderRadius: 10}}
+                  underlayColor='#fff'
+                  onPress={() => this.acceptFriend(this.props.friend.id)}>
+                  <Text style={{textAlign: 'center', paddingTop: 8,
+                    ...iOSUIKit.bodyObject,
+                    ...sanFranciscoWeights.black, color:'white'}}>Accept</Text>
+         </TouchableOpacity>
+         </View>
+         </View>
+
+
+        <View style={{flexDirection: 'column', width: '20%'}}>
+
+        </View>
         </View>
       );
   }
@@ -151,19 +182,14 @@ export default class FriendComponent extends Component {
     //USER
     axios.get(config.user.USERS, header)
     .then((response) => {
-      console.log("users")
-      console.log(response.data)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
-        dataSource: ds.cloneWithRows(response.data)
+        dataSource: ds.cloneWithRows(response.data),
+        isLoading: false
       })
       this.arrayholder = response.data
     }).catch((error) => {
       console.log(error)
-    })
-
-    this.setState({
-      isLoading: false
     })
   }
 
@@ -173,19 +199,13 @@ export default class FriendComponent extends Component {
 
    renderBookDisplay() {
      if (this.state.pureFriendArray.length> 0) {
+       console.log(this.state.pureFriendArray)
        return (
          <View style={{
           flex:1,
          }}>
-         <Text style={styles.head}>Friend Requests</Text>
-         <View
-           style={{
-             borderBottomColor: '#E8E8E8',
-             borderBottomWidth: 1,
-           }}
-         />
+
          <ScrollView
-         horizontal={true}
          >
            <ListView contentContainerStyle={styles.list}
            dataSource={this.state.friendRequests}
@@ -251,46 +271,22 @@ export default class FriendComponent extends Component {
     return (
 
       <View style={styles.MainContainer}>
-        {userFriendDisplay}
         {friendRequestsDisplay}
-        <View style={{
-         flex:1,
-        }}>
-        <Text style={styles.head}>Search Friend</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        <View style={styles.MainContainer}>
-
-        <TextInput
-         style={styles.TextInputStyleClass}
-         onChangeText={(text) => this.SearchFilterFunction(text)}
-         value={this.state.text}
-         underlineColorAndroid='transparent'
-         placeholder="Search Here"
-          />
-          <ListView
-            dataSource={this.state.dataSource}
-            renderSeparator= {this.ListViewItemSeparator}
-            renderRow={(rowData) => <Text style={styles.rowViewContainer}
-            onPress={this.GetListViewItem.bind(this, rowData)} >{rowData.username}</Text>}
-            enableEmptySections={true}
-            style={{marginTop: 10}}
-          />
-        </View>
-
-        </View>
-
       </View>
     );
   }
+
+  renderSearch(item) {
+    console.log(item.user.username)
+    return(
+      <Text>{item.user.username}</Text>
+    )
+  }
+
   renderItem(item) {
     let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
     item.picture = picture
-    console.log(item.picture)
+    console.log(item)
     return <Friend friend={item} screenProps={{ rootNavigation: this.props.navigation.state.params.screenProps }}/>
   }
 }
@@ -325,7 +321,7 @@ const styles = StyleSheet.create({
    backgroundColor : "#FFFFFF"
  },
  list: {
-   flexDirection: 'row',
+   flexDirection: 'column',
    flexWrap: 'wrap',
    alignItems: 'flex-start',
    paddingTop: 3
@@ -340,7 +336,7 @@ const styles = StyleSheet.create({
    borderRadius:32,
    width: 64,
    height: 64,
-   justifyContent: 'flex-end'
+   justifyContent: 'flex-start'
  },
  touch: {
    alignItems: 'center',
