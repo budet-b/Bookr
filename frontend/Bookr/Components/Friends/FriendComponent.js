@@ -21,7 +21,30 @@ class Friend extends Component {
     })
   }
 
+    async getKey() {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      return value
+    } catch (error) {
+      console.log("Error retrieving data" + error);
+      return null
+      }
+    }
+
+    async getToken() {
+      let res = ''
+      const token = await this.getKey()
+      .then((response) => {
+        res = response
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+      return res
+    }
+
   async acceptFriend(id) {
+    console.log(id)
     const res = await this.getToken()
     if (!res)
     {
@@ -35,13 +58,24 @@ class Friend extends Component {
     axios.put(config.user.ACCEPTFRIEND + id, {}, header)
     .then((response) => {
       console.log(response)
+      this.successPopup()
     }).catch((error) => {
       console.log(error)
     })
   }
 
-  saveFriendId(id) {
-    this.props.screenProps.rootNavigation.navigate('FriendDetail', {friendId: id})
+  saveFriendId() {
+    this.props.screenProps.rootNavigation.push('Home', {screenProps: this.props.screenProps.rootNavigation})
+  }
+
+  successPopup() {
+    Alert.alert(
+      'Succes !',
+      'You have one new friend',
+      [
+        {text: 'Ok', onPress: this.props.screenProps.rootNavigation.push('Home', {screenProps: this.props.screenProps.rootNavigation})}
+      ]
+    )
   }
 
   render() {
