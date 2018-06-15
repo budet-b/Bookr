@@ -151,6 +151,8 @@ export default class FriendComponent extends Component {
     //USER
     axios.get(config.user.USERS, header)
     .then((response) => {
+      console.log("users")
+      console.log(response.data)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         dataSource: ds.cloneWithRows(response.data)

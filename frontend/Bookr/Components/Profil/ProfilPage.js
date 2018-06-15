@@ -32,13 +32,12 @@ class Friend extends Component {
           <Image
             borderRadius={8}
             source={{uri: this.state.picture}}
-            style={styles.thumbnail}
+            style={styles.thumbnail2}
             onError={this.onError.bind(this)}
           />
           <View >
             <Text
-            style={styles.title}
-            numberOfLines={3}>{this.props.friend.firstname}</Text>
+            style={styles.title}>{this.props.friend.firstname}</Text>
           </View>
         </TouchableOpacity>
         </View>
@@ -63,9 +62,8 @@ class Book extends Component {
           />
           <View >
             <Text
-            style={styles.title}
+            style={styles.title2}
             numberOfLines={3}>{this.props.book.title}</Text>
-            <Text style={styles.year}>{2001}</Text>
           </View>
         </TouchableOpacity>
         </View>
@@ -290,20 +288,14 @@ export default class ProfilPage extends Component {
       </View>
 
       <Text style={styles.head3}>Finished books.</Text>
-      <View
-        style={{
-          borderBottomColor: '#E8E8E8',
-          borderBottomWidth: 1,
-        }}
-      />
 
         {finishedBooks}
-        <View>
-        <Text style={styles.head}>My Friends</Text>
-
+        <View style={{paddingBottom: 10}}>
+        <Text style={styles.head3}>Friends.</Text>
+        {userFriends}
         </View>
 
-        <View style={styles.center}>
+        <View style={[styles.center, {paddingBottom: 20}]}>
          <TouchableOpacity
                    style={styles.logoutButton}
                    onPress={ () => this.logout()}
@@ -326,10 +318,10 @@ export default class ProfilPage extends Component {
   }
 
   renderItemFriend(item) {
-    //probleme ici
     let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
     item.picture = picture
-    return <Friend friend={item} screenProps={{ rootNavigation:rootNavigation: this.props.screenProps.rootNavigation }}/>
+    console.log(item)
+    return <Friend friend={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation }}/>
   }
 
   renderItem(item) {
@@ -409,9 +401,18 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   },
-  title: {
-    fontSize: 10,
+  title2: {
+
     marginBottom: 8,
+    fontSize: 10,
+    width: 90,
+    textAlign: 'center',
+  },
+  title: {
+    ...iOSUIKit.bodyObject,
+    ...sanFranciscoWeights.black,
+    marginBottom: 8,
+    fontSize: 13,
     width: 90,
     textAlign: 'center',
   },
@@ -432,6 +433,17 @@ var styles = StyleSheet.create({
   thumbnail: {
     width: 80,
     height: 130,
+    justifyContent: 'flex-end'
+  },
+  thumbnail2: {
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:'#fff',
+    borderRadius:32,
+    width: 64,
+    height: 64,
     justifyContent: 'flex-end'
   },
   listView: {
@@ -480,7 +492,7 @@ var styles = StyleSheet.create({
   textAlign: 'center'
 },
 friend: {
-height: 200,
+height: 90,
 flex: 1,
 alignItems: 'center',
 flexDirection: 'column',
