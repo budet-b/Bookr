@@ -43,6 +43,8 @@ export default class BookDetail extends Component {
       bookImg: '',
       bookIsbn: 0,
       bookPosition: 0,
+      bookAuthor: '',
+      bookSummary: '',
       bookPage: 0,
       isLoading: true,
       currentPosition: 0,
@@ -86,8 +88,7 @@ export default class BookDetail extends Component {
           }
         this.setState({
           bookPosition: response.data.user.user_position,
-          currentPosition: response.data.user.user_position,
-          isLoading: false
+          currentPosition: response.data.user.user_position
         })
       }
       if (response.data.friends.length > 0) {
@@ -97,6 +98,11 @@ export default class BookDetail extends Component {
           dataSource: ds.cloneWithRows(response.data.friends)
         })
       }
+      this.setState({
+        bookSummary: response.data.book.summary,
+        bookAuthor: response.data.book.author_name,
+        isLoading: false
+      })
     }).catch((error) => {
       console.log(error)
     })
@@ -194,7 +200,7 @@ export default class BookDetail extends Component {
     if (this.state.bookStatus === 0) {
       return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
         <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
         <Text style={styles.buttonTextStart}>Start this book</Text>
         </TouchableHighlight>
@@ -205,7 +211,7 @@ export default class BookDetail extends Component {
       return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
         <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', paddingTop: 30}}>
         <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
           <Text style={{textAlign: 'center', fontSize: 18}}>
@@ -243,7 +249,7 @@ export default class BookDetail extends Component {
      } else if (this.state.bookStatus === 2) {
        return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 20}]}>You finished </Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 10}]}>this book ! 🎉 </Text>
         </View>
@@ -312,7 +318,7 @@ export default class BookDetail extends Component {
         </View>
           <View style={{paddingLeft: 10}}>
             <Text style={styles.bookName}>{this.state.bookName}</Text>
-            <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookName}</Text></Text>
+            <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookAuthor}</Text></Text>
             <Text style={{fontSize: 20}}>{this.state.bookPage} pages</Text>
           </View>
         </View>

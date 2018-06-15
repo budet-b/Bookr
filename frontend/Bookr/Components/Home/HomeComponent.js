@@ -22,10 +22,23 @@ class TimelineCell extends Component {
     })
   }
 
+  renderPage() {
+    if (this.props.cell.user_position <= 1) {
+      return (
+        <Text style={styles.textBook}>{this.props.cell.user.username} just start {this.props.cell.book.title}</Text>
+      )
+    } else {
+      return (
+        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+      )
+    }
+  }
+
   render() {
     let usr = this.props.cell.user.username ? this.props.cell.user.username : "username"
     Moment.locale('en');
     let date = Moment(this.props.cell.date_added).fromNow()
+    let renderPage = this.renderPage();
     return (
       <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 10, paddingRight: 10, backgroundColor: '#dedede', alignItems: 'center',justifyContent: 'flex-start'}}>
       <View style={{backgroundColor: '#FFF', borderWidth: 1, borderColor: '#dedede', borderRadius: 8, padding: 7,
@@ -55,7 +68,7 @@ class TimelineCell extends Component {
         flexDirection:'column',
         justifyContent: 'center',
         alignItems: 'flex-start'}}>
-        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+        {renderPage}
         <View
         style={{
           flex:0,
@@ -63,10 +76,6 @@ class TimelineCell extends Component {
           flexDirection: 'row'
         }}
         >
-        <Text style={{
-          paddingTop: 10,
-          fontSize: 18,
-          paddingLeft: 5}}>by </Text> <Text style={styles.author}>Rodrigue</Text>
         </View>
       </View>
       </View>
