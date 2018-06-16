@@ -357,7 +357,8 @@ export default class SearchFriendComponent extends Component {
   }
 
   renderSearch(item) {
-    console.log(item)
+    if (item.user.picture === null)
+      item.user.picture = 'https://via.placeholder.com/200x200'
     let butn = this.renderButton(item.friend_type, item.user.id);
     return(
       <View style={{flexDirection: 'column', paddingLeft: 20, paddingRight: 10, backgroundColor: '#FFF', paddingBottom: 10}}>

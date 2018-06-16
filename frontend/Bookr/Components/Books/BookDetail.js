@@ -200,7 +200,7 @@ export default class BookDetail extends Component {
     if (this.state.bookStatus === 0) {
       return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <Text numberOfLines={6} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
         <Text style={styles.buttonTextStart}>Start this book</Text>
         </TouchableHighlight>
@@ -211,7 +211,7 @@ export default class BookDetail extends Component {
       return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
         <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <Text numberOfLines={6} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', paddingTop: 30}}>
         <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
           <Text style={{textAlign: 'center', fontSize: 18}}>
@@ -249,7 +249,7 @@ export default class BookDetail extends Component {
      } else if (this.state.bookStatus === 2) {
        return (
         <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <Text numberOfLines={6} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 20}]}>You finished </Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 10}]}>this book ! 🎉 </Text>
         </View>
