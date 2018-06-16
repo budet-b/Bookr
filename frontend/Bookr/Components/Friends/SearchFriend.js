@@ -111,12 +111,9 @@ class Friend extends Component {
   }
 }
 
-export default class FriendComponent extends Component {
+export default class SearchFriendComponent extends Component {
   constructor(props) {
     super(props);
-    this.renderItem = this.renderItem.bind(this);
-    this.renderBookDisplay = this.renderBookDisplay.bind(this);
-    this.renderUserFriendDisplay = this.renderUserFriendDisplay.bind(this);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       isLoading: true,
@@ -146,8 +143,9 @@ export default class FriendComponent extends Component {
   }
 
   SearchFilterFunction(text) {
+    console.log(text)
     const newData = this.arrayholder.filter(function(item){
-    const itemData = item.username.toUpperCase()
+    const itemData = item.user.firstname.toUpperCase()
     const textData = text.toUpperCase()
     return itemData.indexOf(textData) > -1
     })
@@ -189,33 +187,11 @@ export default class FriendComponent extends Component {
     let header = {
       headers: {'Authorization': 'Bearer ' + res}
     };
-    //USERFRIENDS
-    axios.get(config.user.USERFRIENDS, header)
-    .then((response) => {
-      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.setState({
-        userFriends: ds.cloneWithRows(response.data),
-        pureUserFriendArray: response.data
-      })
-    }).catch((error) => {
-      console.log(error)
-    })
-
-    //FRIENDSRECEIVED
-    axios.get(config.user.FRIENDSRECEIVED, header)
-    .then((response) => {
-      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.setState({
-        friendRequests: ds.cloneWithRows(response.data),
-        pureFriendArray: response.data
-      })
-    }).catch((error) => {
-      console.log(error)
-    })
-
-    //USER
+    //USERS
     axios.get(config.user.USERS, header)
     .then((response) => {
+      console.log('Users list received')
+      console.log(response.data)
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         dataSource: ds.cloneWithRows(response.data),
@@ -231,54 +207,6 @@ export default class FriendComponent extends Component {
      this.props.navigation.navigate('FriendDetail', {friendId: rowData.id})
    }
 
-   renderBookDisplay() {
-     if (this.state.pureFriendArray.length> 0) {
-       console.log(this.state.pureFriendArray)
-       return (
-         <View style={{
-          flex:1,
-         }}>
-
-         <ScrollView
-         >
-           <ListView contentContainerStyle={styles.list}
-           dataSource={this.state.friendRequests}
-           renderRow={(data) => this.renderItem(data)}
-           />
-           </ScrollView>
-          </View>
-       );
-     } else {
-        return;
-      }
-   }
-
-   renderUserFriendDisplay() {
-     if (this.state.pureUserFriendArray.length > 0) {
-       return (
-         <View >
-         <Text style={styles.head}>My Friends</Text>
-         <View
-           style={{
-             borderBottomColor: '#E8E8E8',
-             borderBottomWidth: 1,
-           }}
-         />
-         <ScrollView
-         horizontal={true}
-         >
-           <ListView contentContainerStyle={styles.list}
-           dataSource={this.state.userFriends}
-           renderRow={(data) => this.renderItem(data)}
-           />
-           </ScrollView>
-           </View>
-       )
-     } else {
-       return;
-     }
-   }
-
   ListViewItemSeparator = () => {
   return (
     <View
@@ -292,8 +220,6 @@ export default class FriendComponent extends Component {
   }
 
   render() {
-    let friendRequestsDisplay = this.renderBookDisplay();
-    let userFriendDisplay = this.renderUserFriendDisplay();
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -301,28 +227,159 @@ export default class FriendComponent extends Component {
         </View>
       );
     }
+    console.log('here')
 
     return (
-
       <View style={styles.MainContainer}>
-        {friendRequestsDisplay}
+
+      <TextInput
+       style={styles.TextInputStyleClass}
+       onChangeText={(text) => this.SearchFilterFunction(text)}
+       value={this.state.text}
+       underlineColorAndroid='transparent'
+       placeholder="Search Here"
+        />
+        <ListView
+          dataSource={this.state.dataSource}
+          renderSeparator= {this.ListViewItemSeparator}
+          renderRow={(rowData) => this.renderSearch(rowData)}
+
+          enableEmptySections={true}
+          style={{marginTop: 10}}
+        />
       </View>
     );
   }
 
+  async reloadData() {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+    //USERS
+    axios.get(config.user.USERS, header)
+    .then((response) => {
+      console.log('Users list received')
+      console.log(response.data)
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        dataSource: ds.cloneWithRows(response.data),
+        isLoading: false
+      })
+      this.arrayholder = response.data
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  async sendFriendRequest(id) {
+    const res = await this.getToken()
+    if (!res)
+    {
+      this.props.navigation.navigate('Login')
+      return;
+    }
+    let header = {
+      headers: {'Authorization': 'Bearer ' + res}
+    };
+
+    axios.put(config.user.ADDFRIEND + id, {}, header)
+    .then((response) => {
+      this.setState({
+        isLoading: true
+      })
+      this.reloadData();
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+
+  renderButton(status, id) {
+
+    // Friend status:
+    // 0 : Friend
+    // 1 : Sent
+    // 2 : Received
+    // 3 : Not friend
+
+    if (status === 0) {
+      return (
+        <TouchableOpacity
+                  style={{backgroundColor: '#4cd964', width: 100, height: 40,paddingBottom: 6,  borderRadius: 10}}
+                  underlayColor='#fff'
+                  >
+                  <Text style={{textAlign: 'center', paddingTop: 8,
+                    ...iOSUIKit.bodyObject,
+                    ...sanFranciscoWeights.black, color:'white'}}>Friend</Text>
+         </TouchableOpacity>
+      )
+    } else if (status === 1) {
+      return (
+        <TouchableOpacity
+                  style={{backgroundColor: '#ffcc00', width: 100, height: 40,paddingBottom: 6,  borderRadius: 10}}
+                  underlayColor='#fff'
+                  >
+                  <Text style={{textAlign: 'center', paddingTop: 8,
+                    ...iOSUIKit.bodyObject,
+                    ...sanFranciscoWeights.black, color:'white'}}>Sent</Text>
+         </TouchableOpacity>
+      )
+    } else if (status === 2) {
+      return (
+        <TouchableOpacity
+                  style={{backgroundColor: '#ec199f', width: 100, height: 40,paddingBottom: 6,  borderRadius: 10}}
+                  underlayColor='#fff'
+                  >
+                  <Text style={{textAlign: 'center', paddingTop: 8,
+                    ...iOSUIKit.bodyObject,
+                    ...sanFranciscoWeights.black, color:'white'}}>Received</Text>
+         </TouchableOpacity>
+      )
+    } else if (status === 3) {
+      return (
+        <TouchableOpacity
+                  style={{backgroundColor: '#5ac8fa', width: 100, height: 40,paddingBottom: 6,  borderRadius: 10}}
+                  underlayColor='#fff'
+                  onPress={() => this.sendFriendRequest(id)}
+                  >
+                  <Text style={{textAlign: 'center', paddingTop: 8,
+                    ...iOSUIKit.bodyObject,
+                    ...sanFranciscoWeights.black, color:'white'}}>Add</Text>
+         </TouchableOpacity>
+      )
+    }
+  }
+
   renderSearch(item) {
-    console.log(item.user.username)
+    console.log(item)
+    let butn = this.renderButton(item.friend_type, item.user.id);
     return(
-      <Text>{item.user.username}</Text>
+      <View style={{flexDirection: 'column', paddingLeft: 20, paddingRight: 10, backgroundColor: '#FFF', paddingBottom: 10}}>
+      <View style={{flexDirection: 'row', width: 200}}>
+      <Image
+        borderRadius={8}
+        source={{uri: item.user.picture}}
+        style={styles.thumbnail}
+      />
+      <Text style={{alignItems: 'flex-end',paddingBottom: 6, paddingLeft: 30, paddingTop: 20, paddingRight: 30,...iOSUIKit.bodyObject,
+      ...sanFranciscoWeights.black}}>{item.user.firstname} {item.user.lastname}</Text>
+      <View style={{alignItems: 'flex-end', paddingTop: 10}}>
+      {butn}
+       </View>
+       </View>
+
+
+
+      </View>
     )
   }
 
-  renderItem(item) {
-    let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
-    item.picture = picture
-    console.log(item)
-    return <Friend friend={item} screenProps={{ rootNavigation: this.props.navigation.state.params.screenProps }}/>
-  }
 }
 
 const styles = StyleSheet.create({

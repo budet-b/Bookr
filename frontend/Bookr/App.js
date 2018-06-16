@@ -9,6 +9,7 @@ import Books from './Components/Books/Books';
 import Home from './Components/Home/Home';
 import Profil from './Components/Profil/Profil';
 import FriendComponent from './Components/Friends/FriendComponent';
+import SearchFriendComponent from './Components/Friends/SearchFriend';
 import FriendDetail from './Components/Friends/FriendDetail';
 import BookDetail from './Components/Books/BookDetail';
 import SearchBook from './Components/Books/SearchBook';
@@ -95,10 +96,23 @@ export default class App extends Component {
       },
       Home: { screen: Home },
       FriendDetail: {screen: FriendDetail},
-      FriendComponent: {screen: FriendComponent},
+      FriendComponent: {screen: FriendComponent,
+        navigationOptions: {
+          title: "Friend requests"
+        }
+      },
+      SearchFriendComponent: {screen: SearchFriendComponent,
+        navigationOptions: {
+          title: "Search a friend"
+        }
+      },
       SearchBook: { screen: SearchBook},
       Profil: { screen: Profil},
-      BookDetail: { screen: BookDetail },
+      BookDetail: { screen: BookDetail,
+        navigationOptions: {
+          title: "Books"
+        }
+      },
       Books: { screen: Books },
     }, {initialRouteName: logged});
     if (this.state.isLoading)

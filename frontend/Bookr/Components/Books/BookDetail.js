@@ -43,6 +43,8 @@ export default class BookDetail extends Component {
       bookImg: '',
       bookIsbn: 0,
       bookPosition: 0,
+      bookAuthor: '',
+      bookSummary: '',
       bookPage: 0,
       isLoading: true,
       currentPosition: 0,
@@ -75,7 +77,7 @@ export default class BookDetail extends Component {
     axios.get(config.books.SPECIFIEDUSERBOOK + this.state.bookId, header)
     .then((response) => {
       if (response.data.user.user_position) {
-          if (response.data.user.user_position === response.data.book.number_of_pages) {
+          if (response.data.user.user_position >= response.data.book.number_of_pages) {
             this.setState({
               bookStatus: 2
             })
@@ -86,8 +88,7 @@ export default class BookDetail extends Component {
           }
         this.setState({
           bookPosition: response.data.user.user_position,
-          currentPosition: response.data.user.user_position,
-          isLoading: false
+          currentPosition: response.data.user.user_position
         })
       }
       if (response.data.friends.length > 0) {
@@ -97,6 +98,11 @@ export default class BookDetail extends Component {
           dataSource: ds.cloneWithRows(response.data.friends)
         })
       }
+      this.setState({
+        bookSummary: response.data.book.summary,
+        bookAuthor: response.data.book.author_name,
+        isLoading: false
+      })
     }).catch((error) => {
       console.log(error)
     })
@@ -175,11 +181,26 @@ export default class BookDetail extends Component {
     })
   }
 
+  updateCurrentPageValue(val) {
+    if (this.state.currentPosition + val <= 0)
+      console.log('fdp')
+    else {
+      this.setState({
+        currentPosition: this.state.currentPosition + val
+      })
+    }
+    if (this.state.currentPosition >= this.state.bookPage) {
+      this.setState({
+        bookStatus: 2
+      })
+    }
+  }
+
   renderBookStatus() {
     if (this.state.bookStatus === 0) {
       return (
-        <View>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
         <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
         <Text style={styles.buttonTextStart}>Start this book</Text>
         </TouchableHighlight>
@@ -188,14 +209,50 @@ export default class BookDetail extends Component {
       );
     } else if (this.state.bookStatus === 1) {
       return (
-        <View>
-        <Text style={styles.left}>page {this.state.currentPosition}</Text>
-        <View style={styles.center}>
-        <Slider onValueChange={(value) => {this.changePosition(value)}} initialValue={this.state.bookPosition} min={0} max={this.state.bookPage} lineStyle={{backgroundColor: '#007AFF', height: 1}} markerStyle={{ width: 10, height: 10, borderRadius: 10 / 2, borderWidth: 1, color:'#F40A12', borderColor: '#F40A12'}} color='#F40A12'/>
-        <Text style={styles.left}>Suspendisse id odio vehicula, maximus leo sed, placerat dolor. Proin eget fermentum turpis. Morbi magna massa, euismod et tempus non, massa et, mollis augue. Vivamus vitae interdum justo.</Text>
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
+        <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', paddingTop: 30}}>
+        <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
+          <Text style={{textAlign: 'center', fontSize: 18}}>
+          -10
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-5)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          -5
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(-1)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          -1
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(1)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +1
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.action}  onPress={() => this.updateCurrentPageValue(5)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +5
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={[styles.action2, {borderTopRightRadius: 5, borderBottomRightRadius: 5, borderColor: '#000', borderWidth: 1,}]} onPress={() => this.updateCurrentPageValue(10)} underlayColor='#7CE577'>
+        <Text style={{textAlign: 'center', fontSize: 18}}>
+          +10
+          </Text>
+        </TouchableHighlight>
         </View>
         </View>
-
+      )
+     } else if (this.state.bookStatus === 2) {
+       return (
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
+        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 20}]}>You finished </Text>
+        <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 10}]}>this book ! 🎉 </Text>
+        </View>
       )
     }
   }
@@ -222,7 +279,19 @@ export default class BookDetail extends Component {
         </View>
       );
     } else {
-      return;
+      return (
+        <View style={styles.list2}>
+        <Text style={styles.head}>Friends</Text>
+        <View style={{
+          flex: 1,
+
+          flexWrap: 'wrap',
+          flexDirection: 'column',
+          height: 200
+        }}/>
+        <Text style={{paddingLeft: 10, fontSize: 23}}>No friends are reading this book 😭</Text>
+        </View>
+      )
     }
   }
 
@@ -238,26 +307,28 @@ export default class BookDetail extends Component {
       )
     }
     return (
-      <View style={styles.view}>
-        <Text style={styles.head}>{this.state.bookName}</Text>
-        <View
-          style={{
-            borderBottomColor: '#E8E8E8',
-            borderBottomWidth: 1,
-          }}
-        />
-        <View style={styles.center}>
+      <View style={{flexDirection: 'column', flex: 1, paddingTop: 10}}>
+      <View style={{flexDirection: 'row', flex: 1, paddingTop: 10}}>
+        <View style={{paddingLeft: 20}}>
         <Image
           borderRadius={8}
           source={{uri: this.state.bookImg}}
           style={styles.image}
-        />
-        <Text style={styles.desc}>{this.state.bookAuthor}</Text>
-        <Text style={styles.desc}>{this.state.bookPage} pages</Text>
-        {bookStatusDisplay}
+          />
         </View>
+          <View style={{paddingLeft: 10}}>
+            <Text style={styles.bookName}>{this.state.bookName}</Text>
+            <Text style={{fontSize: 18}}>by <Text style={styles.bookAuthor}> {this.state.bookAuthor}</Text></Text>
+            <Text style={{fontSize: 20}}>{this.state.bookPage} pages</Text>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', flex: 1}}>
+          {bookStatusDisplay}
+        </View>
+        <View>
         {friendDisplay}
-      </View>
+        </View>
+        </View>
     );
   }
 
@@ -275,6 +346,22 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     width: 200
   },
+  action: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 40,
+    borderColor: '#000',
+    borderWidth: 1,
+    backgroundColor: '#FFF'
+  },
+  action2: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 40,
+    backgroundColor: '#FFF'
+  },
   buttonStart: {
     textAlign: 'center',
     justifyContent: 'center',
@@ -288,6 +375,12 @@ var styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     paddingTop: 3
+  },
+  list2: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    paddingBottom: 100
   },
   descItem: {
     color: 'grey',
@@ -323,11 +416,17 @@ var styles = StyleSheet.create({
   },
   left: {
     ...iOSUIKit.footnoteEmphasizedObject,
+    ...sanFranciscoWeights.thin,
       marginHorizontal: 0,
       paddingBottom: 5,
       paddingLeft: 8,
-      paddingTop: 5,
+      paddingTop: 10,
       textAlign: 'left'
+  },
+  leftImage: {
+    flexDirection: 'column',
+    borderColor:'blue',
+    borderWidth:2
   },
   desc: {
     ...iOSUIKit.footnoteEmphasizedObject,
@@ -343,14 +442,31 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   image: {
-    width: 130,
+    width: 160,
     height: 250,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
+    justifyContent: 'left',
+    alignItems: 'left',
+    textAlign: 'left',
+    paddingLeft: 30
   },
+    item2:{
+     borderColor:'black',
+     borderWidth:2,
+     flexDirection:'column',
+   },
   view: {
     backgroundColor: "#FFF",
+  },
+  bookName: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.heavy,
+    fontSize: 20
+  },
+  bookAuthor: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.regular,
+    fontSize: 18,
+    fontStyle: 'italic'
   },
   head: {
   ...iOSUIKit.largeTitleEmphasizedObject,

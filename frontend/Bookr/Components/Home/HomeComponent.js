@@ -22,13 +22,31 @@ class TimelineCell extends Component {
     })
   }
 
+  renderPage() {
+    if (this.props.cell.user_position <= 1) {
+      return (
+        <Text style={styles.textBook}>{this.props.cell.user.username} just start {this.props.cell.book.title}</Text>
+      )
+    } else {
+      return (
+        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+      )
+    }
+  }
+
   render() {
     let usr = this.props.cell.user.username ? this.props.cell.user.username : "username"
     Moment.locale('en');
     let date = Moment(this.props.cell.date_added).fromNow()
+    let renderPage = this.renderPage();
     return (
-      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 5}}>
-      <View style={{flexDirection: 'row', width: '100%'}}>
+      <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 10, paddingRight: 10, backgroundColor: '#dedede', alignItems: 'center',justifyContent: 'flex-start'}}>
+      <View style={{backgroundColor: '#FFF', borderWidth: 1, borderColor: '#dedede', borderRadius: 8, padding: 7,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,}}>
+      <View style={{flexDirection: 'row'}}>
       <Image
         borderRadius={8}
         source={{uri: this.state.picture}}
@@ -48,9 +66,18 @@ class TimelineCell extends Component {
       />
       <View style={{flex:1,
         flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center'}}>
-        <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
+        justifyContent: 'center',
+        alignItems: 'flex-start'}}>
+        {renderPage}
+        <View
+        style={{
+          flex:0,
+          justifyContent: 'flex-start',
+          flexDirection: 'row'
+        }}
+        >
+        </View>
+      </View>
       </View>
       </View>
       </View>
@@ -148,7 +175,7 @@ export default class HomeComponent extends Component {
         style={{
           height: .5,
           width: "100%",
-          backgroundColor: "#000",
+          backgroundColor: "transparent",
         }}
         />
       );
@@ -233,9 +260,8 @@ export default class HomeComponent extends Component {
 
 var styles = StyleSheet.create({
   MainContainer :{
-    backgroundColor: '#FFF',
+    backgroundColor: '#dedede',
     flex:1,
-    paddingTop: 5,
     width: '100%'
   },
   rightHead: {
@@ -260,7 +286,13 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     alignItems:'center',
     justifyContent:'center',
-    paddingLeft: 5
+    paddingLeft: 5,
+  },
+  author: {
+    fontWeight: 'bold',
+    paddingTop: 10,
+    fontSize: 18,
+    fontStyle: 'italic'
   },
   userDisplay: {
     paddingTop: 10,
@@ -271,8 +303,8 @@ var styles = StyleSheet.create({
     justifyContent:'center'
   },
   thumbnail2: {
-    width: 60,
-    height: 100,
+    width: 110,
+    height: 170,
     justifyContent: 'flex-end',
     paddingBottom: 10
   },
