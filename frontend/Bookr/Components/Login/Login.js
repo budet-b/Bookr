@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
+import { Text, Image, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform, ActivityIndicator } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
@@ -25,6 +25,7 @@ export default class Login extends Component {
     super(props);
     self = this;
     this.state = {
+        isLoading: false,
         myKey: null,
         signup: false,
         isLoggin: false
@@ -63,6 +64,9 @@ export default class Login extends Component {
 
   onPress() {
     var value = this.refs.form.getValue();
+    this.setState({
+      isLoading: true
+    })
     if (value) {
       var user = User({
         username: value.username,
@@ -79,22 +83,31 @@ export default class Login extends Component {
       .then((response) => {
         console.log(response.data);
         this.saveKey(response.data.token);
-        this.setState({isLoggin: true})
+        this.setState({isLoggin: true, isLoading: false})
       }).catch((error) => {
         this.errorPopup();
         console.log(error)
       })
     } else {
       this.errorPopup();
+      this.setState({
+        isLoading: false
+      })
     }
   }
 
   signup() {
-    this.setState({ signup: true})
-    ;
+    this.setState({ signup: true});
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+      <View style={[styles.containerActivity, styles.horizontal]}>
+       <ActivityIndicator size="large" color="#2999f3" />
+     </View>
+      )
+    }
     let options = {
       stylesheet : bootstrap,
       order: ['username', 'password'],
@@ -206,6 +219,15 @@ var styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
     alignSelf: 'center'
+  },
+  containerActivity: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   },
   button: {
     width: 200,
