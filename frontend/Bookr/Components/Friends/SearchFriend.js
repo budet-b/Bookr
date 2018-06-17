@@ -428,7 +428,8 @@ const styles = StyleSheet.create({
    borderRadius:32,
    width: 64,
    height: 64,
-   justifyContent: 'flex-start'
+   justifyContent: 'flex-start',
+   paddingTop: 15
  },
  touch: {
    alignItems: 'center',

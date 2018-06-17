@@ -251,7 +251,7 @@ export default class HomeComponent extends Component {
     });
     let timeline = this.renderTimeline()
     return (
-      <View style={{flex: 1, width:'100%', paddingBottom: 80}}>
+      <View style={{flex: 1, width:'100%', paddingBottom: 50}}>
       {timeline}
       </View>
     );

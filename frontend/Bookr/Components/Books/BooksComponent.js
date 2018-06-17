@@ -22,9 +22,6 @@ class Book extends Component {
             style={styles.thumbnail}
           />
           <View >
-            <Text
-            style={styles.title}
-            numberOfLines={3}>{this.props.book.title}</Text>
           </View>
         </TouchableOpacity>
         </View>
