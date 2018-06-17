@@ -44,7 +44,7 @@ const prod = {
 
 const config = process.env.REACT_NATIVE_ENVIRONMENT_CURRENT === 'prod'
   ? prod
-  : prod;
+  : dev;
 
 console.log(process.env.REACT_NATIVE_ENVIRONMENT_CURRENT)
 

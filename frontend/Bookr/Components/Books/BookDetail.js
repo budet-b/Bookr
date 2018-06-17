@@ -199,7 +199,7 @@ export default class BookDetail extends Component {
 
   updateCurrentPageValue(val) {
     if (this.state.currentPosition + val <= 0)
-      console.log('fdp')
+      console.log('inferrior')
     else {
       this.setState({
         currentPosition: this.state.currentPosition + val
