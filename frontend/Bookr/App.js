@@ -91,7 +91,7 @@ export default class App extends Component {
       },
       Signup: { screen: Signup,
         navigationOptions: {
-          title: "Bookr"
+          title: "Signup"
         }
       },
       Home: { screen: Home },
