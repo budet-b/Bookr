@@ -1,9 +1,11 @@
 ![Banner](https://github.com/alextoub/js-project/blob/master/resources/Banner.png)
 
 **Book'R** is a bookmark manager for iOS and Android that allows the user
-to log his read books and compare his reading progress with his friends.
+to log his advancement in books and compare his reading progress with his friends.
 
-**JS Project** made for an _EPITA's (4th year) project_.
+This project was made for the _JS course_ of 4th year in the Multimedia and Information
+Technology major at EPITA.
+
 By:
 - Benjamin Budet (_budet\_b_) - [budet-b](https://github.com/budet-b)
 - Alexandre Toubiana (_toubia\_b_) - [alextoub](https://github.com/alextoub)
