@@ -8,14 +8,30 @@ import { Slider } from 'react-native-usit-ui';
 import config from '../Misc/Constant'
 
 class Friend extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.friend.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
+
   render() {
+    let pic = this.state.picture ? this.state.picture : "https://via.placeholder.com/200x200"
     return (
       <View style={styles.friend}>
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: this.props.friend.picture}}
+          source={{uri: pic}}
           style={styles.thumbnail}
+          onError={this.onError.bind(this)}
         />
           <Text
           style={styles.item}
