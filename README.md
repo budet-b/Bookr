@@ -19,6 +19,9 @@ By:
 
 ![BookR](https://github.com/alextoub/js-project/blob/master/resources/BookR.png)
 
+You can access to the API [here](http://bookr-api.herokuapp.com) hosted on
+[heroku](https://www.heroku.com)
+
 ## Installation
 
 ### Backend
