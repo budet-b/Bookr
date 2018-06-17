@@ -52,6 +52,9 @@ export default class Login extends Component {
   }
 
   errorPopup() {
+    this.setState({
+      isLoading: false
+    })
     Alert.alert(
       'Erreur dans le login',
       'Merci de vérifier vos information',
@@ -89,10 +92,10 @@ export default class Login extends Component {
         console.log(error)
       })
     } else {
-      this.errorPopup();
       this.setState({
         isLoading: false
       })
+      this.errorPopup();
     }
   }
 
