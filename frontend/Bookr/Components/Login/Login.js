@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Text, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
+import { Text, Image, AppRegistry, StyleSheet, View, TouchableHighlight, AsyncStorage, Alert, Platform } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Route, Redirect } from 'react-router'
 import axios from 'axios'
 import Signup from '../Signup/Signup';
 import config from '../Misc/Constant'
+import { iOSUIKit, sanFranciscoWeights } from 'react-native-typography';
+import bootstrap from 'tcomb-form-native/lib/stylesheets/bootstrap.js';
+import { LinearGradient } from 'expo';
+
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
@@ -92,21 +96,32 @@ export default class Login extends Component {
 
   render() {
     let options = {
+      stylesheet : bootstrap,
       order: ['username', 'password'],
       fields: {
       username: {
         returnKeyType: "next",
-        placeholder: 'rodrigue@rodrigue.com',
-        error: 'Insert a valid email',
+        placeholder: 'username',
+        error: 'Insert a valid username',
         keyboardType: 'email-address',
         autoCapitalize: 'none',
         onSubmitEditing: (event) => this.refs.form.getComponent('password').refs.input.focus()
       },
       password: {
+        placeholder: 'my-super-password',
         secureTextEntry: true,
         returnKeyType: "done"
         }
       }
+    };
+    options.stylesheet.textbox.normal = {
+      color: '#000',
+      height: 36,
+      padding: 7,
+      borderRadius: 4,
+      borderWidth: 0,
+      marginBottom: 5,
+      width: 230
     };
     if (this.state.isLoggin)
     {
@@ -114,20 +129,39 @@ export default class Login extends Component {
     }
     return (
       <View style={styles.MainContainer}>
+      <Text style={styles.title}> Book'R </Text>
+      <Image
+      source={require('../Misc/logo.png')}
+        style={{
+          width: 150,
+          height: 150
+        }}
+        />
         <Form
           ref="form"
           type={User}
           options={options}
           style={styles.form}
         />
-      <TouchableHighlight style={styles.button}  onPress={this.onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
-        <View style={styles.bottomView}>
-          <Text>No account ? Create one: </Text>
-          <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Signup')} underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Signup</Text>
+        <LinearGradient
+          colors={['#2ec9f9', '#2a9df4', '#2572ee']}
+          style={{ alignItems: 'center', borderRadius: 10 }}>
+          <TouchableHighlight style={styles.button}  onPress={this.onPress} underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Login</Text>
             </TouchableHighlight>
+        </LinearGradient>
+
+        <View style={styles.bottomView}>
+          <Text style={[styles.buttonText, {color: '#000'}]}>No account ? Create one: </Text>
+          <LinearGradient
+            colors={['#ffe70b', '#ff8305', '#ff3401']}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 1 }}
+            style={{ alignItems: 'center', borderRadius: 10 }}>
+            <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Signup')} underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}>Signup</Text>
+              </TouchableHighlight>
+          </LinearGradient>
         </View>
       </View>
     );
@@ -146,7 +180,11 @@ var styles = StyleSheet.create({
   MainContainer:
     {
         flex: 1,
-        paddingTop: ( Platform.OS === 'ios' ) ? 50 : 0
+        alignItems:'center',
+        backgroundColor: '#FFF'
+    },
+    form: {
+      width: 200,
     },
   container: {
     justifyContent: 'center',
@@ -155,23 +193,24 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   title: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.heavy,
     fontSize: 30,
     alignSelf: 'center',
-    marginBottom: 30
   },
   buttonText: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.medium,
+    borderWidth: 0,
+    borderColor: 'transparent',
     fontSize: 18,
-    color: '#000',
+    color: '#FFF',
     alignSelf: 'center'
   },
   button: {
-    height: 36,
-    backgroundColor: 'transparent',
-    borderColor: '#000',
+    width: 200,
+    borderRadius:10,
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
+    borderColor: 'transparent'
   }
 });

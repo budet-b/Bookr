@@ -86,7 +86,7 @@ export default class App extends Component {
     var LoginNavigator = enhance(StackNavigator)({
       Login: { screen: Login,
         navigationOptions: {
-          title: "Bookr"
+          title: "Login"
         }
       },
       Signup: { screen: Signup,
