@@ -33,7 +33,12 @@ class TimelineCell extends Component {
       return (
         <Text style={styles.textBook}>{this.props.cell.user.username} just start {this.props.cell.book.title}</Text>
       )
-    } else {
+    } else if (this.props.cell.user_position >= this.props.cell.book.number_of_pages) {
+      return (
+        <Text style={styles.textBook}>{this.props.cell.user.username} just finished {this.props.cell.book.title} 🎉</Text>
+      )
+    }
+     else {
       return (
         <Text style={styles.textBook}>{this.props.cell.user.username} is now at page {this.props.cell.user_position} in {this.props.cell.book.title}</Text>
       )

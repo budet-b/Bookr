@@ -2,6 +2,7 @@ const dev = {
   books: {
     USERBOOK: "http://localhost:8080/api/user/books/",
     CURRENTBOOK: "http://localhost:8080/api/user/books/current",
+    FINISHEDBOOK: "http://localhost:8080/api/user/books/finished",
     SPECIFIEDUSERBOOK: "http://localhost:8080/api/user/book/",
     STARTBOOK: "http://localhost:8080/api/books/",
     ALLBOOKS: "http://localhost:8080/api/books/"
@@ -24,6 +25,7 @@ const prod = {
   books: {
     USERBOOK: "https://bookr-api.herokuapp.com/api/user/books/",
     CURRENTBOOK: "https://bookr-api.herokuapp.com/api/user/books/current",
+    FINISHEDBOOK: "https://bookr-api.herokuapp.com/api/user/books/finished",
     SPECIFIEDUSERBOOK: "https://bookr-api.herokuapp.com/api/user/book/",
     STARTBOOK: "https://bookr-api.herokuapp.com/api/books/",
     ALLBOOKS: "https://bookr-api.herokuapp.com/api/books/"
