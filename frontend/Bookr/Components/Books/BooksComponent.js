@@ -22,9 +22,6 @@ class Book extends Component {
             style={styles.thumbnail}
           />
           <View >
-            <Text
-            style={styles.title}
-            numberOfLines={3}>{this.props.book.title}</Text>
           </View>
         </TouchableOpacity>
         </View>
@@ -127,7 +124,7 @@ export default class BooksComponent extends Component {
       headers: {'Authorization': 'Bearer ' + res}
     };
     //USERBOOK
-    axios.get(config.books.USERBOOK, header)
+    axios.get(config.books.CURRENTBOOK, header)
     .then((response) => {
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({

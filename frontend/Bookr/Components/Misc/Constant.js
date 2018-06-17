@@ -1,6 +1,7 @@
 const dev = {
   books: {
     USERBOOK: "http://localhost:8080/api/user/books/",
+    CURRENTBOOK: "http://localhost:8080/api/user/books/current",
     SPECIFIEDUSERBOOK: "http://localhost:8080/api/user/book/",
     STARTBOOK: "http://localhost:8080/api/books/",
     ALLBOOKS: "http://localhost:8080/api/books/"
@@ -22,6 +23,7 @@ const dev = {
 const prod = {
   books: {
     USERBOOK: "https://bookr-api.herokuapp.com/api/user/books/",
+    CURRENTBOOK: "https://bookr-api.herokuapp.com/api/user/books/current",
     SPECIFIEDUSERBOOK: "https://bookr-api.herokuapp.com/api/user/book/",
     STARTBOOK: "https://bookr-api.herokuapp.com/api/books/",
     ALLBOOKS: "https://bookr-api.herokuapp.com/api/books/"

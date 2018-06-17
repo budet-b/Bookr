@@ -11,8 +11,14 @@ import Moment from 'moment';
 class TimelineCell extends Component {
   constructor(props) {
     super(props)
+    let pic = "https://via.placeholder.com/200x200"
+    if (this.props.cell.user.picture !== undefined || this.props.cell.user.picture !== null) {
+      pic = this.props.cell.user.picture
+    } else {
+      pic: "https://via.placeholder.com/200x200"
+    }
     this.state = {
-      picture: this.props.cell.user.picture
+      picture: pic
     };
   }
 
@@ -39,6 +45,7 @@ class TimelineCell extends Component {
     Moment.locale('en');
     let date = Moment(this.props.cell.date_added).fromNow()
     let renderPage = this.renderPage();
+    let pic = this.state.picture ? this.state.picture : "https://via.placeholder.com/200x200"
     return (
       <View style={{flexDirection: 'column', width: '100%', paddingTop: 10, paddingLeft: 10, paddingRight: 10, backgroundColor: '#dedede', alignItems: 'center',justifyContent: 'flex-start'}}>
       <View style={{backgroundColor: '#FFF', borderWidth: 1, borderColor: '#dedede', borderRadius: 8, padding: 7,
@@ -49,7 +56,7 @@ class TimelineCell extends Component {
       <View style={{flexDirection: 'row'}}>
       <Image
         borderRadius={8}
-        source={{uri: this.state.picture}}
+        source={{uri: pic}}
         style={styles.thumbnail}
         onError={this.onError.bind(this)}
       />
@@ -182,8 +189,13 @@ export default class HomeComponent extends Component {
     }
 
     renderTimelineItem(item) {
-      let picture = item.picture ? item.picture : "https://via.placeholder.com/200x200"
-      item.picture = picture
+      let pic = "https://via.placeholder.com/200x200"
+      if (item.user.picture !== undefined || item.user.picture !== null) {
+        pic = item.user.picture
+      } else {
+        pic: "https://via.placeholder.com/200x200"
+      }
+      console.log(item.user)
       return <TimelineCell cell={item} screenProps={{ rootNavigation: this.props.screenProps.rootNavigation}}/>
     }
 
@@ -251,7 +263,7 @@ export default class HomeComponent extends Component {
     });
     let timeline = this.renderTimeline()
     return (
-      <View style={{flex: 1, width:'100%', paddingBottom: 80}}>
+      <View style={{flex: 1, width:'100%', paddingBottom: 50}}>
       {timeline}
       </View>
     );

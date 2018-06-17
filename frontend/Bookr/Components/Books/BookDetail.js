@@ -8,14 +8,30 @@ import { Slider } from 'react-native-usit-ui';
 import config from '../Misc/Constant'
 
 class Friend extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      picture: this.props.friend.picture
+    };
+  }
+
+  onError() {
+    this.setState({
+      picture: "https://via.placeholder.com/200x200"
+    })
+  }
+
+
   render() {
+    let pic = this.state.picture ? this.state.picture : "https://via.placeholder.com/200x200"
     return (
       <View style={styles.friend}>
         <Image
           borderRadius={50}
           overflow="hidden"
-          source={{uri: this.props.friend.picture}}
+          source={{uri: pic}}
           style={styles.thumbnail}
+          onError={this.onError.bind(this)}
         />
           <Text
           style={styles.item}
@@ -183,7 +199,7 @@ export default class BookDetail extends Component {
 
   updateCurrentPageValue(val) {
     if (this.state.currentPosition + val <= 0)
-      console.log('fdp')
+      console.log('inferrior')
     else {
       this.setState({
         currentPosition: this.state.currentPosition + val
@@ -199,8 +215,8 @@ export default class BookDetail extends Component {
   renderBookStatus() {
     if (this.state.bookStatus === 0) {
       return (
-        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <View style={{flexDirection: 'column', flex: 0}}>
+        <Text numberOfLines={5} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <TouchableHighlight style={styles.buttonStart}  onPress={() => this.startBook()} underlayColor='#7CE577'>
         <Text style={styles.buttonTextStart}>Start this book</Text>
         </TouchableHighlight>
@@ -209,9 +225,9 @@ export default class BookDetail extends Component {
       );
     } else if (this.state.bookStatus === 1) {
       return (
-        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20}}>
+        <View style={{flexDirection: 'column', flex: 0}}>
         <Text style={[styles.bookName, {textAlign: 'center', fontSize: 20}]}>page {this.state.currentPosition}</Text>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <Text numberOfLines={5} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center', paddingTop: 30}}>
         <TouchableHighlight style={[styles.action2, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderColor: '#000', borderWidth: 1}]}  onPress={() => this.updateCurrentPageValue(-10)} underlayColor='#7CE577'>
           <Text style={{textAlign: 'center', fontSize: 18}}>
@@ -248,8 +264,8 @@ export default class BookDetail extends Component {
       )
      } else if (this.state.bookStatus === 2) {
        return (
-        <View style={{flexDirection: 'column', flex: 0, paddingTop: 20, alignItems: 'center'}}>
-        <Text style={styles.left}>{this.state.bookSummary}</Text>
+        <View style={{flexDirection: 'column', flex: 0, paddingTop: 40, alignItems: 'center'}}>
+        <Text numberOfLines={5} ellipsizeMode={'tail'} style={styles.left}>{this.state.bookSummary}</Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 20}]}>You finished </Text>
         <Text style={[styles.buttonTextStart, {fontSize: 30, paddingTop: 10}]}>this book ! 🎉 </Text>
         </View>
@@ -308,7 +324,7 @@ export default class BookDetail extends Component {
     }
     return (
       <View style={{flexDirection: 'column', flex: 1, paddingTop: 10}}>
-      <View style={{flexDirection: 'row', flex: 1, paddingTop: 10}}>
+      <View style={{flexDirection: 'row', flex: 0, paddingTop: 10}}>
         <View style={{paddingLeft: 20}}>
         <Image
           borderRadius={8}
@@ -322,10 +338,10 @@ export default class BookDetail extends Component {
             <Text style={{fontSize: 20}}>{this.state.bookPage} pages</Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={{flexDirection: 'row', flex: 0}}>
           {bookStatusDisplay}
         </View>
-        <View>
+        <View style={{paddingTop: 20, paddingBottom: 40}}>
         {friendDisplay}
         </View>
         </View>
@@ -417,11 +433,8 @@ var styles = StyleSheet.create({
   left: {
     ...iOSUIKit.footnoteEmphasizedObject,
     ...sanFranciscoWeights.thin,
-      marginHorizontal: 0,
       paddingBottom: 5,
-      paddingLeft: 8,
-      paddingTop: 10,
-      textAlign: 'left'
+      paddingTop: 30
   },
   leftImage: {
     flexDirection: 'column',
@@ -474,6 +487,6 @@ var styles = StyleSheet.create({
     textAlign: 'left',
     paddingBottom: 5,
     paddingLeft: 8,
-    paddingTop: 5
+    paddingTop: 10
   }
 });
