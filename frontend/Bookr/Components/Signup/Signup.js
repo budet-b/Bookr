@@ -4,6 +4,9 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from 'axios'
 import config from '../Misc/Constant'
+import bootstrap from 'tcomb-form-native/lib/stylesheets/bootstrap.js';
+import { LinearGradient } from 'expo';
+import { iOSUIKit, sanFranciscoWeights } from 'react-native-typography';
 
 var t = require('tcomb-form-native');
 
@@ -105,6 +108,7 @@ export default class Signup extends Component {
   render() {
 
       let options = {
+        stylesheet : bootstrap,
         order: ['username', 'email', 'firstname', 'lastname', 'picture', 'password'],
         fields: {
         username: {
@@ -115,7 +119,7 @@ export default class Signup extends Component {
           autoCapitalize: 'none'
         },
         email: {
-          placeholder: 'rodrigue@rodrigue.com',
+          placeholder: 'email@email.com',
           error: 'Insert a valid email',
           keyboardType: 'email-address',
           returnKeyType: "next",
@@ -123,33 +127,44 @@ export default class Signup extends Component {
           onSubmitEditing: (event) => self.refs.form.getComponent('firstname').refs.input.focus()
         },
         firstname: {
-          placeholder: 'Rodrigue',
+          placeholder: 'my firstname',
           error: 'Insert a valid firstname',
           returnKeyType: "next",
           onSubmitEditing: (event) => self.refs.form.getComponent('lastname').refs.input.focus()
         },
         lastname: {
-          placeholder: 'Rodrigue',
+          placeholder: 'my lastname',
           error: 'Insert a valid lastname',
           returnKeyType: "next",
           onSubmitEditing: (event) => self.refs.form.getComponent('picture').refs.input.focus()
         },
         picture: {
-          placeholder: 'Url vers l\'image',
+          placeholder: 'my super profil picture url',
           returnKeyType: "next",
           autoCapitalize: 'none',
           onSubmitEditing: (event) => self.refs.form.getComponent('password').refs.input.focus()
         },
         password: {
+          placeholder: 'my-super-password',
           secureTextEntry: true,
           autoCapitalize: 'none',
           returnKeyType: "done"
           }
         }
       };
+
+      options.stylesheet.textbox.normal = {
+        color: '#000',
+        height: 36,
+        padding: 7,
+        borderRadius: 4,
+        borderWidth: 0,
+        marginBottom: 5,
+        width: 230
+      };
     return (
       <View style={styles.MainContainer}>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView style={{paddingTop: 15}}>
         <Form
           ref="form"
           type={User}
@@ -158,13 +173,24 @@ export default class Signup extends Component {
         />
         </KeyboardAwareScrollView>
         <View style={styles.bottom}>
-      <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Signup</Text>
-        </TouchableHighlight>
-          <Text>You already have an account ? </Text>
-          <TouchableHighlight style={styles.button}  onPress={() => this.props.navigation.navigate('Login')} underlayColor='#99d9f4'>
-              <Text style={styles.buttonText}>Login</Text>
+      <LinearGradient
+        colors={['#ffe70b', '#ff8305', '#ff3401']}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 1 }}
+        style={{ alignItems: 'center', borderRadius: 10 }}>
+        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Signup</Text>
           </TouchableHighlight>
+      </LinearGradient>
+
+          <Text style={[styles.buttonText, {color: '#000'}]}>You already have an account ? </Text>
+          <LinearGradient
+            colors={['#2ec9f9', '#2a9df4', '#2572ee']}
+            style={{ alignItems: 'center', borderRadius: 10 }}>
+            <TouchableHighlight style={styles.button} onPress={() => this.props.navigation.navigate('Login')} underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}>Login</Text>
+              </TouchableHighlight>
+          </LinearGradient>
         </View>
       </View>
     );
@@ -180,7 +206,7 @@ var styles = StyleSheet.create({
     width: '80%'
   },
     bottomView:{
-      width: '100%',
+
       height: 50,
       justifyContent: 'center',
       alignItems: 'center',
@@ -189,10 +215,9 @@ var styles = StyleSheet.create({
     },
   MainContainer:
     {
-      paddingLeft: 10,
-      paddingRight: 10,
+      backgroundColor: '#FFF',
+      alignItems:'center',
       flex: 1,
-      paddingTop: 50
     },
   container: {
     justifyContent: 'center',
@@ -206,19 +231,19 @@ var styles = StyleSheet.create({
     marginBottom: 30
   },
   buttonText: {
+    ...iOSUIKit.largeTitleEmphasizedObject,
+    ...sanFranciscoWeights.medium,
+    borderWidth: 0,
+    borderColor: 'transparent',
     fontSize: 18,
-    color: '#000',
+    color: '#FFF',
     alignSelf: 'center'
   },
   button: {
-    height: 36,
-    backgroundColor: 'transparent',
-    borderColor: '#000',
+    width: 100,
+    borderRadius:10,
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
+    borderColor: 'transparent'
   },
   contentContainer: {
     paddingVertical: 20
