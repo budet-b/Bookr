@@ -128,7 +128,7 @@ export default class ProfilPage extends Component {
         headers: {'Authorization': 'Bearer ' + res}
       };
       //USERBOOK
-      axios.get(config.books.USERBOOK, header)
+      axios.get(config.books.FINISHEDBOOK, header)
       .then((response) => {
         console.log(response.data)
         let booksFinished = response.data.filter(book => book.user_status === 1)
