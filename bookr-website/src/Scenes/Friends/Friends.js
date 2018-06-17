@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import NavBar from '../../Components/NavBar//Navbar';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Grid, Row, Col } from 'react-bootstrap';
+import config from '../../Components/Misc/Constant'
+import {Table, Grid, Row, Col } from 'react-bootstrap';
 
 
 export default class FriendsPageScene extends Component {
@@ -19,11 +20,11 @@ export default class FriendsPageScene extends Component {
 
   componentDidMount() {
     console.log(Cookies.get('token'))
-    var config = {
+    var header = {
       headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
                 'Content-Type': 'application/json'}
     };
-    axios.get("http://localhost:8080/api/user", config)
+    axios.get(config.user.USERS, header)
     .then((response) => {
         this.setState({
           isLoggin: true
@@ -35,11 +36,11 @@ export default class FriendsPageScene extends Component {
   }
 
   componentWillMount() {
-    var config = {
+    var header = {
       headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
                 'Content-Type': 'application/json'}
     };
-    axios.get("http://localhost:8080/api/user/friends", config)
+    axios.get(config.user.USERFRIENDS, header)
     .then((response) => {
         this.setState({
           friends: response.data
@@ -50,7 +51,7 @@ export default class FriendsPageScene extends Component {
     })
 
 
-    axios.get("http://localhost:8080/api/friends/received", config)
+    axios.get(config.user.FRIENDSRECEIVED, header)
     .then((response) => {
       console.log(response)
       this.setState({
@@ -61,8 +62,9 @@ export default class FriendsPageScene extends Component {
     })
 
 
-    axios.get("http://localhost:8080/api/users", config)
+    axios.get(config.user.USERS, header)
     .then((response) => {
+      console.log(response.data)
       this.setState({
         users: response.data
       })
@@ -89,66 +91,10 @@ export default class FriendsPageScene extends Component {
     return this.state.friends.map((friend, index) => {
       return(
           <div>
-            <img src={friend.picture} width={80} height={130} alt={friend.username} />
-            <h6>{friend.username}</h6>
-            <div className="middle">
-            <button type="button"
-              className="btn btn-success myBtn"
-              id={index}
-              data-modal={"modal" + index}
-              onClick={this.handleClick}>
-              Voir
-            </button>
-            </div>
-            <div id={"modal"+index} className="modal">
-              <div className="modal-content" style={{width: '400px'}}>
-                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
-                <center>
-                  <img src={friend.picture} alt={friend.username} title={friend.username} className="image" width={'200px'} height={'200px'}/>
-                </center>
-              </div>
-            </div>
-          </div>
-      )
-    });
-  }
-
-  friendRequest() {
-    return this.state.friendRequest.map((friend, index) => {
-      return(
-          <div>
-            <img src={friend.picture} width={80} height={130} alt={friend.username} />
-            <h6>{friend.username}</h6>
-            <div className="middle">
-            <button type="button"
-              className="btn btn-success myBtn"
-              id={index}
-              data-modal={"modal" + index}
-              onClick={this.handleClick}>
-              Voir
-            </button>
-            </div>
-            <div id={"modal"+index} className="modal">
-              <div className="modal-content" style={{width: '400px'}}>
-                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
-                <center>
-                  <img src={friend.picture} alt={friend.username} title={friend.username} className="image" width={'200px'} height={'200px'}/>
-                </center>
-              </div>
-            </div>
-          </div>
-      )
-    });
-  }
-
-  renderUsers() {
-    return this.state.users.map((user, index) => {
-      return(
-          <div>
           <Col xs={6} md={2}>
           <center>
-            <img src={user.picture} width={80} height={130} alt={user.username} />
-            <h6>{user.username}</h6>
+            <img src={friend.picture} width={80} height={130} alt={friend.username} />
+            <h4>{friend.username}</h4>
             <div className="middle">
             <button type="button"
               className="btn btn-success myBtn"
@@ -164,7 +110,70 @@ export default class FriendsPageScene extends Component {
               <div className="modal-content" style={{width: '400px'}}>
                 <span className="close" id={index} onClick={this.handleClose}>&times;</span>
                 <center>
-                  <img src={user.picture} alt={user.username} title={user.username} className="image" width={'200px'} height={'200px'}/>
+                  <h3>{friend.firstname} {friend.lastname}</h3>
+                  <img src={friend.picture} alt={friend.username} title={friend.username} className="image" width={'200px'} height={'200px'}/>
+                </center>
+              </div>
+            </div>
+          </div>
+      )
+    });
+  }
+
+  friendRequest() {
+    return this.state.friendRequest.map((friend, index) => {
+      return(
+          <div>
+            <img src={friend.picture} width={80} height={130} alt={friend.username} />
+            <h4>{friend.username}</h4>
+            <div className="middle">
+            <button type="button"
+              className="btn btn-success myBtn"
+              id={index}
+              data-modal={"modal" + index}
+              onClick={this.handleClick}>
+              Voir
+            </button>
+            </div>
+            <div id={"modal"+index} className="modal">
+              <div className="modal-content" style={{width: '400px'}}>
+                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
+                <center>
+                <h3>{friend.firstname} {friend.lastname}</h3>
+                  <img src={friend.picture} alt={friend.username} title={friend.username} className="image" width={'200px'} height={'200px'}/>
+                </center>
+              </div>
+            </div>
+          </div>
+      )
+    });
+  }
+
+  renderUsers() {
+    return this.state.users.map((user, index) => {
+      return(
+          <div>
+          <Col xs={6} md={2}>
+          <center>
+            <img src={user.user.picture} width={80} height={130} alt={user.user.username} />
+            <h4>{user.user.username}</h4>
+            <div className="middle">
+            <button type="button"
+              className="btn btn-success myBtn"
+              id={index}
+              data-modal={"modal" + index}
+              onClick={this.handleClick}>
+              Voir
+            </button>
+            </div>
+            </center>
+            </Col>
+            <div id={"modal"+index} className="modal">
+              <div className="modal-content" style={{width: '400px'}}>
+                <span className="close" id={index} onClick={this.handleClose}>&times;</span>
+                <center>
+                <h3>{user.user.firstname} {user.user.lastname}</h3>
+                  <img src={user.user.picture} alt={user.user.username} title={user.user.username} className="image" width={'200px'} height={'200px'}/>
                 </center>
               </div>
             </div>
@@ -211,15 +220,25 @@ export default class FriendsPageScene extends Component {
       <div>
       <NavBar/>
       <div style={{paddingTop: 30}}>
+      <div>
       <h3>My Friends </h3>
+      <Grid>
+      <Row className="show-grid">
       {renderFriends}
+      </Row>
+      </Grid>
+      </div>
+      <div>
       {rendreFriendRequests}
+      </div>
+      <div>
       <h3>All users </h3>
       <Grid>
       <Row className="show-grid">
       {renderAllUsers}
       </Row>
       </Grid>
+      </div>
       </div>
       </div>
     )

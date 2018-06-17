@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Grid, Row, Col } from 'react-bootstrap';
 import './book.css';
+import config from '../../Components/Misc/Constant'
 
 export default class BooksPageScene extends Component {
   constructor(props) {
@@ -11,17 +12,18 @@ export default class BooksPageScene extends Component {
     this.state = {
       isLoggin: false,
       isLoading: true,
-      books: []
+      books: [],
+      currentBooks: []
     };
   }
 
   componentDidMount() {
     console.log(Cookies.get('token'))
-    var config = {
+    var header = {
       headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
                 'Content-Type': 'application/json'}
     };
-    axios.get("http://localhost:8080/api/user", config)
+    axios.get(config.user.USER, header)
     .then((response) => {
         this.setState({
           isLoggin: true
@@ -33,11 +35,11 @@ export default class BooksPageScene extends Component {
   }
 
   componentWillMount() {
-    var config = {
+    var header = {
       headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
                 'Content-Type': 'application/json'}
     };
-    axios.get("http://localhost:8080/api/books", config)
+    axios.get(config.books.ALLBOOKS, header)
     .then((response) => {
         this.setState({
           books: response.data
@@ -46,10 +48,19 @@ export default class BooksPageScene extends Component {
     .catch((error) => {
       console.log(error)
     })
-    this.setState({
-      isLoading: false
+    axios.get(config.books.CURRENTBOOK, header)
+    .then((response) => {
+        this.setState({
+          currentBooks: response.data,
+          isLoading: false
+        });
     })
-    console.log(this.state.isLoading)
+    .catch((error) => {
+      console.log(error)
+      this.setState({
+        isLoading: false
+      })
+    })
   }
 
   handleClose(e) {
@@ -77,6 +88,7 @@ export default class BooksPageScene extends Component {
                 <br />
                 {book.author_name}
               </p>
+              <center>
               <button type="button"
                       className="btn btn-success myBtn"
                       id={index}
@@ -84,6 +96,7 @@ export default class BooksPageScene extends Component {
                       onClick={this.handleClick}>
                 Voir
               </button>
+              </center>
               </div>
             </div>
           </Col>
@@ -93,12 +106,58 @@ export default class BooksPageScene extends Component {
                 &times;
               </span>
               <center>
+                <h3>{book.title}</h3>
+                <h3>{book.author_name}</h3>
                 <img src={book.cover} alt={book.title} title={book.title} className="image" width={"200px"} height={"200px"} />
+                <h4>{book.summary}</h4>
               </center>
             </div>
           </div>
         </div>;
     });
+  }
+
+  renderCurrentBooks() {
+      return this.state.currentBooks.map((book, index) => {
+        console.log(book.book)
+        return <div>
+            <Col xs={6} md={3}>
+              <div className="book">
+                <div className="container-book">
+                  <img src={book.book.cover} className="img_100" alt={book.book.title} />
+                <div className="spacer5" />
+                <p>
+                  <b>{book.book.title}</b>
+                  <br />
+                  {book.book.author_name}
+                </p>
+                <center>
+                <button type="button"
+                        className="btn btn-success myBtn"
+                        id={index}
+                        data-modal={"modal" + index}
+                        onClick={this.handleClick}>
+                  Voir
+                </button>
+                </center>
+                </div>
+              </div>
+            </Col>
+            <div id={"modal" + index} className="modal">
+              <div className="modal-content" style={{ width: "400px" }}>
+                <span className="close" id={index} onClick={this.handleClose}>
+                  &times;
+                </span>
+                <center>
+                  <h3>{book.book.title}</h3>
+                  <h3>{book.book.author_name}</h3>
+                  <img src={book.book.cover} alt={book.book.title} title={book.book.title} className="image" width={"200px"} height={"200px"} />
+                  <h4>{book.book.summary}</h4>
+                </center>
+              </div>
+            </div>
+          </div>;
+      });
   }
 
   render() {
@@ -115,10 +174,20 @@ export default class BooksPageScene extends Component {
     }
     console.log(this.state.isLoading)
     let renderBooks = this.renderBooks()
+    let renderCurrentBooks = this.renderCurrentBooks();
     return (
       <div>
       <NavBar/>
       <div style={{paddingTop: 60}}>
+      <h2>My books</h2>
+      <Grid>
+      <div className="container-books">
+      <Row className="show-grid">
+        {renderCurrentBooks}
+      </Row>
+      </div>
+      </Grid>
+      <h2>All books</h2>
       <Grid>
       <div className="container-books">
       <Row className="show-grid">

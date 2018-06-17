@@ -4,6 +4,7 @@ import './Login.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import config from '../Misc/Constant'
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -62,11 +63,11 @@ export default class NavBar extends Component {
 
   componentWillMount() {
     console.log(Cookies.get('token'))
-    var config = {
+    var header = {
       headers: {'Authorization': 'Bearer ' + Cookies.get('token'),
                 'Content-Type': 'application/json'}
     };
-    axios.get("http://localhost:8080/api/user", config)
+    axios.get(config.user.USER, header)
     .then((response) => {
         this.setState({
           auth: true,
@@ -88,7 +89,7 @@ export default class NavBar extends Component {
       || this.state.password.length <= 0)
       return null;
 
-      axios.post('http://localhost:8080/api/user/login', {
+      axios.post(config.user.LOGIN, {
         password: this.state.password,
         username: this.state.email
       }, {})
@@ -137,7 +138,7 @@ export default class NavBar extends Component {
               Se connecter
             </NavItem>
             :
-            <NavItem eventKey={1} href="/Login" className="login">
+            <NavItem eventKey={1} href="/" className="login">
               Bonjour, {this.state.firstname}
             </NavItem>
         }
@@ -146,7 +147,7 @@ export default class NavBar extends Component {
     </Navbar>
     <Modal show={this.state.LoginModalshow} onHide={this.handleCloseLogin}>
           <Modal.Header closeButton>
-            <Modal.Title>Login form</Modal.Title>
+            <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <div className="Login">
@@ -164,10 +165,10 @@ export default class NavBar extends Component {
 
           <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
+          <ControlLabel>Username</ControlLabel>
           <FormControl
           autoFocus
-          type="email"
+          type="text"
           value={this.state.email}
           onChange={this.handleChange}
           />
